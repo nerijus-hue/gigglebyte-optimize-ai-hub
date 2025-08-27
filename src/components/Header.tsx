@@ -37,7 +37,7 @@ const Header = () => {
                     "relative nav-link text-sm font-medium px-4 py-2 rounded-full transition-colors",
                     isActive 
                       ? "text-primary bg-muted" 
-                      : "text-foreground hover:text-primary"
+                      : "text-foreground"
                   )}
                 >
                   {item.label}
@@ -68,7 +68,7 @@ const Header = () => {
           <div className="md:hidden">
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-foreground hover:text-accent p-2"
+              className="text-foreground p-2"
               aria-label="Toggle mobile menu"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,7 +97,7 @@ const Header = () => {
                       "relative block py-3 px-4 text-sm font-medium transition-colors border-b border-transparent rounded-lg",
                       isActive 
                         ? "text-primary border-primary bg-muted" 
-                        : "text-foreground hover:text-primary hover:border-primary/50"
+                        : "text-foreground"
                     )}
                   >
                     {item.label}
