@@ -1,7 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Target, Eye, Users } from "lucide-react";
-import aboutImage from "@/assets/about-visual.jpg";
-import teamImage from "@/assets/team-avatars.jpg";
 
 const About = () => {
   const teamMembers = [
@@ -31,12 +29,7 @@ const About = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section 
-        className="relative py-32 px-6 text-center"
-        style={{
-          backgroundImage: `linear-gradient(135deg, rgba(0, 31, 63, 0.8) 0%, rgba(169, 169, 169, 0.6) 100%), url(${aboutImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }}
+        className="relative py-32 px-6 text-center hero-gradient"
       >
         <div className="max-w-4xl mx-auto fade-in">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-8">About Gigglebyte</h1>
