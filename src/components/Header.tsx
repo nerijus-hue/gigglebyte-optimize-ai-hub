@@ -34,7 +34,7 @@ const Header = () => {
                   key={item.href}
                   to={item.href}
                   className={cn(
-                    "relative nav-link text-sm font-medium px-4 py-2 rounded-full transition-colors",
+                    "relative text-sm font-medium px-4 py-2 rounded-full transition-colors",
                     isActive 
                       ? "text-primary bg-muted" 
                       : "text-foreground"
