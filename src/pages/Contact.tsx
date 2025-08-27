@@ -6,49 +6,93 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { MapPin, Mail, Phone, Clock } from "lucide-react";
+import { z } from "zod";
+
+// Security: Form validation schema
+const contactFormSchema = z.object({
+  name: z.string()
+    .min(1, "Name is required")
+    .max(100, "Name must be less than 100 characters")
+    .regex(/^[a-zA-Z\s'-]+$/, "Name can only contain letters, spaces, hyphens, and apostrophes"),
+  email: z.string()
+    .min(1, "Email is required")
+    .email("Please enter a valid email address")
+    .max(254, "Email must be less than 254 characters"),
+  company: z.string()
+    .max(100, "Company name must be less than 100 characters")
+    .optional(),
+  message: z.string()
+    .min(1, "Message is required")
+    .max(3000, "Message must be less than 3000 characters")
+    .min(10, "Message must be at least 10 characters long")
+});
+
+type ContactFormData = z.infer<typeof contactFormSchema>;
 
 const Contact = () => {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
     company: "",
     message: ""
   });
+  const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+    
+    // Clear error for this field when user starts typing
+    if (errors[name as keyof ContactFormData]) {
+      setErrors({
+        ...errors,
+        [name]: undefined
+      });
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
-    if (!formData.name || !formData.email || !formData.message) {
+    // Security: Validate form data with Zod schema
+    try {
+      const validatedData = contactFormSchema.parse(formData);
+      setErrors({});
+      
+      // Simulate form submission
       toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields.",
-        variant: "destructive"
+        title: "Message Sent!",
+        description: "Thank you for your message. We'll get back to you within 24 hours.",
       });
-      return;
+
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        company: "",
+        message: ""
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
+        error.issues.forEach((err) => {
+          if (err.path[0]) {
+            fieldErrors[err.path[0] as keyof ContactFormData] = err.message;
+          }
+        });
+        setErrors(fieldErrors);
+        
+        toast({
+          title: "Validation Error",
+          description: "Please check the form for errors and try again.",
+          variant: "destructive"
+        });
+      }
     }
-
-    // Simulate form submission
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for your message. We'll get back to you within 24 hours.",
-    });
-
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      company: "",
-      message: ""
-    });
   };
 
   const contactInfo = [
@@ -104,10 +148,13 @@ const Contact = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        className="mt-2 focus:ring-accent focus:border-accent"
+                        className={`mt-2 focus:ring-accent focus:border-accent ${errors.name ? 'border-destructive' : ''}`}
                         placeholder="Your full name"
                         required
                       />
+                      {errors.name && (
+                        <p className="text-sm text-destructive mt-1">{errors.name}</p>
+                      )}
                     </div>
                     <div>
                       <Label htmlFor="email" className="text-primary font-medium">
@@ -119,10 +166,13 @@ const Contact = () => {
                         type="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="mt-2 focus:ring-accent focus:border-accent"
+                        className={`mt-2 focus:ring-accent focus:border-accent ${errors.email ? 'border-destructive' : ''}`}
                         placeholder="your@email.com"
                         required
                       />
+                      {errors.email && (
+                        <p className="text-sm text-destructive mt-1">{errors.email}</p>
+                      )}
                     </div>
                   </div>
 
@@ -135,9 +185,12 @@ const Contact = () => {
                       name="company"
                       value={formData.company}
                       onChange={handleInputChange}
-                      className="mt-2 focus:ring-accent focus:border-accent"
+                      className={`mt-2 focus:ring-accent focus:border-accent ${errors.company ? 'border-destructive' : ''}`}
                       placeholder="Your company name"
                     />
+                    {errors.company && (
+                      <p className="text-sm text-destructive mt-1">{errors.company}</p>
+                    )}
                   </div>
 
                   <div>
@@ -149,10 +202,13 @@ const Contact = () => {
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
-                      className="mt-2 min-h-[120px] focus:ring-accent focus:border-accent"
+                      className={`mt-2 min-h-[120px] focus:ring-accent focus:border-accent ${errors.message ? 'border-destructive' : ''}`}
                       placeholder="Tell us about your project and how we can help..."
                       required
                     />
+                    {errors.message && (
+                      <p className="text-sm text-destructive mt-1">{errors.message}</p>
+                    )}
                   </div>
 
                   <Button 
