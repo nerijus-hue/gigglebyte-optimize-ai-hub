@@ -212,16 +212,18 @@ const Home = () => {
             </CardContent>
           </Card>
 
-          <div className="space-y-6">
+          <div className="space-y-8">
             <h2 className="text-3xl font-bold text-primary">Ready to Transform Your Business?</h2>
             <p className="text-xl text-muted-foreground">
               Let's discuss how we can optimize your processes and boost your efficiency
             </p>
-            <Link to="/contact">
-              <Button size="lg" className="glow-on-hover bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4">
-                Start Your Journey
-              </Button>
-            </Link>
+            <div className="pt-4">
+              <Link to="/contact">
+                <Button size="lg" className="glow-on-hover bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4">
+                  Book a call
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
