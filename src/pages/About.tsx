@@ -2,28 +2,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Target, Eye, Users } from "lucide-react";
 
 const About = () => {
-  const teamMembers = [
-    {
-      name: "Alex Thompson",
-      role: "CEO & Founder", 
-      bio: "15+ years in business optimization and digital transformation. Former McKinsey consultant with expertise in process engineering."
-    },
-    {
-      name: "Sarah Chen",
-      role: "AI Specialist",
-      bio: "PhD in Machine Learning from Stanford. Previously led AI initiatives at Google and specialized in business process automation."
-    },
-    {
-      name: "Michael Rodriguez", 
-      role: "Automation Engineer",
-      bio: "Expert in workflow automation and system integration. Built scalable solutions for Fortune 500 companies."
-    },
-    {
-      name: "Emily Watson",
-      role: "Business Analyst",
-      bio: "MBA from Wharton with 10+ years analyzing and optimizing business processes across various industries."
-    }
-  ];
 
   return (
     <div className="min-h-screen">
@@ -96,19 +74,23 @@ const About = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 fade-in-delay">
-            {teamMembers.map((member, index) => (
-              <Card key={index} className="card-gradient border-border/50 glow-on-hover text-center">
-                <CardContent className="p-6">
-                  <div className="w-24 h-24 mx-auto mb-4 bg-muted rounded-full bg-gradient-to-br from-accent/20 to-primary/20 flex items-center justify-center">
-                    <Users className="w-12 h-12 text-accent" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-primary mb-2">{member.name}</h3>
-                  <p className="text-accent font-medium mb-3">{member.role}</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{member.bio}</p>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="flex justify-center fade-in-delay">
+            <Card className="card-gradient border-border/50 glow-on-hover text-center max-w-md">
+              <CardContent className="p-8">
+                <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden">
+                  <img 
+                    src="/lovable-uploads/2b7b2873-9df5-4d04-8d8c-d78338fc75c5.png" 
+                    alt="Nerijus Urbietis - Founder & Lead Automation Expert"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold text-primary mb-2">Nerijus Urbietis</h3>
+                <p className="text-accent font-medium mb-4">Founder & Lead Automation Expert</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  With over 7 years of dedicated experience in business automation, consulting, and development, I specialize in crafting seamless integrations and AI-driven agents that transform everyday processes. From streamlining workflows to embedding intelligent AI for enhanced decision-making, my work focuses on helping businesses save time, cut costs, and achieve scalable growth.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
