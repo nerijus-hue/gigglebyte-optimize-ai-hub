@@ -53,6 +53,83 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Target Audience Section */}
+      <section className="py-20 px-6 bg-muted/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 fade-in-delay">
+            <h2 className="text-4xl font-bold text-primary mb-6">Target Audience</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Discover how our solutions can transform your specific business challenges
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in-delay-2">
+            <Card className="card-gradient border-border/50 glow-on-hover">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold text-primary mb-3">Growing Startups</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Are you a growing startup juggling too many manual tasks? Contact us to discover how our automations and AI integrations can streamline your operations, boost productivity, and free up your team for innovation.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="card-gradient border-border/50 glow-on-hover">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold text-primary mb-3">Small-Medium Businesses</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Running an SMB without a full tech team? Reach out to learn how we can automate your daily workflows, integrate AI for smarter insights, and help you scale without the overhead.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="card-gradient border-border/50 glow-on-hover">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold text-primary mb-3">Small Business Owners</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  As a small business owner overwhelmed by repetitive processes? Let's chat about customizing automations and AI agents to cut costs, save time, and drive your growth forward.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="card-gradient border-border/50 glow-on-hover">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold text-primary mb-3">Fitness Industry</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  In the fitness industry dealing with membership tracking? Get in touch for tailored integrations that automate reminders, personalize programs with AI, and improve retention rates.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="card-gradient border-border/50 glow-on-hover">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold text-primary mb-3">Online Retail</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Running an online retail business bogged down by manual updates? Reach out to learn how we can embed AI for predictive analytics, reduce errors, and boost your bottom line.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="card-gradient border-border/50 glow-on-hover">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold text-primary mb-3">E-commerce Stores</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Operating an e-commerce store with inventory headaches? Contact us to understand how our automations and AI integrations can handle stock management, personalize customer experiences, and increase sales.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="card-gradient border-border/50 glow-on-hover">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold text-primary mb-3">Consulting Firms</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Leading a consulting firm buried in client admin? Contact us to discover how automations and AI can organize workflows, integrate tools for better collaboration, and elevate your service delivery.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Services Section */}
       <section className="py-20 px-6 bg-gradient-to-b from-background to-muted/20">
         <div className="max-w-7xl mx-auto">
