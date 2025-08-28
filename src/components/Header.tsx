@@ -15,8 +15,18 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-6 py-4">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm relative overflow-hidden">
+      {/* Honeycomb dot pattern */}
+      <div 
+        className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: `radial-gradient(circle at 25% 25%, hsl(0 0% 0%) 2px, transparent 2px),
+                           radial-gradient(circle at 75% 75%, hsl(0 0% 0%) 2px, transparent 2px)`,
+          backgroundSize: '24px 24px',
+          backgroundPosition: '0 0, 12px 12px'
+        }}
+      />
+      <div className="max-w-7xl mx-auto px-6 py-4 relative z-10">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
