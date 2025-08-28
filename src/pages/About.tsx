@@ -10,7 +10,7 @@ const About = () => {
         className="relative py-32 px-6 text-center hero-gradient"
       >
         <div className="max-w-4xl mx-auto fade-in">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-8">About Gigglebyte</h1>
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-8">About Us</h1>
           <p className="text-xl text-white/90 leading-relaxed">
             Transforming businesses through cutting-edge optimization, automation, and AI solutions
           </p>
@@ -21,11 +21,8 @@ const About = () => {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto text-center fade-in-delay">
           <h2 className="text-4xl font-bold text-primary mb-8">Our Story</h2>
-          <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-            Founded in 2023, Gigglebyte is a forward-thinking consultancy dedicated to transforming businesses through cutting-edge optimization, automation, and AI. Our team of experts combines industry knowledge with innovative technology to deliver tailored solutions that drive real results.
-          </p>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            We believe that every business deserves efficient, intelligent systems that work seamlessly to enhance human potential and drive sustainable growth.
+            It all started back in 2017 for our founder, Nerijus Urbietis, a dedicated professional with roots in Lithuania. While working as an administrator, consultant, and developer, he tackled complex challenges in automation and integrations, often building tools from scratch to streamline operations. His recent forays into AI agents opened new doors, allowing him to embed smart technologies into business workflows for smarter decision-making. Inspired by these experiences—and certified in areas like process automation and data integration—Nerijus embarked on a focused career path in business technology, specializing in roles that emphasized automation tools and integrations. He quickly became adept at solving integration puzzles and incorporating AI for enhanced business processes. After years of delivering impactful solutions in a single-company environment, Nerijus recognized the broader need for accessible, innovative services. That's why he launched this business—to share his knowledge and extend his expertise in custom automations and AI integrations to diverse companies of all sizes. We're here to help automate repetitive tasks, integrate AI seamlessly, and achieve scalable success, leveraging cutting-edge tech to streamline your operations, foster growth, and turn challenges into opportunities—all backed by over eight years of proven results, a track record of excellence, and a genuine passion for tech-driven efficiency.
           </p>
         </div>
       </section>
