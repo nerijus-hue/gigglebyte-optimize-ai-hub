@@ -126,6 +126,24 @@ const Home = () => {
                 </p>
               </CardContent>
             </Card>
+
+            <Card className="card-gradient border-border/50 glow-on-hover">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold text-primary mb-3">Financial Services</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Managing financial workflows overloaded with manual checks? Let's chat about custom integrations that enhance forecasting with AI, reduce errors, and boost your operational resilience.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="card-gradient border-border/50 glow-on-hover">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold text-primary mb-3">Multi-Hat Business Owners</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Business owner wearing too many hats? Contact us to see how our automations free you from repetitive work, integrate AI for growth insights, and let you focus on what matters most.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
