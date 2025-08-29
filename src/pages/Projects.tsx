@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { TrendingUp, Bot, Brain, Settings, Users, FileText, Bell, HardDrive, Mail, Zap, BarChart3, GitBranch, ShoppingCart, Dumbbell, Bug, Activity, Search } from "lucide-react";
+import { TrendingUp, Bot, Brain, Settings, Users, FileText, Bell, HardDrive, Mail, Zap, BarChart3, GitBranch, ShoppingCart, Dumbbell, Bug, Activity } from "lucide-react";
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -11,18 +11,18 @@ const Projects = () => {
 
   const projects = [
     {
-      id: 8,
-      title: "Personalized Email Campaigns",
-      description: "Leverage AI agents to segment your email list based on user behavior, generate tailored content, and automate sending for higher engagement rates.",
-      category: "AI Integration",
-      icon: Mail
+      id: 1,
+      title: "Lead Capture and CRM Integration",
+      description: "Automatically pull new leads from web forms or emails and sync them to your CRM system, ensuring no opportunities slip through the cracks and saving hours on manual data entry.",
+      category: "Automation",
+      icon: Users
     },
     {
-      id: 16,
-      title: "Member Retention Automation",
-      description: "Monitor attendance data from gym software, send automated re-engagement emails for inactive members, and integrate with calendars for class reminders—improving retention in wellness centers.",
+      id: 2,
+      title: "Invoice Generation and Sending",
+      description: "When a sale closes in your e-commerce system, generate invoices from templates, attach them to emails, and send them to clients while updating your accounting software.",
       category: "Automation",
-      icon: Dumbbell
+      icon: FileText
     },
     {
       id: 3,
@@ -32,81 +32,11 @@ const Projects = () => {
       icon: Mail
     },
     {
-      id: 21,
-      title: "Competitor Benchmarking Dashboard Update",
-      description: "Automate the aggregation of public data from APIs (e.g., social media metrics or SEO rankings), compile it into a centralized dashboard like Google Sheets or Airtable, and run daily updates. Add an AI agent to compare your performance against competitors, identify gaps (e.g., in engagement or market share), and produce actionable reports with visualizations—ideal for tech and SaaS companies seeking data-driven strategies to optimize growth and outpace rivals.",
-      category: "AI Integration",
-      icon: BarChart3
-    },
-    {
-      id: 13,
-      title: "Abandoned Cart Recovery Chain",
-      description: "Track cart abandonments in e-commerce platforms, automate personalized reminder emails with dynamic discounts, and integrate with inventory to update stock—boosting recovery rates by 20-30% for online retailers.",
-      category: "Automation",
-      icon: ShoppingCart
-    },
-    {
-      id: 7,
-      title: "AI-Powered Content Generation",
-      description: "Use AI agents to take topic ideas from a Trello board, generate draft blog posts or social media captions, and post them after human review.",
-      category: "AI Integration",
-      icon: Brain
-    },
-    {
-      id: 11,
-      title: "Cross-Department Data Synchronization",
-      description: "Integrate disparate systems (e.g., HR, finance, and ops) via n8n to sync updates in real-time, preventing data silos and enabling enterprise-wide visibility for strategic decision-making.",
-      category: "Optimization",
-      icon: GitBranch
-    },
-    {
-      id: 19,
-      title: "Expense Approval Workflow",
-      description: "Route employee submissions from apps like Expensify for manager approvals, integrate with payroll, and flag anomalies—enhancing compliance in finance operations.",
-      category: "Automation",
-      icon: FileText
-    },
-    {
       id: 4,
       title: "Inventory Alert System",
       description: "Monitor stock levels in your warehouse software and send real-time notifications to team members when items fall below a threshold, preventing stockouts.",
       category: "Automation",
       icon: Bell
-    },
-    {
-      id: 20,
-      title: "Website Scraping for Market Intelligence",
-      description: "Periodically scrape competitor websites or industry news portals via HTTP requests and CSS selectors, extract key data like pricing, product updates, or reviews, then store it in a database or spreadsheet. Integrate an AI agent to analyze the scraped content for trends (e.g., sentiment or keyword shifts), generate summaries, and alert your team via email or Slack—empowering e-commerce or retail businesses to stay ahead with real-time insights and minimal manual effort.",
-      category: "AI Integration",
-      icon: Search
-    },
-    {
-      id: 15,
-      title: "AI-Driven Product Recommendation Engine",
-      description: "Use AI agents to analyze browsing history, generate personalized product suggestions, and push them via email or site pop-ups—increasing average order value for e-commerce sites.",
-      category: "AI Integration",
-      icon: Brain
-    },
-    {
-      id: 1,
-      title: "Lead Capture and CRM Integration",
-      description: "Automatically pull new leads from web forms or emails and sync them to your CRM system, ensuring no opportunities slip through the cracks and saving hours on manual data entry.",
-      category: "Automation",
-      icon: Users
-    },
-    {
-      id: 6,
-      title: "HR Onboarding Workflow",
-      description: "When a new hire is added to your HR system, automate document sending, account creation in tools like email and Slack, and schedule orientation reminders.",
-      category: "Automation",
-      icon: Users
-    },
-    {
-      id: 18,
-      title: "API Monitoring and Alerts",
-      description: "Poll APIs for uptime, log errors, and trigger failover workflows—ensuring reliability for tech companies reliant on integrations.",
-      category: "Optimization",
-      icon: Activity
     },
     {
       id: 5,
@@ -116,18 +46,25 @@ const Projects = () => {
       icon: HardDrive
     },
     {
-      id: 12,
-      title: "AI-Powered Predictive Maintenance",
-      description: "Deploy AI agents to monitor equipment logs from IoT devices, predict failures based on patterns, and trigger maintenance tickets—minimizing downtime in large-scale operations.",
-      category: "AI Integration",
-      icon: Settings
+      id: 6,
+      title: "HR Onboarding Workflow",
+      description: "When a new hire is added to your HR system, automate document sending, account creation in tools like email and Slack, and schedule orientation reminders.",
+      category: "Automation",
+      icon: Users
     },
     {
-      id: 10,
-      title: "Budget Tracking and Alerts",
-      description: "Sync expense data from accounting apps like QuickBooks, monitor against budgets in real-time, and send executive summaries via Slack or email, helping SMB owners maintain financial control without dedicated finance staff.",
-      category: "Optimization",
-      icon: BarChart3
+      id: 7,
+      title: "AI-Powered Content Generation",
+      description: "Use AI agents to take topic ideas from a Trello board, generate draft blog posts or social media captions, and post them after human review.",
+      category: "AI Integration",
+      icon: Brain
+    },
+    {
+      id: 8,
+      title: "Personalized Email Campaigns",
+      description: "Leverage AI agents to segment your email list based on user behavior, generate tailored content, and automate sending for higher engagement rates.",
+      category: "AI Integration",
+      icon: Mail
     },
     {
       id: 9,
@@ -137,11 +74,53 @@ const Projects = () => {
       icon: Brain
     },
     {
+      id: 10,
+      title: "Budget Tracking and Alerts",
+      description: "Sync expense data from accounting apps like QuickBooks, monitor against budgets in real-time, and send executive summaries via Slack or email, helping SMB owners maintain financial control without dedicated finance staff.",
+      category: "Optimization",
+      icon: BarChart3
+    },
+    {
+      id: 11,
+      title: "Cross-Department Data Synchronization",
+      description: "Integrate disparate systems (e.g., HR, finance, and ops) via n8n to sync updates in real-time, preventing data silos and enabling enterprise-wide visibility for strategic decision-making.",
+      category: "Optimization",
+      icon: GitBranch
+    },
+    {
+      id: 12,
+      title: "AI-Powered Predictive Maintenance",
+      description: "Deploy AI agents to monitor equipment logs from IoT devices, predict failures based on patterns, and trigger maintenance tickets—minimizing downtime in large-scale operations.",
+      category: "AI Integration",
+      icon: Settings
+    },
+    {
+      id: 13,
+      title: "Abandoned Cart Recovery Chain",
+      description: "Track cart abandonments in e-commerce platforms, automate personalized reminder emails with dynamic discounts, and integrate with inventory to update stock—boosting recovery rates by 20-30% for online retailers.",
+      category: "Automation",
+      icon: ShoppingCart
+    },
+    {
       id: 14,
       title: "Multi-Channel Order Fulfillment",
       description: "Sync orders from Shopify or Amazon to warehouse systems, automate picking lists and shipping labels, and notify customers of status updates for seamless retail operations.",
       category: "Automation",
       icon: ShoppingCart
+    },
+    {
+      id: 15,
+      title: "AI-Driven Product Recommendation Engine",
+      description: "Use AI agents to analyze browsing history, generate personalized product suggestions, and push them via email or site pop-ups—increasing average order value for e-commerce sites.",
+      category: "AI Integration",
+      icon: Brain
+    },
+    {
+      id: 16,
+      title: "Member Retention Automation",
+      description: "Monitor attendance data from gym software, send automated re-engagement emails for inactive members, and integrate with calendars for class reminders—improving retention in wellness centers.",
+      category: "Automation",
+      icon: Dumbbell
     },
     {
       id: 17,
@@ -151,9 +130,16 @@ const Projects = () => {
       icon: Bug
     },
     {
-      id: 2,
-      title: "Invoice Generation and Sending",
-      description: "When a sale closes in your e-commerce system, generate invoices from templates, attach them to emails, and send them to clients while updating your accounting software.",
+      id: 18,
+      title: "API Monitoring and Alerts",
+      description: "Poll APIs for uptime, log errors, and trigger failover workflows—ensuring reliability for tech companies reliant on integrations.",
+      category: "Optimization",
+      icon: Activity
+    },
+    {
+      id: 19,
+      title: "Expense Approval Workflow",
+      description: "Route employee submissions from apps like Expensify for manager approvals, integrate with payroll, and flag anomalies—enhancing compliance in finance operations.",
       category: "Automation",
       icon: FileText
     }
