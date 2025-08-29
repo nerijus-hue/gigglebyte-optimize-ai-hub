@@ -166,7 +166,7 @@ const Projects = () => {
   return (
     <div className="min-h-screen pt-8">
       {/* Hero Section */}
-      <section className="py-20 px-6 text-center bg-gradient-to-b from-muted/20 to-background">
+      <section className="py-16 pb-8 px-6 text-center bg-gradient-to-b from-muted/20 to-background">
         <div className="max-w-4xl mx-auto fade-in">
           <h1 className="text-5xl font-bold text-primary mb-6">Automations</h1>
           <p className="text-xl text-muted-foreground leading-relaxed">
@@ -176,7 +176,7 @@ const Projects = () => {
       </section>
 
       {/* Filter Section */}
-      <section className="py-12 px-6">
+      <section className="py-6 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap justify-center gap-4 mb-12 fade-in-delay">
             {filters.map((filter) => (
@@ -198,7 +198,7 @@ const Projects = () => {
       </section>
 
       {/* Projects Grid */}
-      <section className="py-12 px-6">
+      <section className="pt-6 pb-12 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in-delay-2">
             {filteredProjects.map((project) => (
