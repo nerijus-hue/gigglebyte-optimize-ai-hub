@@ -222,31 +222,6 @@ const Projects = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-20 px-6 bg-muted/30">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-primary mb-12">Project Impact</h2>
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="fade-in">
-              <div className="text-3xl font-bold text-accent mb-2">50+</div>
-              <p className="text-muted-foreground">Projects Completed</p>
-            </div>
-            <div className="fade-in-delay">
-              <div className="text-3xl font-bold text-accent mb-2">$2M+</div>
-              <p className="text-muted-foreground">Cost Savings Generated</p>
-            </div>
-            <div className="fade-in-delay-2">
-              <div className="text-3xl font-bold text-accent mb-2">95%</div>
-              <p className="text-muted-foreground">Client Satisfaction Rate</p>
-            </div>
-            <div className="fade-in">
-              <div className="text-3xl font-bold text-accent mb-2">60%</div>
-              <p className="text-muted-foreground">Average Efficiency Gain</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-20 px-6 bg-gradient-to-t from-muted/20 to-background">
         <div className="max-w-4xl mx-auto text-center">
