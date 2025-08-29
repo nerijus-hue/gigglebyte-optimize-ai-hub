@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { TrendingUp, Bot, Brain, Settings, ExternalLink } from "lucide-react";
+import { TrendingUp, Bot, Brain, Settings, Users, FileText, Bell, HardDrive, Mail, Zap, BarChart3, GitBranch, ShoppingCart, Dumbbell, Bug, Activity } from "lucide-react";
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -12,63 +12,136 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "Retail Workflow Automation",
-      description: "Integrated AI agents to reduce inventory management time by 40% for a major retail chain.",
+      title: "Lead Capture and CRM Integration",
+      description: "Automatically pull new leads from web forms or emails and sync them to your CRM system, ensuring no opportunities slip through the cracks and saving hours on manual data entry.",
       category: "Automation",
-      metrics: "40% time reduction",
-      techStack: ["Python", "Machine Learning APIs", "PostgreSQL", "Docker"],
-      icon: Bot,
-      results: "Saved 20+ hours weekly, $50K annual cost reduction"
+      icon: Users
     },
     {
       id: 2,
-      title: "Financial Process Optimization",
-      description: "Streamlined loan approval processes using AI decision trees and automated validation.",
-      category: "Optimization", 
-      metrics: "60% faster approvals",
-      techStack: ["React", "Node.js", "TensorFlow", "AWS"],
-      icon: TrendingUp,
-      results: "Reduced approval time from 5 days to 2 days"
+      title: "Invoice Generation and Sending",
+      description: "When a sale closes in your e-commerce system, generate invoices from templates, attach them to emails, and send them to clients while updating your accounting software.",
+      category: "Automation",
+      icon: FileText
     },
     {
       id: 3,
-      title: "Customer Service AI Integration",
-      description: "Deployed intelligent chatbots with natural language processing for 24/7 customer support.",
-      category: "AI Integration",
-      metrics: "85% query resolution",
-      techStack: ["OpenAI GPT", "Python", "MongoDB", "React"],
-      icon: Brain,
-      results: "Handled 1000+ queries daily, 95% satisfaction rate"
+      title: "Customer Feedback Collection",
+      description: "After a purchase or service interaction, send automated surveys via email or SMS, collect responses, and store them in a database for easy analysis.",
+      category: "Automation",
+      icon: Mail
     },
     {
       id: 4,
-      title: "Manufacturing Quality Control",
-      description: "Implemented computer vision AI for automated quality inspection on production lines.",
-      category: "AI Integration",
-      metrics: "99.5% accuracy",
-      techStack: ["OpenCV", "TensorFlow", "Python", "REST APIs"],
-      icon: Settings,
-      results: "Reduced defects by 75%, saved $200K annually"
+      title: "Inventory Alert System",
+      description: "Monitor stock levels in your warehouse software and send real-time notifications to team members when items fall below a threshold, preventing stockouts.",
+      category: "Automation",
+      icon: Bell
     },
     {
       id: 5,
-      title: "HR Recruitment Automation",
-      description: "Automated resume screening and candidate matching using ML algorithms.",
+      title: "File Backup and Sync",
+      description: "Automatically back up files from cloud storage like Google Drive to another service, with versioning to ensure data security and easy recovery.",
       category: "Automation",
-      metrics: "70% time savings",
-      techStack: ["scikit-learn", "Django", "PostgreSQL", "Redis"],
-      icon: Bot,
-      results: "Processed 5000+ applications, improved hire quality"
+      icon: HardDrive
     },
     {
       id: 6,
-      title: "Supply Chain Optimization",
-      description: "Optimized logistics routes and inventory levels using predictive analytics.",
+      title: "HR Onboarding Workflow",
+      description: "When a new hire is added to your HR system, automate document sending, account creation in tools like email and Slack, and schedule orientation reminders.",
+      category: "Automation",
+      icon: Users
+    },
+    {
+      id: 7,
+      title: "AI-Powered Content Generation",
+      description: "Use AI agents to take topic ideas from a Trello board, generate draft blog posts or social media captions, and post them after human review.",
+      category: "AI Integration",
+      icon: Brain
+    },
+    {
+      id: 8,
+      title: "Personalized Email Campaigns",
+      description: "Leverage AI agents to segment your email list based on user behavior, generate tailored content, and automate sending for higher engagement rates.",
+      category: "AI Integration",
+      icon: Mail
+    },
+    {
+      id: 9,
+      title: "Research and Data Aggregation Agent",
+      description: "Deploy an AI agent to search web sources for market trends, compile summaries, and integrate findings into your business intelligence dashboard.",
+      category: "AI Integration",
+      icon: Brain
+    },
+    {
+      id: 10,
+      title: "Budget Tracking and Alerts",
+      description: "Sync expense data from accounting apps like QuickBooks, monitor against budgets in real-time, and send executive summaries via Slack or email, helping SMB owners maintain financial control without dedicated finance staff.",
       category: "Optimization",
-      metrics: "25% cost reduction",
-      techStack: ["R", "Power BI", "Azure", "SQL Server"],
-      icon: TrendingUp,
-      results: "Optimized 50+ distribution centers"
+      icon: BarChart3
+    },
+    {
+      id: 11,
+      title: "Cross-Department Data Synchronization",
+      description: "Integrate disparate systems (e.g., HR, finance, and ops) via n8n to sync updates in real-time, preventing data silos and enabling enterprise-wide visibility for strategic decision-making.",
+      category: "Optimization",
+      icon: GitBranch
+    },
+    {
+      id: 12,
+      title: "AI-Powered Predictive Maintenance",
+      description: "Deploy AI agents to monitor equipment logs from IoT devices, predict failures based on patterns, and trigger maintenance tickets—minimizing downtime in large-scale operations.",
+      category: "AI Integration",
+      icon: Settings
+    },
+    {
+      id: 13,
+      title: "Abandoned Cart Recovery Chain",
+      description: "Track cart abandonments in e-commerce platforms, automate personalized reminder emails with dynamic discounts, and integrate with inventory to update stock—boosting recovery rates by 20-30% for online retailers.",
+      category: "Automation",
+      icon: ShoppingCart
+    },
+    {
+      id: 14,
+      title: "Multi-Channel Order Fulfillment",
+      description: "Sync orders from Shopify or Amazon to warehouse systems, automate picking lists and shipping labels, and notify customers of status updates for seamless retail operations.",
+      category: "Automation",
+      icon: ShoppingCart
+    },
+    {
+      id: 15,
+      title: "AI-Driven Product Recommendation Engine",
+      description: "Use AI agents to analyze browsing history, generate personalized product suggestions, and push them via email or site pop-ups—increasing average order value for e-commerce sites.",
+      category: "AI Integration",
+      icon: Brain
+    },
+    {
+      id: 16,
+      title: "Member Retention Automation",
+      description: "Monitor attendance data from gym software, send automated re-engagement emails for inactive members, and integrate with calendars for class reminders—improving retention in wellness centers.",
+      category: "Automation",
+      icon: Dumbbell
+    },
+    {
+      id: 17,
+      title: "Bug Reporting and Triage",
+      description: "Automate ticket creation from user feedback forms, integrate with Jira for prioritization, and notify devs via Slack—speeding up issue resolution in SaaS development.",
+      category: "Automation",
+      icon: Bug
+    },
+    {
+      id: 18,
+      title: "API Monitoring and Alerts",
+      description: "Poll APIs for uptime, log errors, and trigger failover workflows—ensuring reliability for tech companies reliant on integrations.",
+      category: "Optimization",
+      icon: Activity
+    },
+    {
+      id: 19,
+      title: "Expense Approval Workflow",
+      description: "Route employee submissions from apps like Expensify for manager approvals, integrate with payroll, and flag anomalies—enhancing compliance in finance operations.",
+      category: "Automation",
+      icon: FileText
     }
   ];
 
@@ -81,7 +154,7 @@ const Projects = () => {
       {/* Hero Section */}
       <section className="py-20 px-6 text-center bg-gradient-to-b from-muted/20 to-background">
         <div className="max-w-4xl mx-auto fade-in">
-          <h1 className="text-5xl font-bold text-primary mb-6">Our Projects</h1>
+          <h1 className="text-5xl font-bold text-primary mb-6">Automations</h1>
           <p className="text-xl text-muted-foreground leading-relaxed">
             Discover how we've transformed businesses across industries with innovative automation and AI solutions
           </p>
@@ -127,31 +200,7 @@ const Projects = () => {
                   </div>
 
                   <h3 className="text-xl font-semibold text-primary mb-3">{project.title}</h3>
-                  <p className="text-muted-foreground mb-4 leading-relaxed">{project.description}</p>
-                  
-                  <div className="mb-4">
-                    <div className="text-accent font-semibold text-lg mb-2">{project.metrics}</div>
-                    <p className="text-sm text-muted-foreground">{project.results}</p>
-                  </div>
-
-                  <div className="mb-6">
-                    <h4 className="text-sm font-medium text-primary mb-2">Tech Stack:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {project.techStack.map((tech, index) => (
-                        <Badge key={index} variant="outline" className="text-xs">
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  <Button 
-                    variant="outline" 
-                    className="w-full group-hover:bg-accent/10 group-hover:text-accent group-hover:border-accent transition-colors"
-                  >
-                    Learn More
-                    <ExternalLink className="w-4 h-4 ml-2" />
-                  </Button>
+                  <p className="text-muted-foreground leading-relaxed">{project.description}</p>
                 </CardContent>
               </Card>
             ))}
