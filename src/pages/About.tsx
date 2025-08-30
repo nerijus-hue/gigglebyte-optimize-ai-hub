@@ -7,9 +7,9 @@ const About = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section 
-        className="relative py-32 px-6 text-center hero-gradient flex items-end justify-center"
+        className="relative py-32 px-6 text-center hero-gradient flex items-center justify-center"
       >
-        <div className="max-w-4xl mx-auto fade-in pb-16">
+        <div className="max-w-4xl mx-auto fade-in">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-8">About Us</h1>
           <p className="text-xl text-white/90 leading-relaxed">
             Transforming businesses through cutting-edge optimization, automation, and AI solutions
