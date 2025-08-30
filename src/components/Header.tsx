@@ -21,7 +21,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img 
-              src="/lovable-uploads/768ac342-b8bd-45a2-bc6d-b80c1369a9ea.png" 
+              src="/lovable-uploads/db3abaa8-01bd-4cb4-8989-298df6bc428d.png" 
               alt="Gigglebyte" 
               className="h-8 w-auto"
             />
