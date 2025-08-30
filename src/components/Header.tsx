@@ -20,9 +20,11 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <h1 className="text-2xl font-bold text-primary font-inter tracking-tight">
-              Gigglebyte
-            </h1>
+            <img 
+              src="/lovable-uploads/768ac342-b8bd-45a2-bc6d-b80c1369a9ea.png" 
+              alt="Gigglebyte" 
+              className="h-8 w-auto"
+            />
           </Link>
 
           {/* Navigation */}
