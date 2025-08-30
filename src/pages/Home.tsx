@@ -36,9 +36,13 @@ const Home = () => {
         className="relative hero-gradient min-h-screen flex items-center justify-center text-center px-6 pt-20"
       >
         <div className="max-w-4xl mx-auto fade-in">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 font-inter tracking-tight">
-            Gigglebyte
-          </h1>
+          <div className="mb-6">
+            <img 
+              src="/lovable-uploads/b247747e-24b7-45f2-bd08-6fea82dcd635.png" 
+              alt="Gigglebyte" 
+              className="mx-auto h-20 md:h-32 w-auto"
+            />
+          </div>
           <p className="text-xl md:text-2xl text-white/90 mb-8 font-light">
             Optimizing Business Processes with Automation and AI Integration
           </p>
