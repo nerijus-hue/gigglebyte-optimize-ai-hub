@@ -23,7 +23,7 @@ const Header = () => {
             <img 
               src="/lovable-uploads/db3abaa8-01bd-4cb4-8989-298df6bc428d.png" 
               alt="Gigglebyte" 
-              className="h-12 w-auto"
+              className="h-8 w-auto"
             />
           </Link>
 
