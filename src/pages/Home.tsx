@@ -43,10 +43,10 @@ const Home = () => {
               className="mx-auto h-40 md:h-64 w-auto"
             />
           </div>
-          <p className="text-xl md:text-2xl text-white/90 mb-8 font-light">
+          <p className="text-xl md:text-2xl text-white mb-8 font-light">
             Optimizing Business Processes with Automation and AI Integration
           </p>
-          <p className="text-lg text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-white mb-12 max-w-2xl mx-auto leading-relaxed">
             We streamline your operations, automate repetitive tasks, and integrate intelligent AI agents to boost efficiency and innovation.
           </p>
           <Link to="/contact">
