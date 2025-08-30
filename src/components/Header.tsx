@@ -38,7 +38,7 @@ const Header = () => {
                   className={cn(
                     "relative text-sm font-medium px-4 py-2 rounded-full transition-colors",
                     isActive 
-                      ? "text-primary bg-muted" 
+                      ? "text-primary" 
                       : "text-foreground"
                   )}
                 >
@@ -46,7 +46,7 @@ const Header = () => {
                   {isActive && (
                     <motion.div
                       layoutId="headerLamp"
-                      className="absolute inset-0 w-full bg-primary/5 rounded-full -z-10"
+                      className="absolute inset-0 w-full -z-10"
                       initial={false}
                       transition={{
                         type: "spring",
@@ -98,7 +98,7 @@ const Header = () => {
                     className={cn(
                       "relative block py-3 px-4 text-sm font-medium transition-colors border-b border-transparent rounded-lg",
                       isActive 
-                        ? "text-primary border-primary bg-muted" 
+                        ? "text-primary border-primary" 
                         : "text-foreground"
                     )}
                   >
@@ -106,7 +106,7 @@ const Header = () => {
                     {isActive && (
                       <motion.div
                         layoutId="mobileLamp"
-                        className="absolute inset-0 w-full bg-primary/5 rounded-lg -z-10"
+                        className="absolute inset-0 w-full -z-10"
                         initial={false}
                         transition={{
                           type: "spring",
