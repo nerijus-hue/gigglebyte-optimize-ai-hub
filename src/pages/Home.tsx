@@ -51,7 +51,7 @@ const Home = () => {
           </p>
           <Link to="/contact">
             <Button size="lg" className="glow-on-hover bg-accent hover:bg-accent/90 text-white px-8 py-4 text-lg font-medium">
-              Get Started
+              Claim Free Audit
             </Button>
           </Link>
         </div>
