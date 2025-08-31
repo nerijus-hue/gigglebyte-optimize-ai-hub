@@ -44,10 +44,10 @@ const Home = () => {
             />
           </div>
           <p className="text-xl md:text-2xl text-white mb-8 font-light">
-            Optimizing Business Processes with Automation and AI Integration
+            Transform Your Business: 20-50% Efficiency Boost with AI Automations & Integrations.
           </p>
           <p className="text-lg text-white mb-12 max-w-2xl mx-auto leading-relaxed">
-            We streamline your operations, automate repetitive tasks, and integrate intelligent AI agents to boost efficiency and innovation.
+            Custom n8n workflows tailored for Irish SMBs—save time, cut costs, scale smarter.
           </p>
           <Link to="/contact">
             <Button size="lg" className="glow-on-hover bg-accent hover:bg-accent/90 text-white px-8 py-4 text-lg font-medium">
