@@ -47,7 +47,7 @@ const Home = () => {
             Transform Your Business: 20-50% Efficiency Boost with AI Automations & Integrations.
           </p>
           <p className="text-lg text-white mb-12 max-w-2xl mx-auto leading-relaxed">
-            Custom n8n workflows tailored for Irish SMBs—save time, cut costs, scale smarter.
+            Custom workflows tailored for SMBs—save time, cut costs, scale smarter.
           </p>
           <Link to="/contact">
             <Button size="lg" className="glow-on-hover bg-accent hover:bg-accent/90 text-white px-8 py-4 text-lg font-medium">
