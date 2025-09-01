@@ -11,6 +11,7 @@ const About = () => {
         className="relative py-32 px-6 text-center hero-gradient flex items-center justify-center"
       >
         <div className="max-w-4xl mx-auto fade-in">
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-8">About Us</h1>
           <p className="text-xl text-white/90 leading-relaxed">
             We optimize business operations and integrate AI agents to drive efficiency and growth
           </p>
@@ -20,7 +21,6 @@ const About = () => {
       {/* Introduction Section */}
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto text-center fade-in-delay">
-          <h1 className="text-5xl md:text-6xl font-bold text-primary mb-8">About Us</h1>
           <h2 className="text-4xl font-bold text-primary mb-8">Our Story</h2>
           <p className="text-lg text-muted-foreground leading-relaxed mb-8">
             Founded by automation expert Nerijus Urbietis, Gigglebyte emerged from over 7 years of hands-on experience solving complex business challenges through technology. What began as custom automation projects has evolved into a comprehensive suite of optimization services that help businesses eliminate inefficiencies and embrace AI-powered growth.
