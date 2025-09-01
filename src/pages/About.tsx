@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Target, Eye, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const About = () => {
 
@@ -12,7 +13,7 @@ const About = () => {
         <div className="max-w-4xl mx-auto fade-in">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-8">About Us</h1>
           <p className="text-xl text-white/90 leading-relaxed">
-            Transforming businesses through cutting-edge optimization, automation, and AI solutions
+            We optimize business operations and integrate AI agents to drive efficiency and growth
           </p>
         </div>
       </section>
@@ -21,9 +22,38 @@ const About = () => {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto text-center fade-in-delay">
           <h2 className="text-4xl font-bold text-primary mb-8">Our Story</h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            It all started back in 2017 for our founder, Nerijus Urbietis, a dedicated professional with roots in Lithuania. While working as an administrator, consultant, and developer, he tackled complex challenges in automation and integrations, often building tools from scratch to streamline operations. His recent forays into AI agents opened new doors, allowing him to embed smart technologies into business workflows for smarter decision-making. Inspired by these experiences—and certified in areas like process automation and data integration—Nerijus embarked on a focused career path in business technology, specializing in roles that emphasized automation tools and integrations. He quickly became adept at solving integration puzzles and incorporating AI for enhanced business processes. After years of delivering impactful solutions in a single-company environment, Nerijus recognized the broader need for accessible, innovative services. That's why he launched this business—to share his knowledge and extend his expertise in custom automations and AI integrations to diverse companies of all sizes. We're here to help automate repetitive tasks, integrate AI seamlessly, and achieve scalable success, leveraging cutting-edge tech to streamline your operations, foster growth, and turn challenges into opportunities—all backed by over eight years of proven results, a track record of excellence, and a genuine passion for tech-driven efficiency.
+          <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+            Founded by automation expert Nerijus Urbietis, Gigglebyte emerged from over 7 years of hands-on experience solving complex business challenges through technology. What began as custom automation projects has evolved into a comprehensive suite of optimization services that help businesses eliminate inefficiencies and embrace AI-powered growth.
           </p>
+          <div className="text-left max-w-2xl mx-auto">
+            <h3 className="text-xl font-semibold text-primary mb-4">What We Deliver:</h3>
+            <ul className="space-y-3 text-muted-foreground">
+              <li className="flex items-start">
+                <span className="w-2 h-2 bg-accent rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                CRM systems that actually work for your business
+              </li>
+              <li className="flex items-start">
+                <span className="w-2 h-2 bg-accent rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Process automation that saves hours daily
+              </li>
+              <li className="flex items-start">
+                <span className="w-2 h-2 bg-accent rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                AI agents that handle routine tasks intelligently
+              </li>
+              <li className="flex items-start">
+                <span className="w-2 h-2 bg-accent rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Data-driven insights for smarter decision making
+              </li>
+            </ul>
+          </div>
+          <div className="mt-12 text-center">
+            <Link 
+              to="/contact" 
+              className="inline-flex items-center px-8 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent/90 transition-colors"
+            >
+              Book a Free Audit
+            </Link>
+          </div>
         </div>
       </section>
 

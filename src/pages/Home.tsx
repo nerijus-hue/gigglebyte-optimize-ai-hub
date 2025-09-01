@@ -15,22 +15,22 @@ const Home = () => {
     {
       icon: Users,
       title: "CRM Implementation",
-      description: "Build your business backbone with CRM and integrated automations."
+      description: "Build your business backbone with CRM systems and integrated automation workflows."
     },
     {
       icon: Settings,
       title: "Business Process Optimization",
-      description: "Analyze and refine workflows for maximum productivity."
+      description: "Streamline operations and eliminate inefficiencies through intelligent process redesign."
     },
     {
       icon: Bot,
       title: "Automation Solutions", 
-      description: "Implement tools to handle routine tasks seamlessly."
+      description: "Custom automation workflows that save time and reduce manual workload significantly."
     },
     {
       icon: Brain,
       title: "AI Agent Integrations",
-      description: "Embed smart agents into your systems for real-time decision-making."
+      description: "Deploy smart AI agents that handle routine tasks and enhance decision-making capabilities."
     }
   ];
 
@@ -252,9 +252,18 @@ const Home = () => {
                   <p className="text-muted-foreground leading-relaxed">{service.description}</p>
                 </CardContent>
               </Card>
-            ))}
+              ))}
+            </div>
+
+            <div className="text-center mt-12 fade-in-delay-2">
+              <Link 
+                to="/contact" 
+                className="inline-flex items-center px-8 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent/90 transition-colors"
+              >
+                Book a Free Audit
+              </Link>
+            </div>
           </div>
-        </div>
       </section>
 
       {/* Benefits Section */}
