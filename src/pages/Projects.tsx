@@ -454,23 +454,6 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* CTA Section */}
-      <section className="py-20 px-6 bg-gradient-to-t from-muted/20 to-background">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-primary mb-6">Ready to Start Your Project?</h2>
-          <p className="text-xl text-muted-foreground mb-8">
-            Let's discuss how we can help transform your business processes with proven automation solutions
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="glow-on-hover bg-accent hover:bg-accent/90 text-white px-8 py-4">
-              Get In Touch
-            </Button>
-            <Button size="lg" variant="outline" className="px-8 py-4">
-              View Case Studies
-            </Button>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };
