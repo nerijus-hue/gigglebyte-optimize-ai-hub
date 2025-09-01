@@ -171,26 +171,28 @@ const Home = () => {
             {targetAudiences.map((audience, index) => (
               <div key={index} className="space-y-2">
                 {index === 2 && (
-                  <Button 
-                    onClick={toggleAllBenefits}
-                    variant="outline"
-                    size="sm"
-                    className="text-xs font-medium border-accent text-accent hover:bg-accent hover:text-white px-4 py-2 w-fit"
-                  >
-                    {allExpanded ? (
-                      <>
-                        <ChevronUp className="w-3 h-3 mr-1" />
-                        Collapse All Benefits
-                      </>
-                    ) : (
-                      <>
-                        <ChevronDown className="w-3 h-3 mr-1" />
-                        Expand All Benefits
-                      </>
-                    )}
-                  </Button>
+                  <div className="flex justify-end">
+                    <Button 
+                      onClick={toggleAllBenefits}
+                      variant="outline"
+                      size="sm"
+                      className="text-xs font-medium border-accent text-accent hover:bg-accent hover:text-white px-4 py-2 w-fit"
+                    >
+                      {allExpanded ? (
+                        <>
+                          <ChevronUp className="w-3 h-3 mr-1" />
+                          Collapse All Benefits
+                        </>
+                      ) : (
+                        <>
+                          <ChevronDown className="w-3 h-3 mr-1" />
+                          Expand All Benefits
+                        </>
+                      )}
+                    </Button>
+                  </div>
                 )}
-                <Card className="card-gradient border-border/50 glow-on-hover">
+                <Card className="card-gradient border-border/50 glow-on-hover h-full">
                   <CardContent className="p-6">
                     <h3 className="text-lg font-semibold text-primary mb-3">{audience.title}</h3>
                     <p className="text-muted-foreground text-sm leading-relaxed mb-4">
