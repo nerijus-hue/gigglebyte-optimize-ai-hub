@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Settings, Bot, Brain, TrendingUp, DollarSign, BarChart3, Shield } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Settings, Bot, Brain, TrendingUp, DollarSign, BarChart3, Shield, CheckCircle, Zap, Clock, Target } from "lucide-react";
 
 const Home = () => {
   const services = [
@@ -27,6 +28,99 @@ const Home = () => {
     { icon: DollarSign, title: "Cost Savings", description: "Reduce operational expenses through automation" },
     { icon: BarChart3, title: "Scalable Growth", description: "Build systems that grow with your business" },
     { icon: Shield, title: "Future-Proof Tech", description: "Stay ahead with cutting-edge solutions" }
+  ];
+
+  const targetAudiences = [
+    {
+      title: "Growing Startups",
+      description: "Are you a growing startup juggling too many manual tasks? Contact us to discover how our automations and AI integrations can streamline your operations, boost productivity, and free up your team for innovation.",
+      benefits: [
+        { icon: Zap, text: "Automate repetitive tasks without coding expertise" },
+        { icon: Brain, text: "Integrate AI agents for smarter decisions" },
+        { icon: Clock, text: "Achieve up to 40% time savings – proven with automation workflows" },
+        { icon: Target, text: "Focus your team on high-value innovation work" }
+      ]
+    },
+    {
+      title: "Small-Medium Businesses",
+      description: "Running an SMB without a full tech team? Reach out to learn how we can automate your daily workflows, integrate AI for smarter insights, and help you scale without the overhead.",
+      benefits: [
+        { icon: CheckCircle, text: "No technical team required – we handle everything" },
+        { icon: DollarSign, text: "Reduce operational costs by up to 30%" },
+        { icon: BarChart3, text: "Scale operations without hiring overhead" },
+        { icon: Shield, text: "Enterprise-grade security for small business budgets" }
+      ]
+    },
+    {
+      title: "Small Business Owners",
+      description: "As a small business owner overwhelmed by repetitive processes? Let's chat about customizing automations and AI agents to cut costs, save time, and drive your growth forward.",
+      benefits: [
+        { icon: Clock, text: "Reclaim 10+ hours per week from automation" },
+        { icon: Zap, text: "Eliminate manual data entry and reporting" },
+        { icon: Brain, text: "AI-powered insights for better decision making" },
+        { icon: TrendingUp, text: "Proven ROI within 60 days of implementation" }
+      ]
+    },
+    {
+      title: "Fitness Industry",
+      description: "In the fitness industry dealing with membership tracking? Get in touch for tailored integrations that automate reminders, personalize programs with AI, and improve retention rates.",
+      benefits: [
+        { icon: Target, text: "Automated membership renewals and reminders" },
+        { icon: Brain, text: "AI-personalized workout recommendations" },
+        { icon: TrendingUp, text: "Increase member retention by 25%" },
+        { icon: CheckCircle, text: "Seamless integration with existing fitness apps" }
+      ]
+    },
+    {
+      title: "Online Retail",
+      description: "Running an online retail business bogged down by manual updates? Reach out to learn how we can embed AI for predictive analytics, reduce errors, and boost your bottom line.",
+      benefits: [
+        { icon: BarChart3, text: "Predictive inventory management with AI" },
+        { icon: Zap, text: "Automated price optimization and competitor tracking" },
+        { icon: DollarSign, text: "Reduce manual errors by 90%" },
+        { icon: Clock, text: "Real-time analytics and automated reporting" }
+      ]
+    },
+    {
+      title: "E-commerce Stores",
+      description: "Operating an e-commerce store with inventory headaches? Contact us to understand how our automations and AI integrations can handle stock management, personalize customer experiences, and increase sales.",
+      benefits: [
+        { icon: CheckCircle, text: "Automated stock alerts and reordering" },
+        { icon: Target, text: "AI-powered product recommendations" },
+        { icon: TrendingUp, text: "Increase average order value by 35%" },
+        { icon: Shield, text: "Fraud detection and prevention automation" }
+      ]
+    },
+    {
+      title: "Consulting Firms",
+      description: "Leading a consulting firm buried in client admin? Contact us to discover how automations and AI can organize workflows, integrate tools for better collaboration, and elevate your service delivery.",
+      benefits: [
+        { icon: Zap, text: "Automate client onboarding and project setup" },
+        { icon: Clock, text: "Streamline time tracking and invoicing" },
+        { icon: Brain, text: "AI-assisted research and report generation" },
+        { icon: BarChart3, text: "Integrated project management across all tools" }
+      ]
+    },
+    {
+      title: "Financial Services",
+      description: "Managing financial workflows overloaded with manual checks? Let's chat about custom integrations that enhance forecasting with AI, reduce errors, and boost your operational resilience.",
+      benefits: [
+        { icon: Shield, text: "Automated compliance monitoring and reporting" },
+        { icon: Brain, text: "AI-enhanced risk assessment and forecasting" },
+        { icon: CheckCircle, text: "Reduce manual verification errors by 95%" },
+        { icon: Clock, text: "Accelerate client onboarding by 50%" }
+      ]
+    },
+    {
+      title: "Multi-Hat Business Owners",
+      description: "Business owner wearing too many hats? Contact us to see how our automations free you from repetitive work, integrate AI for growth insights, and let you focus on what matters most.",
+      benefits: [
+        { icon: Zap, text: "Automate admin tasks across all business areas" },
+        { icon: Target, text: "Focus on strategy instead of operations" },
+        { icon: Brain, text: "AI dashboard for unified business insights" },
+        { icon: TrendingUp, text: "Achieve 40% productivity boost in first month" }
+      ]
+    }
   ];
 
   return (
@@ -68,86 +162,33 @@ const Home = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in-delay-2">
-            <Card className="card-gradient border-border/50 glow-on-hover">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-primary mb-3">Growing Startups</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Are you a growing startup juggling too many manual tasks? Contact us to discover how our automations and AI integrations can streamline your operations, boost productivity, and free up your team for innovation.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="card-gradient border-border/50 glow-on-hover">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-primary mb-3">Small-Medium Businesses</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Running an SMB without a full tech team? Reach out to learn how we can automate your daily workflows, integrate AI for smarter insights, and help you scale without the overhead.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="card-gradient border-border/50 glow-on-hover">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-primary mb-3">Small Business Owners</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  As a small business owner overwhelmed by repetitive processes? Let's chat about customizing automations and AI agents to cut costs, save time, and drive your growth forward.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="card-gradient border-border/50 glow-on-hover">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-primary mb-3">Fitness Industry</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  In the fitness industry dealing with membership tracking? Get in touch for tailored integrations that automate reminders, personalize programs with AI, and improve retention rates.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="card-gradient border-border/50 glow-on-hover">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-primary mb-3">Online Retail</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Running an online retail business bogged down by manual updates? Reach out to learn how we can embed AI for predictive analytics, reduce errors, and boost your bottom line.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="card-gradient border-border/50 glow-on-hover">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-primary mb-3">E-commerce Stores</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Operating an e-commerce store with inventory headaches? Contact us to understand how our automations and AI integrations can handle stock management, personalize customer experiences, and increase sales.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="card-gradient border-border/50 glow-on-hover">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-primary mb-3">Consulting Firms</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Leading a consulting firm buried in client admin? Contact us to discover how automations and AI can organize workflows, integrate tools for better collaboration, and elevate your service delivery.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="card-gradient border-border/50 glow-on-hover">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-primary mb-3">Financial Services</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Managing financial workflows overloaded with manual checks? Let's chat about custom integrations that enhance forecasting with AI, reduce errors, and boost your operational resilience.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="card-gradient border-border/50 glow-on-hover">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-primary mb-3">Multi-Hat Business Owners</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Business owner wearing too many hats? Contact us to see how our automations free you from repetitive work, integrate AI for growth insights, and let you focus on what matters most.
-                </p>
-              </CardContent>
-            </Card>
+            {targetAudiences.map((audience, index) => (
+              <Card key={index} className="card-gradient border-border/50 glow-on-hover">
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-semibold text-primary mb-3">{audience.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                    {audience.description}
+                  </p>
+                  <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value="benefits" className="border-none">
+                      <AccordionTrigger className="text-sm font-medium text-accent hover:text-accent/80 py-2">
+                        View Key Benefits
+                      </AccordionTrigger>
+                      <AccordionContent className="pt-2">
+                        <ul className="space-y-2">
+                          {audience.benefits.map((benefit, benefitIndex) => (
+                            <li key={benefitIndex} className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <benefit.icon className="w-4 h-4 text-accent flex-shrink-0" />
+                              <span>{benefit.text}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
