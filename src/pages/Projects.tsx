@@ -2,10 +2,16 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { TrendingUp, Bot, Brain, Settings, Users, FileText, Bell, HardDrive, Mail, Zap, BarChart3, GitBranch, ShoppingCart, Dumbbell, Bug, Activity, Search, TrendingDown } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { TrendingUp, Bot, Brain, Settings, Users, FileText, Bell, HardDrive, Mail, Zap, BarChart3, GitBranch, ShoppingCart, Dumbbell, Bug, Activity, Search, TrendingDown, Clock, Star, Eye } from "lucide-react";
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState("title");
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const filters = ["All", "Optimization", "Automation", "AI Integration"];
 
@@ -14,15 +20,25 @@ const Projects = () => {
       id: 1,
       title: "AI-Powered Predictive Maintenance",
       description: "Deploy AI agents to monitor equipment logs from IoT devices, predict failures based on patterns, and trigger maintenance tickets—minimizing downtime in large-scale operations.",
+      fullDescription: "This comprehensive solution leverages machine learning algorithms to analyze historical equipment data, sensor readings, and maintenance logs. The AI agents continuously monitor IoT device outputs, identifying subtle patterns that indicate potential failures weeks before they occur. When anomalies are detected, the system automatically generates maintenance tickets with detailed recommendations, priority levels, and suggested repair windows. This proactive approach has helped manufacturing companies reduce unexpected downtime by up to 85% while extending equipment lifespan by 20-30%.",
       category: "AI Integration",
-      icon: Settings
+      icon: Settings,
+      duration: "2-3 months",
+      complexity: "High",
+      savings: "$50K-200K/year",
+      tags: ["IoT", "Machine Learning", "Predictive Analytics", "Manufacturing"]
     },
     {
       id: 2,
       title: "Website Scraping for Market Intelligence",
       description: "Scrape competitor sites for data like pricing or reviews, store it in databases, and integrate AI agents to analyze trends and send team alerts—keeping e-commerce businesses ahead with real-time insights.",
+      fullDescription: "Our intelligent web scraping solution automatically monitors competitor websites, extracting pricing data, product information, customer reviews, and promotional offers. The system uses advanced anti-detection techniques to ensure reliable data collection while respecting rate limits. AI agents analyze the collected data to identify pricing trends, market opportunities, and competitive threats. Automated alerts notify your team of significant changes, while comprehensive dashboards provide actionable insights for strategic decision-making.",
       category: "AI Integration",
-      icon: Search
+      icon: Search,
+      duration: "1-2 months",
+      complexity: "Medium",
+      savings: "$25K-75K/year",
+      tags: ["Web Scraping", "Market Research", "Competitive Analysis", "AI Analytics"]
     },
     {
       id: 3,
@@ -159,26 +175,97 @@ const Projects = () => {
     }
   ];
 
-  const filteredProjects = activeFilter === "All" 
+  // Filter and search logic
+  let filteredProjects = activeFilter === "All" 
     ? projects 
     : projects.filter(project => project.category === activeFilter);
+
+  if (searchQuery) {
+    filteredProjects = filteredProjects.filter(project =>
+      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (project.tags && project.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())))
+    );
+  }
+
+  // Sort logic
+  filteredProjects.sort((a, b) => {
+    switch (sortBy) {
+      case "title":
+        return a.title.localeCompare(b.title);
+      case "category":
+        return a.category.localeCompare(b.category);
+      case "complexity":
+        const complexityOrder = { "Low": 1, "Medium": 2, "High": 3 };
+        return (complexityOrder[a.complexity] || 2) - (complexityOrder[b.complexity] || 2);
+      default:
+        return 0;
+    }
+  });
+
+  // Get filter counts
+  const getFilterCount = (filter) => {
+    if (filter === "All") return projects.length;
+    return projects.filter(project => project.category === filter).length;
+  };
 
   return (
     <div className="min-h-screen pt-8">
       {/* Hero Section */}
       <section className="py-16 pb-8 px-6 text-center bg-gradient-to-b from-muted/20 to-background">
         <div className="max-w-4xl mx-auto fade-in">
-          <h1 className="text-5xl font-bold text-primary mb-6">Automations</h1>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            Discover how we've transformed businesses across industries with innovative automation and AI solutions
+          <h1 className="text-5xl font-bold text-primary mb-6">Automation Solutions</h1>
+          <p className="text-xl text-muted-foreground leading-relaxed mb-6">
+            Explore {projects.length} proven automation projects that have transformed businesses across industries. 
+            From AI-powered insights to seamless workflow integrations.
           </p>
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4" />
+              <span>1-6 month delivery</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Star className="w-4 h-4" />
+              <span>Enterprise-grade solutions</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <TrendingUp className="w-4 h-4" />
+              <span>Proven ROI results</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Filter Section */}
-      <section className="py-6 px-6">
+      {/* Search and Filter Section */}
+      <section className="sticky top-0 z-40 py-6 px-6 bg-background/95 backdrop-blur-sm border-b border-border/50">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap justify-center gap-4 mb-12 fade-in-delay">
+          {/* Search and Sort Controls */}
+          <div className="flex flex-col md:flex-row gap-4 mb-6">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                placeholder="Search projects by name, description, or tags..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10"
+              />
+            </div>
+            <div className="w-full md:w-48">
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Sort by..." />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="title">Title A-Z</SelectItem>
+                  <SelectItem value="category">Category</SelectItem>
+                  <SelectItem value="complexity">Complexity</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap justify-center gap-4 fade-in-delay">
             {filters.map((filter) => (
               <Button
                 key={filter}
@@ -190,9 +277,15 @@ const Projects = () => {
                     : "hover:bg-accent/10 hover:text-accent hover:border-accent"
                 }`}
               >
-                {filter}
+                {filter} ({getFilterCount(filter)})
               </Button>
             ))}
+          </div>
+
+          {/* Results Counter */}
+          <div className="text-center mt-4 text-sm text-muted-foreground">
+            Showing {filteredProjects.length} of {projects.length} projects
+            {searchQuery && ` matching "${searchQuery}"`}
           </div>
         </div>
       </section>
@@ -200,38 +293,182 @@ const Projects = () => {
       {/* Projects Grid */}
       <section className="pt-6 pb-12 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in-delay-2">
-            {filteredProjects.map((project) => (
-              <Card key={project.id} className="card-gradient border-border/50 glow-on-hover group">
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                      <project.icon className="w-6 h-6 text-accent" />
-                    </div>
-                    <Badge variant="secondary" className="text-xs">
-                      {project.category}
-                    </Badge>
-                  </div>
+          {filteredProjects.length === 0 ? (
+            <div className="text-center py-12">
+              <Search className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-primary mb-2">No projects found</h3>
+              <p className="text-muted-foreground">
+                Try adjusting your search terms or filters to find what you're looking for.
+              </p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in-delay-2">
+              {filteredProjects.map((project) => (
+                <Sheet key={project.id}>
+                  <SheetTrigger asChild>
+                    <Card className="card-gradient border-border/50 glow-on-hover group cursor-pointer transition-all hover:scale-[1.02]">
+                      <CardContent className="p-6">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                            <project.icon className="w-6 h-6 text-accent" />
+                          </div>
+                          <Badge variant="secondary" className="text-xs">
+                            {project.category}
+                          </Badge>
+                        </div>
 
-                  <h3 className="text-xl font-semibold text-primary mb-3">{project.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{project.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                        <h3 className="text-xl font-semibold text-primary mb-3">{project.title}</h3>
+                        <p className="text-muted-foreground leading-relaxed mb-4">{project.description}</p>
+                        
+                        {/* Project Metrics */}
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {project.duration && (
+                            <Badge variant="outline" className="text-xs">
+                              <Clock className="w-3 h-3 mr-1" />
+                              {project.duration}
+                            </Badge>
+                          )}
+                          {project.complexity && (
+                            <Badge variant="outline" className={`text-xs ${
+                              project.complexity === "High" ? "border-red-200 text-red-700" :
+                              project.complexity === "Medium" ? "border-yellow-200 text-yellow-700" :
+                              "border-green-200 text-green-700"
+                            }`}>
+                              {project.complexity}
+                            </Badge>
+                          )}
+                          {project.savings && (
+                            <Badge variant="outline" className="text-xs text-green-700 border-green-200">
+                              <TrendingUp className="w-3 h-3 mr-1" />
+                              {project.savings}
+                            </Badge>
+                          )}
+                        </div>
+
+                        <div className="flex items-center text-sm text-muted-foreground group-hover:text-accent transition-colors">
+                          <Eye className="w-4 h-4 mr-2" />
+                          Click to view details
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </SheetTrigger>
+                  
+                  <SheetContent className="w-full sm:max-w-2xl overflow-y-auto">
+                    <SheetHeader className="mb-6">
+                      <div className="flex items-start gap-4">
+                        <div className="w-16 h-16 bg-accent/10 rounded-lg flex items-center justify-center">
+                          <project.icon className="w-8 h-8 text-accent" />
+                        </div>
+                        <div className="flex-1">
+                          <SheetTitle className="text-2xl text-primary mb-2">{project.title}</SheetTitle>
+                          <Badge variant="secondary" className="mb-4">
+                            {project.category}
+                          </Badge>
+                        </div>
+                      </div>
+                    </SheetHeader>
+                    
+                    <div className="space-y-6">
+                      {/* Project Metrics Grid */}
+                      <div className="grid grid-cols-2 gap-4">
+                        {project.duration && (
+                          <div className="bg-muted/20 rounded-lg p-4">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Clock className="w-4 h-4 text-accent" />
+                              <span className="font-medium">Duration</span>
+                            </div>
+                            <p className="text-sm text-muted-foreground">{project.duration}</p>
+                          </div>
+                        )}
+                        {project.complexity && (
+                          <div className="bg-muted/20 rounded-lg p-4">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Settings className="w-4 h-4 text-accent" />
+                              <span className="font-medium">Complexity</span>
+                            </div>
+                            <p className="text-sm text-muted-foreground">{project.complexity}</p>
+                          </div>
+                        )}
+                        {project.savings && (
+                          <div className="bg-muted/20 rounded-lg p-4 col-span-2">
+                            <div className="flex items-center gap-2 mb-2">
+                              <TrendingUp className="w-4 h-4 text-green-600" />
+                              <span className="font-medium">Expected Savings</span>
+                            </div>
+                            <p className="text-sm text-muted-foreground">{project.savings}</p>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Full Description */}
+                      <div>
+                        <h4 className="font-semibold text-primary mb-3">Project Details</h4>
+                        <SheetDescription className="text-base leading-relaxed">
+                          {project.fullDescription || project.description}
+                        </SheetDescription>
+                      </div>
+
+                      {/* Tags */}
+                      {project.tags && (
+                        <div>
+                          <h4 className="font-semibold text-primary mb-3">Technologies & Skills</h4>
+                          <div className="flex flex-wrap gap-2">
+                            {project.tags.map((tag, index) => (
+                              <Badge key={index} variant="outline" className="text-xs">
+                                {tag}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* CTA */}
+                      <div className="pt-4 border-t">
+                        <Button className="w-full bg-accent hover:bg-accent/90 text-white">
+                          Discuss This Project
+                        </Button>
+                      </div>
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              ))}
+            </div>
+          )}
         </div>
       </section>
+
+      {/* Sticky Bottom CTA */}
+      <div className="sticky bottom-4 z-50 px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-accent/10 backdrop-blur-sm border border-accent/20 rounded-xl p-4 shadow-lg">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="text-center sm:text-left">
+                <h3 className="font-semibold text-primary">Ready to Transform Your Business?</h3>
+                <p className="text-sm text-muted-foreground">Let's discuss your automation needs</p>
+              </div>
+              <Button className="bg-accent hover:bg-accent/90 text-white px-6">
+                Start Your Project
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* CTA Section */}
       <section className="py-20 px-6 bg-gradient-to-t from-muted/20 to-background">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-primary mb-6">Ready to Start Your Project?</h2>
           <p className="text-xl text-muted-foreground mb-8">
-            Let's discuss how we can help transform your business processes
+            Let's discuss how we can help transform your business processes with proven automation solutions
           </p>
-          <Button size="lg" className="glow-on-hover bg-accent hover:bg-accent/90 text-white px-8 py-4">
-            Get In Touch
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="glow-on-hover bg-accent hover:bg-accent/90 text-white px-8 py-4">
+              Get In Touch
+            </Button>
+            <Button size="lg" variant="outline" className="px-8 py-4">
+              View Case Studies
+            </Button>
+          </div>
         </div>
       </section>
     </div>
