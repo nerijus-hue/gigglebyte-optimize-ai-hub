@@ -161,7 +161,7 @@ const Home = () => {
       <section className="py-20 px-6 bg-muted/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 fade-in-delay">
-            <h2 className="text-4xl font-bold text-primary mb-6">Target Audience</h2>
+            <h2 className="text-4xl font-bold text-primary mb-6">How we can help you</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Discover how our solutions can transform your specific business challenges
             </p>
@@ -180,12 +180,12 @@ const Home = () => {
                     {allExpanded ? (
                       <>
                         <ChevronUp className="w-3 h-3 mr-1" />
-                        Collapse All Benefits
+                        Hide All Key Benefits
                       </>
                     ) : (
                       <>
                         <ChevronDown className="w-3 h-3 mr-1" />
-                        Expand All Benefits
+                        See All Key Benefits
                       </>
                     )}
                   </Button>
