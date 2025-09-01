@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Settings, Bot, Brain, TrendingUp, DollarSign, BarChart3, Shield, CheckCircle, Zap, Clock, Target } from "lucide-react";
+import { Settings, Bot, Brain, TrendingUp, DollarSign, BarChart3, Shield, CheckCircle, Zap, Clock, Target, ChevronDown, ChevronUp } from "lucide-react";
 
 const Home = () => {
+  const [allExpanded, setAllExpanded] = useState(false);
+
+  const toggleAllBenefits = () => {
+    setAllExpanded(!allExpanded);
+  };
   const services = [
     {
       icon: Settings,
@@ -163,31 +169,59 @@ const Home = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in-delay-2">
             {targetAudiences.map((audience, index) => (
-              <Card key={index} className="card-gradient border-border/50 glow-on-hover">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-primary mb-3">{audience.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                    {audience.description}
-                  </p>
-                  <Accordion type="single" collapsible className="w-full">
-                    <AccordionItem value="benefits" className="border-none">
-                      <AccordionTrigger className="text-sm font-medium text-accent hover:text-accent/80 py-2">
-                        View Key Benefits
-                      </AccordionTrigger>
-                      <AccordionContent className="pt-2">
-                        <ul className="space-y-2">
-                          {audience.benefits.map((benefit, benefitIndex) => (
-                            <li key={benefitIndex} className="flex items-center gap-2 text-sm text-muted-foreground">
-                              <benefit.icon className="w-4 h-4 text-accent flex-shrink-0" />
-                              <span>{benefit.text}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
-                </CardContent>
-              </Card>
+              <>
+                {index === 2 && (
+                  <div key="expand-button" className="col-span-full flex justify-center mb-4">
+                    <Button 
+                      onClick={toggleAllBenefits}
+                      variant="outline"
+                      className="text-sm font-medium border-accent text-accent hover:bg-accent hover:text-white"
+                    >
+                      {allExpanded ? (
+                        <>
+                          <ChevronUp className="w-4 h-4 mr-2" />
+                          Collapse All Benefits
+                        </>
+                      ) : (
+                        <>
+                          <ChevronDown className="w-4 h-4 mr-2" />
+                          Expand All Benefits
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                )}
+                <Card key={index} className="card-gradient border-border/50 glow-on-hover">
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-semibold text-primary mb-3">{audience.title}</h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                      {audience.description}
+                    </p>
+                    <Accordion 
+                      type="single" 
+                      collapsible 
+                      className="w-full"
+                      value={allExpanded ? "benefits" : undefined}
+                    >
+                      <AccordionItem value="benefits" className="border-none">
+                        <AccordionTrigger className="text-sm font-medium text-accent hover:text-accent/80 py-2">
+                          View Key Benefits
+                        </AccordionTrigger>
+                        <AccordionContent className="pt-2">
+                          <ul className="space-y-2">
+                            {audience.benefits.map((benefit, benefitIndex) => (
+                              <li key={benefitIndex} className="flex items-center gap-2 text-sm text-muted-foreground">
+                                <benefit.icon className="w-4 h-4 text-accent flex-shrink-0" />
+                                <span>{benefit.text}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                  </CardContent>
+                </Card>
+              </>
             ))}
           </div>
         </div>
