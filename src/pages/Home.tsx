@@ -170,7 +170,7 @@ const Home = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in-delay-2">
             {targetAudiences.map((audience, index) => (
               <div key={index} className="space-y-2">
-                {index === 2 && (
+                {index === 2 ? (
                   <div className="flex justify-end">
                     <Button 
                       onClick={toggleAllBenefits}
@@ -191,6 +191,8 @@ const Home = () => {
                       )}
                     </Button>
                   </div>
+                ) : (
+                  <div className="h-8"></div>
                 )}
                 <Card className="card-gradient border-border/50 glow-on-hover h-full">
                   <CardContent className="p-6">
