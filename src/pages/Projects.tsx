@@ -332,7 +332,7 @@ const Projects = () => {
       </section>
 
       {/* Sticky Bottom CTA */}
-      <div className="sticky bottom-4 z-50 px-6">
+      <div className="sticky bottom-20 z-50 px-6 mb-8">
         <div className="max-w-4xl mx-auto">
           <div className="bg-accent/10 backdrop-blur-sm border border-accent/20 rounded-xl p-4 shadow-lg">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
