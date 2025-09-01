@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Settings, Bot, Brain, TrendingUp, DollarSign, BarChart3, Shield, CheckCircle, Zap, Clock, Target, ChevronDown, ChevronUp } from "lucide-react";
+import { Settings, Bot, Brain, TrendingUp, DollarSign, BarChart3, Shield, CheckCircle, Zap, Clock, Target, ChevronDown, ChevronUp, Users } from "lucide-react";
 
 const Home = () => {
   const [allExpanded, setAllExpanded] = useState(false);
@@ -12,6 +12,11 @@ const Home = () => {
     setAllExpanded(!allExpanded);
   };
   const services = [
+    {
+      icon: Users,
+      title: "CRM Implementation",
+      description: "Build your business backbone with CRM and integrated automations."
+    },
     {
       icon: Settings,
       title: "Business Process Optimization",
@@ -236,7 +241,7 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 fade-in-delay-2">
+          <div className="grid md:grid-cols-4 gap-8 fade-in-delay-2">
             {services.map((service, index) => (
               <Card key={index} className="card-gradient border-border/50 glow-on-hover group">
                 <CardContent className="p-8 text-center">
