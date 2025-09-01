@@ -2,18 +2,10 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { TrendingUp, Bot, Brain, Settings, Users, FileText, Bell, HardDrive, Mail, Zap, BarChart3, GitBranch, ShoppingCart, Dumbbell, Bug, Activity, Search, TrendingDown, Clock, Star, Eye } from "lucide-react";
 
 const Projects = () => {
-  const [activeFilter, setActiveFilter] = useState("All");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState("title");
-  const [selectedProject, setSelectedProject] = useState(null);
-
-  const filters = ["All", "Optimization", "Automation", "AI Integration"];
 
   const projects = [
     {
@@ -175,40 +167,6 @@ const Projects = () => {
     }
   ];
 
-  // Filter and search logic
-  let filteredProjects = activeFilter === "All" 
-    ? projects 
-    : projects.filter(project => project.category === activeFilter);
-
-  if (searchQuery) {
-    filteredProjects = filteredProjects.filter(project =>
-      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (project.tags && project.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())))
-    );
-  }
-
-  // Sort logic
-  filteredProjects.sort((a, b) => {
-    switch (sortBy) {
-      case "title":
-        return a.title.localeCompare(b.title);
-      case "category":
-        return a.category.localeCompare(b.category);
-      case "complexity":
-        const complexityOrder = { "Low": 1, "Medium": 2, "High": 3 };
-        return (complexityOrder[a.complexity] || 2) - (complexityOrder[b.complexity] || 2);
-      default:
-        return 0;
-    }
-  });
-
-  // Get filter counts
-  const getFilterCount = (filter) => {
-    if (filter === "All") return projects.length;
-    return projects.filter(project => project.category === filter).length;
-  };
-
   return (
     <div className="min-h-screen pt-8">
       {/* Hero Section */}
@@ -236,74 +194,11 @@ const Projects = () => {
         </div>
       </section>
 
-      {/* Search and Filter Section */}
-      <section className="sticky top-0 z-40 py-6 px-6 bg-background/95 backdrop-blur-sm border-b border-border/50">
-        <div className="max-w-7xl mx-auto">
-          {/* Search and Sort Controls */}
-          <div className="flex flex-col md:flex-row gap-4 mb-6">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                placeholder="Search projects by name, description, or tags..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10"
-              />
-            </div>
-            <div className="w-full md:w-48">
-              <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Sort by..." />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="title">Title A-Z</SelectItem>
-                  <SelectItem value="category">Category</SelectItem>
-                  <SelectItem value="complexity">Complexity</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          {/* Filter Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 fade-in-delay">
-            {filters.map((filter) => (
-              <Button
-                key={filter}
-                variant={activeFilter === filter ? "default" : "outline"}
-                onClick={() => setActiveFilter(filter)}
-                className={`glow-on-hover ${
-                  activeFilter === filter 
-                    ? "bg-accent hover:bg-accent/90 text-white" 
-                    : "hover:bg-accent/10 hover:text-accent hover:border-accent"
-                }`}
-              >
-                {filter} ({getFilterCount(filter)})
-              </Button>
-            ))}
-          </div>
-
-          {/* Results Counter */}
-          <div className="text-center mt-4 text-sm text-muted-foreground">
-            Showing {filteredProjects.length} of {projects.length} projects
-            {searchQuery && ` matching "${searchQuery}"`}
-          </div>
-        </div>
-      </section>
-
       {/* Projects Grid */}
       <section className="pt-6 pb-12 px-6">
         <div className="max-w-7xl mx-auto">
-          {filteredProjects.length === 0 ? (
-            <div className="text-center py-12">
-              <Search className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-primary mb-2">No projects found</h3>
-              <p className="text-muted-foreground">
-                Try adjusting your search terms or filters to find what you're looking for.
-              </p>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in-delay-2">
-              {filteredProjects.map((project) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in-delay-2">
+            {projects.map((project) => (
                 <Sheet key={project.id}>
                   <SheetTrigger asChild>
                     <Card className="card-gradient border-border/50 glow-on-hover group cursor-pointer transition-all hover:scale-[1.02]">
@@ -433,7 +328,6 @@ const Projects = () => {
                 </Sheet>
               ))}
             </div>
-          )}
         </div>
       </section>
 
