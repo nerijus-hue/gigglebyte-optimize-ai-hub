@@ -30,9 +30,9 @@ const Footer = () => {
               aria-label="X (formerly Twitter)"
             >
               <img 
-                src="/lovable-uploads/735c7c67-c5c6-4812-9923-01d8cc7eaed4.png" 
+                src="/lovable-uploads/2acf1ee5-357e-44b4-8f96-0f0026777632.png" 
                 alt="X (formerly Twitter)" 
-                className="w-5 h-5"
+                className="w-5 h-5 object-contain"
               />
             </a>
           </div>
