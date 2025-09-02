@@ -363,7 +363,7 @@ const Projects = () => {
           <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4" />
-              <span>1-6 month delivery</span>
+              <span>Fast delivery</span>
             </div>
             <div className="flex items-center gap-2">
               <Star className="w-4 h-4" />
