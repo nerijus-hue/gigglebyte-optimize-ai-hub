@@ -13,13 +13,15 @@ const Footer = () => {
 
           {/* Social Media Links */}
           <div className="flex items-center space-x-4">
-            <Link 
-              to="#" 
+            <a 
+              href="https://www.linkedin.com/company/108490342/" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-muted-foreground hover:text-accent transition-colors glow-on-hover p-2 rounded-full"
               aria-label="LinkedIn"
             >
               <Linkedin size={20} />
-            </Link>
+            </a>
             <Link 
               to="#" 
               className="text-muted-foreground hover:text-accent transition-colors glow-on-hover p-2 rounded-full"
