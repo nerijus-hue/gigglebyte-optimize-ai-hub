@@ -16,6 +16,7 @@ const Projects = () => {
       benefit: "Cut research time by 60%, improve accuracy by 40%—empowering mid-to-large enterprises to make data-driven decisions faster.",
       category: "AI Integration",
       icon: Search,
+      timeSavings: "20 hrs/week",
     },
     {
       id: 2,
@@ -25,6 +26,7 @@ const Projects = () => {
       benefit: "Boost lead conversion by 35%, save 15 hours/week on data management—ideal for e-commerce businesses scaling customer relationships.",
       category: "Automation",
       icon: Users,
+      timeSavings: "15 hrs/week",
     },
     {
       id: 3,
@@ -34,6 +36,7 @@ const Projects = () => {
       benefit: "Save 10+ hours/week on entry tasks, boost conversion rates by 30%—ideal for SMBs scaling sales without extra staff.",
       category: "Automation",
       icon: Users,
+      timeSavings: "10 hrs/week",
     },
     {
       id: 4,
@@ -43,6 +46,7 @@ const Projects = () => {
       benefit: "Save 25 hours/week on review time, increase follow-up efficiency by 40%—ideal for professional services firms turning calls into quick wins.",
       category: "AI Integration",
       icon: Bot,
+      timeSavings: "25 hrs/week",
     },
     {
       id: 5,
@@ -52,6 +56,7 @@ const Projects = () => {
       benefit: "Eliminate coding needs for 80% of queries, speed up insights by 50%—empowering SMBs and business owners to query data effortlessly and drive informed growth.",
       category: "AI Integration",
       icon: BarChart3,
+      timeSavings: "12 hrs/week",
     },
     {
       id: 6,
@@ -61,6 +66,7 @@ const Projects = () => {
       benefit: "Cut content creation time by 50%, enhance engagement by 35%—perfect for tech SaaS companies accelerating product launches.",
       category: "AI Integration",
       icon: Brain,
+      timeSavings: "16 hrs/week",
     },
     {
       id: 7,
@@ -70,6 +76,7 @@ const Projects = () => {
       benefit: "Boost retention by 25%, add €2K/month in recurring revenue—empowering fitness businesses to thrive beyond peak seasons.",
       category: "Automation",
       icon: Dumbbell,
+      timeSavings: "8 hrs/week",
     },
     {
       id: 8,
@@ -79,6 +86,7 @@ const Projects = () => {
       benefit: "Improve billing accuracy by 20%, free up 15 hours/week for client work—driving higher satisfaction and referrals.",
       category: "Optimization",
       icon: Activity,
+      timeSavings: "15 hrs/week",
     },
     {
       id: 9,
@@ -88,6 +96,7 @@ const Projects = () => {
       benefit: "Resolve issues 30% faster, reduce downtime costs by €10K/year—scaling tech companies with seamless reliability.",
       category: "Automation",
       icon: Bug,
+      timeSavings: "10 hrs/week",
     },
     {
       id: 10,
@@ -97,6 +106,7 @@ const Projects = () => {
       benefit: "Cut errors by 45%, save 20 hours/week on audits—ensuring operations-heavy businesses maintain financial resilience.",
       category: "Automation",
       icon: FileText,
+      timeSavings: "20 hrs/week",
     },
     {
       id: 11,
@@ -106,6 +116,7 @@ const Projects = () => {
       benefit: "Gain insights in minutes, improve pricing strategies by 20%—staying ahead in competitive retail landscapes.",
       category: "AI Integration",
       icon: Search,
+      timeSavings: "18 hrs/week",
     },
     {
       id: 12,
@@ -115,6 +126,7 @@ const Projects = () => {
       benefit: "Increase member satisfaction by 30%, reduce drop-offs by 40%—fostering long-term loyalty in fitness industries.",
       category: "AI Integration",
       icon: Dumbbell,
+      timeSavings: "12 hrs/week",
     },
     {
       id: 13,
@@ -124,6 +136,7 @@ const Projects = () => {
       benefit: "Lower inventory costs by €15K/year, cut delays by 35%—enabling mid-to-large enterprises to achieve operational excellence.",
       category: "Optimization",
       icon: Settings,
+      timeSavings: "22 hrs/week",
     },
     {
       id: 14,
@@ -133,6 +146,7 @@ const Projects = () => {
       benefit: "Increase reach by 40%, save 8 hours/week on management—empowering professional services firms to maintain a strong online presence effortlessly.",
       category: "AI Integration",
       icon: TrendingUp,
+      timeSavings: "8 hrs/week",
     },
     {
       id: 15,
@@ -142,6 +156,7 @@ const Projects = () => {
       benefit: "Shorten onboarding by 50%, reduce errors by 35%—ideal for mid-to-large businesses scaling teams with minimal HR overhead.",
       category: "Automation",
       icon: Users,
+      timeSavings: "14 hrs/week",
     },
     {
       id: 16,
@@ -151,6 +166,7 @@ const Projects = () => {
       benefit: "Boost satisfaction scores by 25%, prevent churn saving €3K/month—transforming e-commerce feedback into actionable growth.",
       category: "AI Integration",
       icon: Brain,
+      timeSavings: "6 hrs/week",
     },
     {
       id: 17,
@@ -160,6 +176,7 @@ const Projects = () => {
       benefit: "Cut admin time by 60%, increase attendance by 30%—helping fitness gyms host successful classes without the hassle.",
       category: "Automation",
       icon: Users,
+      timeSavings: "18 hrs/week",
     },
     {
       id: 18,
@@ -169,6 +186,7 @@ const Projects = () => {
       benefit: "Accelerate closures by 40%, minimize legal errors saving €8K/year—streamlining professional services for faster revenue.",
       category: "Automation",
       icon: FileText,
+      timeSavings: "12 hrs/week",
     },
     {
       id: 19,
@@ -178,6 +196,7 @@ const Projects = () => {
       benefit: "Lift engagement by 30%, drive 20% more conversions—helping startups build customer loyalty without big budgets.",
       category: "AI Integration",
       icon: Mail,
+      timeSavings: "10 hrs/week",
     },
     {
       id: 20,
@@ -187,6 +206,7 @@ const Projects = () => {
       benefit: "Increase forecast accuracy by 40%, avoid €10K in losses—empowering finance businesses to navigate uncertainty proactively.",
       category: "AI Integration",
       icon: BarChart3,
+      timeSavings: "16 hrs/week",
     },
     {
       id: 21,
@@ -196,6 +216,7 @@ const Projects = () => {
       benefit: "Decrease response time by 45%, cut support costs by 30%—enhancing user satisfaction for tech companies.",
       category: "AI Integration",
       icon: Bot,
+      timeSavings: "25 hrs/week",
     },
     {
       id: 22,
@@ -205,6 +226,7 @@ const Projects = () => {
       benefit: "Save 20 hours/month on reporting, improve accuracy by 35%—enabling professional services firms to focus on analysis.",
       category: "Automation",
       icon: FileText,
+      timeSavings: "5 hrs/week",
     },
     {
       id: 23,
@@ -214,6 +236,7 @@ const Projects = () => {
       benefit: "Increase open rates by 25%, save 10 hours/week—helping SMBs nurture leads with consistent, engaging content.",
       category: "Automation",
       icon: Mail,
+      timeSavings: "10 hrs/week",
     },
     {
       id: 24,
@@ -223,6 +246,7 @@ const Projects = () => {
       benefit: "Cut audit errors by 50%, ensure GDPR compliance saving €5K in fines—securing operations for Irish businesses.",
       category: "Automation",
       icon: Settings,
+      timeSavings: "15 hrs/week",
     },
     {
       id: 25,
@@ -232,6 +256,7 @@ const Projects = () => {
       benefit: "Reduce churn by 30%, grow users by 20%—driving sustainable revenue for tech and SaaS companies.",
       category: "AI Integration",
       icon: Activity,
+      timeSavings: "8 hrs/week",
     },
     {
       id: 26,
@@ -241,6 +266,7 @@ const Projects = () => {
       benefit: "Accelerate payments by 40%, minimize errors saving €3K/month—streamlining cash flow for professional services.",
       category: "Automation",
       icon: FileText,
+      timeSavings: "12 hrs/week",
     },
     {
       id: 27,
@@ -250,6 +276,7 @@ const Projects = () => {
       benefit: "Reduce fraud losses by 45%, save €8K/year in investigations—securing operations for finance-heavy businesses.",
       category: "AI Integration",
       icon: Settings,
+      timeSavings: "20 hrs/week",
     },
     {
       id: 28,
@@ -259,6 +286,7 @@ const Projects = () => {
       benefit: "Cut moderation time by 55%, improve community safety by 30%—enhancing user trust for tech and SaaS companies.",
       category: "AI Integration",
       icon: Bot,
+      timeSavings: "22 hrs/week",
     },
     {
       id: 29,
@@ -268,6 +296,7 @@ const Projects = () => {
       benefit: "Boost employee satisfaction by 25%, reduce turnover costs by €5K/month—fostering better HR in mid-to-large organizations.",
       category: "Automation",
       icon: Users,
+      timeSavings: "6 hrs/week",
     },
     {
       id: 30,
@@ -277,6 +306,7 @@ const Projects = () => {
       benefit: "Increase organic traffic by 35%, save 12 hours/week—driving visibility and sales for retail businesses.",
       category: "AI Integration",
       icon: Search,
+      timeSavings: "12 hrs/week",
     },
     {
       id: 31,
@@ -286,6 +316,7 @@ const Projects = () => {
       benefit: "Improve supplier reliability by 40%, cut delays saving €6K/year—optimizing ops for manufacturing enterprises.",
       category: "Optimization",
       icon: TrendingUp,
+      timeSavings: "8 hrs/week",
     },
     {
       id: 32,
@@ -295,6 +326,7 @@ const Projects = () => {
       benefit: "Raise engagement by 30%, reduce drop-offs by 45%—enhancing outcomes for fitness and wellness businesses.",
       category: "AI Integration",
       icon: Brain,
+      timeSavings: "10 hrs/week",
     },
     {
       id: 33,
@@ -304,6 +336,7 @@ const Projects = () => {
       benefit: "Accelerate strategy adjustments by 50%, gain 20% competitive edge—empowering SMBs with proactive intelligence.",
       category: "Optimization",
       icon: TrendingUp,
+      timeSavings: "14 hrs/week",
     },
     {
       id: 34,
@@ -313,6 +346,7 @@ const Projects = () => {
       benefit: "Minimize asset downtime by 35%, save €4K/year in replacements—streamlining operations for fitness centers.",
       category: "Optimization",
       icon: Settings,
+      timeSavings: "7 hrs/week",
     }
   ];
 
@@ -373,10 +407,10 @@ const Projects = () => {
                           </div>
                         </div>
                         
-                        <div className="flex items-center text-sm text-muted-foreground group-hover:text-accent transition-colors">
-                          <Eye className="w-4 h-4 mr-2" />
-                          Click to view details
-                        </div>
+        <div className="flex items-center text-sm text-accent font-medium">
+          <Clock className="w-4 h-4 mr-2" />
+          Saves {project.timeSavings}
+        </div>
                       </CardContent>
                     </Card>
                   </SheetTrigger>
