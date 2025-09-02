@@ -409,7 +409,7 @@ const Projects = () => {
                         
         <div className="flex items-center text-sm text-accent font-medium">
           <Clock className="w-4 h-4 mr-2" />
-          Saves {project.timeSavings}
+          Saves {project.timeSavings} on average
         </div>
                       </CardContent>
                     </Card>
