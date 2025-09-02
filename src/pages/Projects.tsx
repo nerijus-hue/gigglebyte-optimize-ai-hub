@@ -89,16 +89,6 @@ const Projects = () => {
       timeSavings: "15 hrs/week",
     },
     {
-      id: 9,
-      title: "Bug Reporting and Triage",
-      before: "Overwhelmed devs sorting bugs manually in SaaS teams.",
-      after: "Automated ticket creation from feedback, prioritizing and notifying via Slack.",
-      benefit: "Resolve issues 30% faster, reduce downtime costs by €10K/year—scaling tech companies with seamless reliability.",
-      category: "Automation",
-      icon: Bug,
-      timeSavings: "10 hrs/week",
-    },
-    {
       id: 10,
       title: "Expense Approval Workflow",
       before: "Compliance risks from slow, error-prone finance approvals.",
