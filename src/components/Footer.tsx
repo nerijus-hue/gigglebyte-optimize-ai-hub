@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import { Linkedin } from "lucide-react";
-import xLogo from "../assets/x-logo.png";
+import { Linkedin, X } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -30,7 +29,7 @@ const Footer = () => {
               className="text-muted-foreground hover:text-accent transition-colors glow-on-hover p-2 rounded-full"
               aria-label="X (formerly Twitter)"
             >
-              <img src={xLogo} alt="X" className="w-5 h-5" />
+              <X size={20} />
             </a>
           </div>
         </div>
