@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Linkedin } from "lucide-react";
+import { Linkedin, Twitter } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -22,19 +22,13 @@ const Footer = () => {
             >
               <Linkedin size={20} />
             </a>
-            <a 
-              href="https://x.com/gigglebyteltd" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:opacity-70 transition-opacity glow-on-hover p-2 rounded-full"
-              aria-label="X (formerly Twitter)"
+            <Link 
+              to="#" 
+              className="text-muted-foreground hover:text-accent transition-colors glow-on-hover p-2 rounded-full"
+              aria-label="Twitter"
             >
-              <img 
-                src="/lovable-uploads/2acf1ee5-357e-44b4-8f96-0f0026777632.png" 
-                alt="X (formerly Twitter)" 
-                className="w-5 h-5 object-contain"
-              />
-            </a>
+              <Twitter size={20} />
+            </Link>
           </div>
         </div>
       </div>
