@@ -10,160 +10,309 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "AI-Powered Predictive Maintenance",
-      description: "Deploy AI agents to monitor equipment logs from IoT devices, predict failures based on patterns, and trigger maintenance tickets—minimizing downtime in large-scale operations.",
-      fullDescription: "This comprehensive solution leverages machine learning algorithms to analyze historical equipment data, sensor readings, and maintenance logs. The AI agents continuously monitor IoT device outputs, identifying subtle patterns that indicate potential failures weeks before they occur. When anomalies are detected, the system automatically generates maintenance tickets with detailed recommendations, priority levels, and suggested repair windows. This proactive approach has helped manufacturing companies reduce unexpected downtime by up to 85% while extending equipment lifespan by 20-30%.",
+      title: "RAG Implementation for Knowledge Retrieval",
+      before: "Scattered data across documents leading to slow searches and missed insights in enterprises.",
+      after: "AI agents retrieve and augment queries from databases or PDFs, generating precise responses.",
+      benefit: "Cut research time by 60%, improve accuracy by 40%—empowering mid-to-large enterprises to make data-driven decisions faster.",
       category: "AI Integration",
-      icon: Settings,
-      duration: "2-3 months",
-      complexity: "High",
-      savings: "$50K-200K/year",
-      tags: ["IoT", "Machine Learning", "Predictive Analytics", "Manufacturing"]
+      icon: Search,
     },
     {
       id: 2,
-      title: "Website Scraping for Market Intelligence",
-      description: "Scrape competitor sites for data like pricing or reviews, store it in databases, and integrate AI agents to analyze trends and send team alerts—keeping e-commerce businesses ahead with real-time insights.",
-      fullDescription: "Our intelligent web scraping solution automatically monitors competitor websites, extracting pricing data, product information, customer reviews, and promotional offers. The system uses advanced anti-detection techniques to ensure reliable data collection while respecting rate limits. AI agents analyze the collected data to identify pricing trends, market opportunities, and competitive threats. Automated alerts notify your team of significant changes, while comprehensive dashboards provide actionable insights for strategic decision-making.",
-      category: "AI Integration",
-      icon: Search,
-      duration: "1-2 months",
-      complexity: "Medium",
-      savings: "$25K-75K/year",
-      tags: ["Web Scraping", "Market Research", "Competitive Analysis", "AI Analytics"]
+      title: "CRM Implementation and Sync",
+      before: "Fragmented customer data causing lost sales and inefficient follow-ups in SMBs.",
+      after: "Automated CRM setup syncs contacts from emails/forms and triggers personalized workflows, integrating with accounting, support, and inventory systems for a 360 view of your business.",
+      benefit: "Boost lead conversion by 35%, save 15 hours/week on data management—ideal for e-commerce businesses scaling customer relationships.",
+      category: "Automation",
+      icon: Users,
     },
     {
       id: 3,
-      title: "File Backup and Sync",
-      description: "Automatically back up files from cloud storage like Google Drive to another service, with versioning to ensure data security and easy recovery.",
+      title: "Lead Capture and CRM Integration",
+      before: "Manually entering leads from forms, risking lost opportunities and hours of data drudgery.",
+      after: "Seamless workflow pulls leads automatically and syncs to your CRM.",
+      benefit: "Save 10+ hours/week on entry tasks, boost conversion rates by 30%—ideal for SMBs scaling sales without extra staff.",
       category: "Automation",
-      icon: HardDrive
+      icon: Users,
     },
     {
       id: 4,
-      title: "Multi-Channel Order Fulfillment",
-      description: "Sync orders from Shopify or Amazon to warehouse systems, automate picking lists and shipping labels, and notify customers of status updates for seamless retail operations.",
-      category: "Automation",
-      icon: ShoppingCart
+      title: "AI Agent Phone Transcription Summarization",
+      before: "Lengthy call recordings overwhelming teams with unstructured data and missed follow-ups in sales ops.",
+      after: "AI agents read transcriptions from tools like Zoom, summarize key points, and generate actionable bullet points for tasks.",
+      benefit: "Save 25 hours/week on review time, increase follow-up efficiency by 40%—ideal for professional services firms turning calls into quick wins.",
+      category: "AI Integration",
+      icon: Bot,
     },
     {
       id: 5,
-      title: "Research and Data Aggregation Agent",
-      description: "Deploy an AI agent to search web sources for market trends, compile summaries, and integrate findings into your business intelligence dashboard.",
+      title: "Text-to-SQL Data Querying and Visualization",
+      before: "Technical barriers requiring SQL expertise to access and analyze data, slowing decisions for non-tech users.",
+      after: "Text-to-SQL tools convert natural language queries into database commands, visualizing results in charts or dashboards.",
+      benefit: "Eliminate coding needs for 80% of queries, speed up insights by 50%—empowering SMBs and business owners to query data effortlessly and drive informed growth.",
       category: "AI Integration",
-      icon: Brain
+      icon: BarChart3,
     },
     {
       id: 6,
-      title: "Inventory Alert System",
-      description: "Monitor stock levels in your warehouse software and send real-time notifications to team members when items fall below a threshold, preventing stockouts.",
-      category: "Automation",
-      icon: Bell
+      title: "AI-Powered Content Generation",
+      before: "Spending days drafting content manually, delaying marketing campaigns.",
+      after: "AI agents generate drafts from topic ideas, ready for review and posting.",
+      benefit: "Cut content creation time by 50%, enhance engagement by 35%—perfect for tech SaaS companies accelerating product launches.",
+      category: "AI Integration",
+      icon: Brain,
     },
     {
       id: 7,
-      title: "Competitor Benchmarking Dashboard Update",
-      description: "Automate API data aggregation for metrics like SEO rankings into dashboards like Google Sheets, with AI agents comparing performance and generating visual reports—helping tech companies optimize growth strategies.",
-      category: "Optimization",
-      icon: TrendingDown
+      title: "Member Retention Automation",
+      before: "High churn from forgotten gym members and manual follow-ups.",
+      after: "Automated monitoring of attendance and sending of re-engagement emails with AI-personalized incentives.",
+      benefit: "Boost retention by 25%, add €2K/month in recurring revenue—empowering fitness businesses to thrive beyond peak seasons.",
+      category: "Automation",
+      icon: Dumbbell,
     },
     {
       id: 8,
-      title: "AI-Driven Product Recommendation Engine",
-      description: "Use AI agents to analyze browsing history, generate personalized product suggestions, and push them via email or site pop-ups—increasing average order value for e-commerce sites.",
-      category: "AI Integration",
-      icon: Brain
+      title: "Client Project Tracking Pipeline",
+      before: "Chaotic milestone tracking causing delays in professional services.",
+      after: "Automated updates from tools like Asana, with reports and billing triggers.",
+      benefit: "Improve billing accuracy by 20%, free up 15 hours/week for client work—driving higher satisfaction and referrals.",
+      category: "Optimization",
+      icon: Activity,
     },
     {
       id: 9,
-      title: "Member Retention Automation",
-      description: "Monitor attendance data from gym software, send automated re-engagement emails for inactive members, and integrate with calendars for class reminders—improving retention in wellness centers.",
+      title: "Bug Reporting and Triage",
+      before: "Overwhelmed devs sorting bugs manually in SaaS teams.",
+      after: "Automated ticket creation from feedback, prioritizing and notifying via Slack.",
+      benefit: "Resolve issues 30% faster, reduce downtime costs by €10K/year—scaling tech companies with seamless reliability.",
       category: "Automation",
-      icon: Dumbbell
+      icon: Bug,
     },
     {
       id: 10,
-      title: "Lead Capture and CRM Integration",
-      description: "Automatically pull new leads from web forms or emails and sync them to your CRM system, ensuring no opportunities slip through the cracks and saving hours on manual data entry.",
+      title: "Expense Approval Workflow",
+      before: "Compliance risks from slow, error-prone finance approvals.",
+      after: "Automated routing of submissions for reviews, integration with payroll, and anomaly flagging.",
+      benefit: "Cut errors by 45%, save 20 hours/week on audits—ensuring operations-heavy businesses maintain financial resilience.",
       category: "Automation",
-      icon: Users
+      icon: FileText,
     },
     {
       id: 11,
-      title: "Budget Tracking and Alerts",
-      description: "Sync expense data from accounting apps like QuickBooks, monitor against budgets in real-time, and send executive summaries via Slack or email, helping SMB owners maintain financial control without dedicated finance staff.",
-      category: "Optimization",
-      icon: BarChart3
+      title: "Website Scraping for Market Intelligence",
+      before: "Hours wasted on manual competitor research in e-commerce.",
+      after: "Automated scraping of sites for pricing/reviews, with AI agents analyzing trends and alerting teams.",
+      benefit: "Gain insights in minutes, improve pricing strategies by 20%—staying ahead in competitive retail landscapes.",
+      category: "AI Integration",
+      icon: Search,
     },
     {
       id: 12,
-      title: "Bug Reporting and Triage",
-      description: "Automate ticket creation from user feedback forms, integrate with Jira for prioritization, and notify devs via Slack—speeding up issue resolution in SaaS development.",
-      category: "Automation",
-      icon: Bug
+      title: "AI-Personalized Wellness Plans",
+      before: "Generic programs leading to low engagement in wellness centers.",
+      after: "AI agents process client data to create custom plans delivered through apps.",
+      benefit: "Increase member satisfaction by 30%, reduce drop-offs by 40%—fostering long-term loyalty in fitness industries.",
+      category: "AI Integration",
+      icon: Dumbbell,
     },
     {
       id: 13,
-      title: "Cross-Department Data Synchronization",
-      description: "Integrate disparate systems (e.g., HR, finance, and ops) via n8n to sync updates in real-time, preventing data silos and enabling enterprise-wide visibility for strategic decision-making.",
+      title: "Supply Chain Optimization with AI",
+      before: "Delays and overstock from unpredictable ops in manufacturing.",
+      after: "AI agents analyze vendor data, forecast demand, and automate reorders.",
+      benefit: "Lower inventory costs by €15K/year, cut delays by 35%—enabling mid-to-large enterprises to achieve operational excellence.",
       category: "Optimization",
-      icon: GitBranch
+      icon: Settings,
     },
     {
       id: 14,
-      title: "AI-Powered Content Generation",
-      description: "Use AI agents to take topic ideas from a Trello board, generate draft blog posts or social media captions, and post them after human review.",
+      title: "Social Media Scheduling with AI",
+      before: "Inconsistent posting leading to low engagement and forgotten content calendars.",
+      after: "Automated posting across platforms, with AI suggesting optimal times and hashtags based on analytics.",
+      benefit: "Increase reach by 40%, save 8 hours/week on management—empowering professional services firms to maintain a strong online presence effortlessly.",
       category: "AI Integration",
-      icon: Brain
+      icon: TrendingUp,
     },
     {
       id: 15,
-      title: "Invoice Generation and Sending",
-      description: "When a sale closes in your e-commerce system, generate invoices from templates, attach them to emails, and send them to clients while updating your accounting software.",
+      title: "HR Onboarding Workflow",
+      before: "Tedious manual setup for new hires, causing delays and compliance risks in enterprises.",
+      after: "Automated document sending, account creation, and reminders integrated with HR tools.",
+      benefit: "Shorten onboarding by 50%, reduce errors by 35%—ideal for mid-to-large businesses scaling teams with minimal HR overhead.",
       category: "Automation",
-      icon: FileText
+      icon: Users,
     },
     {
       id: 16,
-      title: "API Monitoring and Alerts",
-      description: "Poll APIs for uptime, log errors, and trigger failover workflows—ensuring reliability for tech companies reliant on integrations.",
-      category: "Optimization",
-      icon: Activity
+      title: "Sentiment Analysis on Reviews",
+      before: "Overlooking customer feedback trends, missing opportunities to improve in retail.",
+      after: "AI agents scan reviews from sites like Google, analyze sentiment, and flag issues for follow-up.",
+      benefit: "Boost satisfaction scores by 25%, prevent churn saving €3K/month—transforming e-commerce feedback into actionable growth.",
+      category: "AI Integration",
+      icon: Brain,
     },
     {
       id: 17,
-      title: "HR Onboarding Workflow",
-      description: "When a new hire is added to your HR system, automate document sending, account creation in tools like email and Slack, and schedule orientation reminders.",
+      title: "Event Registration Management",
+      before: "Chaotic sign-ups and payments leading to overbookings in wellness events.",
+      after: "Automated handling of forms, calendar adds, confirmations, and gateway integrations for seamless processing.",
+      benefit: "Cut admin time by 60%, increase attendance by 30%—helping fitness gyms host successful classes without the hassle.",
       category: "Automation",
-      icon: Users
+      icon: Users,
     },
     {
       id: 18,
-      title: "Personalized Email Campaigns",
-      description: "Leverage AI agents to segment your email list based on user behavior, generate tailored content, and automate sending for higher engagement rates.",
-      category: "AI Integration",
-      icon: Mail
+      title: "Contract Review and Approval",
+      before: "Slow multi-level approvals delaying deals in consulting firms.",
+      after: "Automated routing of documents, tracking changes, and archiving signed versions with AI flagging risks.",
+      benefit: "Accelerate closures by 40%, minimize legal errors saving €8K/year—streamlining professional services for faster revenue.",
+      category: "Automation",
+      icon: FileText,
     },
     {
       id: 19,
-      title: "Customer Feedback Collection",
-      description: "After a purchase or service interaction, send automated surveys via email or SMS, collect responses, and store them in a database for easy analysis.",
-      category: "Automation",
-      icon: Mail
+      title: "Personalized Email Campaigns",
+      before: "Generic blasts yielding low open rates for SMB marketing.",
+      after: "AI segments lists by behavior, generates tailored content, and automates sending.",
+      benefit: "Lift engagement by 30%, drive 20% more conversions—helping startups build customer loyalty without big budgets.",
+      category: "AI Integration",
+      icon: Mail,
     },
     {
       id: 20,
-      title: "Abandoned Cart Recovery Chain",
-      description: "Track cart abandonments in e-commerce platforms, automate personalized reminder emails with dynamic discounts, and integrate with inventory to update stock—boosting recovery rates by 20-30% for online retailers.",
-      category: "Automation",
-      icon: ShoppingCart
+      title: "Financial Forecasting Agent",
+      before: "Manual trend predictions prone to errors in volatile markets.",
+      after: "Automated data pulls from accounting tools, AI model application, and weekly report visualization.",
+      benefit: "Increase forecast accuracy by 40%, avoid €10K in losses—empowering finance businesses to navigate uncertainty proactively.",
+      category: "AI Integration",
+      icon: BarChart3,
     },
     {
       id: 21,
-      title: "Expense Approval Workflow",
-      description: "Route employee submissions from apps like Expensify for manager approvals, integrate with payroll, and flag anomalies—enhancing compliance in finance operations.",
+      title: "Customer Support Chatbot Integration",
+      before: "Overloaded support teams handling routine queries slowly in SaaS.",
+      after: "AI agents route inquiries, resolve basics, and escalate complex ones with logs.",
+      benefit: "Decrease response time by 45%, cut support costs by 30%—enhancing user satisfaction for tech companies.",
+      category: "AI Integration",
+      icon: Bot,
+    },
+    {
+      id: 22,
+      title: "Report Generation Automation",
+      before: "Tedious manual compiling of reports wasting hours in finance.",
+      after: "Automated data pulls from multiple sources, dashboard formatting, and weekly email summaries.",
+      benefit: "Save 20 hours/month on reporting, improve accuracy by 35%—enabling professional services firms to focus on analysis.",
       category: "Automation",
-      icon: FileText
+      icon: FileText,
+    },
+    {
+      id: 23,
+      title: "Email Newsletter Compilation",
+      before: "Manual content curation delaying marketing outreach for startups.",
+      after: "Automated aggregation from RSS/internal sources, AI curation, and scheduled distributions.",
+      benefit: "Increase open rates by 25%, save 10 hours/week—helping SMBs nurture leads with consistent, engaging content.",
+      category: "Automation",
+      icon: Mail,
+    },
+    {
+      id: 24,
+      title: "Compliance Auditing Chain",
+      before: "Risky manual checks missing regulatory issues in finance ops.",
+      after: "Automated document scanning, non-compliance flagging, and audit trail generation with AI reviews.",
+      benefit: "Cut audit errors by 50%, ensure GDPR compliance saving €5K in fines—securing operations for Irish businesses.",
+      category: "Automation",
+      icon: Settings,
+    },
+    {
+      id: 25,
+      title: "User Behavior Analytics Agent",
+      before: "Blind spots in app usage leading to high churn in SaaS.",
+      after: "AI processes logs, identifies patterns, and automates retention campaigns.",
+      benefit: "Reduce churn by 30%, grow users by 20%—driving sustainable revenue for tech and SaaS companies.",
+      category: "AI Integration",
+      icon: Activity,
+    },
+    {
+      id: 26,
+      title: "Billing and Invoicing Automation",
+      before: "Error-prone manual invoicing delaying payments in services firms.",
+      after: "Automated invoice generation from CRMs, PDF creation, sending, and accounting updates with reminders.",
+      benefit: "Accelerate payments by 40%, minimize errors saving €3K/month—streamlining cash flow for professional services.",
+      category: "Automation",
+      icon: FileText,
+    },
+    {
+      id: 27,
+      title: "Fraud Detection Automation with AI",
+      before: "Manual transaction reviews missing anomalies and exposing finance risks.",
+      after: "AI monitors patterns in real-time, flags suspicious activities, and alerts teams with reports.",
+      benefit: "Reduce fraud losses by 45%, save €8K/year in investigations—securing operations for finance-heavy businesses.",
+      category: "AI Integration",
+      icon: Settings,
+    },
+    {
+      id: 28,
+      title: "Content Moderation Workflow",
+      before: "Overwhelmed moderators handling user-generated content slowly in social platforms.",
+      after: "AI scans submissions, categorizes risks, and automates approvals or escalations.",
+      benefit: "Cut moderation time by 55%, improve community safety by 30%—enhancing user trust for tech and SaaS companies.",
+      category: "AI Integration",
+      icon: Bot,
+    },
+    {
+      id: 29,
+      title: "Employee Feedback Aggregation",
+      before: "Scattered surveys leading to ignored insights and low morale in enterprises.",
+      after: "Automated response collection from forms, AI-summarized themes, and action plan generation.",
+      benefit: "Boost employee satisfaction by 25%, reduce turnover costs by €5K/month—fostering better HR in mid-to-large organizations.",
+      category: "Automation",
+      icon: Users,
+    },
+    {
+      id: 30,
+      title: "SEO Keyword Optimization Agent",
+      before: "Manual keyword research delaying content strategies for e-commerce.",
+      after: "AI analyzes trends, suggests optimizations, and integrates with CMS for updates.",
+      benefit: "Increase organic traffic by 35%, save 12 hours/week—driving visibility and sales for retail businesses.",
+      category: "AI Integration",
+      icon: Search,
+    },
+    {
+      id: 31,
+      title: "Vendor Performance Tracking",
+      before: "Inconsistent supplier evaluations causing supply chain delays.",
+      after: "Automated data pulls from APIs, AI-scored vendor performance, and review triggers.",
+      benefit: "Improve supplier reliability by 40%, cut delays saving €6K/year—optimizing ops for manufacturing enterprises.",
+      category: "Optimization",
+      icon: TrendingUp,
+    },
+    {
+      id: 32,
+      title: "Personalized Learning Path Generator",
+      before: "Generic training programs leading to low completion rates in wellness firms.",
+      after: "AI assesses user data, creates custom paths, and tracks progress with reminders.",
+      benefit: "Raise engagement by 30%, reduce drop-offs by 45%—enhancing outcomes for fitness and wellness businesses.",
+      category: "AI Integration",
+      icon: Brain,
+    },
+    {
+      id: 33,
+      title: "Market Trend Monitoring Dashboard",
+      before: "Fragmented news sources missing timely insights for startups.",
+      after: "Automated feed aggregation, AI-filtered trends, and interactive dashboard updates.",
+      benefit: "Accelerate strategy adjustments by 50%, gain 20% competitive edge—empowering SMBs with proactive intelligence.",
+      category: "Optimization",
+      icon: TrendingUp,
+    },
+    {
+      id: 34,
+      title: "Asset Management Automation",
+      before: "Manual tracking of equipment leading to losses and inefficiencies in gyms.",
+      after: "AI inventories assets via IoT, predicts maintenance, and automates orders.",
+      benefit: "Minimize asset downtime by 35%, save €4K/year in replacements—streamlining operations for fitness centers.",
+      category: "Optimization",
+      icon: Settings,
     }
   ];
 
@@ -213,33 +362,17 @@ const Projects = () => {
                         </div>
 
                         <h3 className="text-xl font-semibold text-primary mb-3">{project.title}</h3>
-                        <p className="text-muted-foreground leading-relaxed mb-4">{project.description}</p>
-                        
-                        {/* Project Metrics */}
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {project.duration && (
-                            <Badge variant="outline" className="text-xs">
-                              <Clock className="w-3 h-3 mr-1" />
-                              {project.duration}
-                            </Badge>
-                          )}
-                          {project.complexity && (
-                            <Badge variant="outline" className={`text-xs ${
-                              project.complexity === "High" ? "border-red-200 text-red-700" :
-                              project.complexity === "Medium" ? "border-yellow-200 text-yellow-700" :
-                              "border-green-200 text-green-700"
-                            }`}>
-                              {project.complexity}
-                            </Badge>
-                          )}
-                          {project.savings && (
-                            <Badge variant="outline" className="text-xs text-green-700 border-green-200">
-                              <TrendingUp className="w-3 h-3 mr-1" />
-                              {project.savings}
-                            </Badge>
-                          )}
+                        <div className="space-y-3 mb-4">
+                          <div>
+                            <h4 className="text-sm font-medium text-muted-foreground mb-1">Before:</h4>
+                            <p className="text-sm text-muted-foreground leading-relaxed">{project.before}</p>
+                          </div>
+                          <div>
+                            <h4 className="text-sm font-medium text-muted-foreground mb-1">After:</h4>
+                            <p className="text-sm text-muted-foreground leading-relaxed">{project.after}</p>
+                          </div>
                         </div>
-
+                        
                         <div className="flex items-center text-sm text-muted-foreground group-hover:text-accent transition-colors">
                           <Eye className="w-4 h-4 mr-2" />
                           Click to view details
@@ -264,58 +397,32 @@ const Projects = () => {
                     </SheetHeader>
                     
                     <div className="space-y-6">
-                      {/* Project Metrics Grid */}
-                      <div className="grid grid-cols-2 gap-4">
-                        {project.duration && (
-                          <div className="bg-muted/20 rounded-lg p-4">
-                            <div className="flex items-center gap-2 mb-2">
-                              <Clock className="w-4 h-4 text-accent" />
-                              <span className="font-medium">Duration</span>
-                            </div>
-                            <p className="text-sm text-muted-foreground">{project.duration}</p>
-                          </div>
-                        )}
-                        {project.complexity && (
-                          <div className="bg-muted/20 rounded-lg p-4">
-                            <div className="flex items-center gap-2 mb-2">
-                              <Settings className="w-4 h-4 text-accent" />
-                              <span className="font-medium">Complexity</span>
-                            </div>
-                            <p className="text-sm text-muted-foreground">{project.complexity}</p>
-                          </div>
-                        )}
-                        {project.savings && (
-                          <div className="bg-muted/20 rounded-lg p-4 col-span-2">
-                            <div className="flex items-center gap-2 mb-2">
-                              <TrendingUp className="w-4 h-4 text-green-600" />
-                              <span className="font-medium">Expected Savings</span>
-                            </div>
-                            <p className="text-sm text-muted-foreground">{project.savings}</p>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Full Description */}
-                      <div>
-                        <h4 className="font-semibold text-primary mb-3">Project Details</h4>
-                        <SheetDescription className="text-base leading-relaxed">
-                          {project.fullDescription || project.description}
-                        </SheetDescription>
-                      </div>
-
-                      {/* Tags */}
-                      {project.tags && (
-                        <div>
-                          <h4 className="font-semibold text-primary mb-3">Technologies & Skills</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {project.tags.map((tag, index) => (
-                              <Badge key={index} variant="outline" className="text-xs">
-                                {tag}
-                              </Badge>
-                            ))}
-                          </div>
+                      {/* Before/After/Benefit Sections */}
+                      <div className="space-y-4">
+                        <div className="bg-muted/20 rounded-lg p-4">
+                          <h4 className="font-semibold text-primary mb-2 flex items-center gap-2">
+                            <TrendingDown className="w-4 h-4" />
+                            Before
+                          </h4>
+                          <p className="text-muted-foreground leading-relaxed">{project.before}</p>
                         </div>
-                      )}
+                        
+                        <div className="bg-muted/20 rounded-lg p-4">
+                          <h4 className="font-semibold text-primary mb-2 flex items-center gap-2">
+                            <Zap className="w-4 h-4" />
+                            After
+                          </h4>
+                          <p className="text-muted-foreground leading-relaxed">{project.after}</p>
+                        </div>
+                        
+                        <div className="bg-accent/10 rounded-lg p-4 border border-accent/20">
+                          <h4 className="font-semibold text-primary mb-2 flex items-center gap-2">
+                            <TrendingUp className="w-4 h-4 text-green-600" />
+                            Business Impact
+                          </h4>
+                          <p className="text-muted-foreground leading-relaxed">{project.benefit}</p>
+                        </div>
+                      </div>
 
                       {/* CTA */}
                       <div className="pt-4 border-t">
