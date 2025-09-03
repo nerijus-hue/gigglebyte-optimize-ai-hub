@@ -7,7 +7,6 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { MapPin, Mail, Phone, Clock } from "lucide-react";
 import { z } from "zod";
-import { supabase } from "@/integrations/supabase/client";
 
 // Security: Form validation schema
 const contactFormSchema = z.object({
@@ -44,7 +43,6 @@ const Contact = () => {
     message: ""
   });
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -62,59 +60,28 @@ const Contact = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (isSubmitting) return;
     
     // Security: Validate form data with Zod schema
     try {
       const validatedData = contactFormSchema.parse(formData);
       setErrors({});
-      setIsSubmitting(true);
       
-      // Call Supabase Edge Function
-      const { data, error } = await supabase.functions.invoke('send-contact', {
-        body: {
-          firstName: validatedData.firstName,
-          lastName: validatedData.lastName,
-          email: validatedData.email,
-          company: validatedData.company,
-          message: validatedData.message
-        }
+      // Simulate form submission
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for your message. We'll get back to you within 24 hours.",
       });
 
-      if (error) {
-        console.error('Error calling edge function:', error);
-        toast({
-          title: "Email failed to send",
-          description: "There was an error sending your message. Please try again.",
-          variant: "destructive"
-        });
-        return;
-      }
-
-      if (data?.success) {
-        toast({
-          title: "Message Sent!",
-          description: "Thank you for your message. We'll get back to you within 24 hours.",
-        });
-
-        // Reset form
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          company: "",
-          message: ""
-        });
-      } else {
-        toast({
-          title: "Email failed to send",
-          description: data?.error || "There was an error sending your message. Please try again.",
-          variant: "destructive"
-        });
-      }
+      // Reset form
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        company: "",
+        message: ""
+      });
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
@@ -130,16 +97,7 @@ const Contact = () => {
           description: "Please check the form for errors and try again.",
           variant: "destructive"
         });
-      } else {
-        console.error('Unexpected error:', error);
-        toast({
-          title: "Email failed to send",
-          description: "There was an error sending your message. Please try again.",
-          variant: "destructive"
-        });
       }
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -269,10 +227,9 @@ const Contact = () => {
                 <Button 
                   type="submit" 
                   size="lg" 
-                  disabled={isSubmitting}
-                  className="w-full glow-on-hover bg-accent hover:bg-accent/90 text-white disabled:opacity-50"
+                  className="w-full glow-on-hover bg-accent hover:bg-accent/90 text-white"
                 >
-                  {isSubmitting ? "Sending..." : "Send Message"}
+                  Send Message
                 </Button>
               </form>
               
