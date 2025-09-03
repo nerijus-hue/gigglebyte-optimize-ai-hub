@@ -82,16 +82,22 @@ const Contact = () => {
         Message: DOMPurify.sanitize(validatedData.message.trim())
       };
 
-      // Send to webhook
+      // Send to webhook with timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
+      
       const response = await fetch("https://gigglebyteltd.app.n8n.cloud/webhook/website-lead", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(sanitizedData),
+        signal: controller.signal,
       });
 
-      if (response.status === 200) {
+      clearTimeout(timeoutId);
+
+      if (response.ok) {
         toast({
           title: "Message Sent!",
           description: "Thank you for your message. We'll get back to you within 24 hours.",
@@ -106,6 +112,13 @@ const Contact = () => {
           message: ""
         });
       } else {
+        // Log detailed error information for debugging
+        const errorText = await response.text().catch(() => "No response body");
+        console.error("Webhook failed:", {
+          status: response.status,
+          statusText: response.statusText,
+          body: errorText
+        });
         throw new Error(`Server responded with status: ${response.status}`);
       }
     } catch (error) {
