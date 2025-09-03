@@ -126,7 +126,7 @@ const Contact = () => {
         </div>
       </section>
 
-      <div className="max-w-2xl mx-auto px-6 py-12">
+      <div className="max-w-2xl mx-auto px-6 py-4">
         {/* Contact Form */}
         <div className="fade-in-delay">
           <Card className="card-gradient border-border/50">
