@@ -146,12 +146,21 @@ const Contact = () => {
       } else {
         // Log detailed error information for debugging
         const errorText = await response.text().catch(() => "No response body");
-        console.error("Webhook failed:", {
+        console.error("Request failed - Full details:", {
+          url: response.url,
           status: response.status,
           statusText: response.statusText,
+          headers: Object.fromEntries(response.headers.entries()),
           body: errorText
         });
-        throw new Error(`Server responded with status: ${response.status}`);
+        
+        // Show user-friendly error with technical details
+        toast({
+          title: "Request Failed",
+          description: `Status: ${response.status} - ${response.statusText}. Check console for details.`,
+          variant: "destructive"
+        });
+        return; // Don't throw, just return to avoid the generic error
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
