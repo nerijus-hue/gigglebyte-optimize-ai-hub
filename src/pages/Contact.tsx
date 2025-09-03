@@ -7,8 +7,6 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { MapPin, Mail, Phone, Clock } from "lucide-react";
 import { z } from "zod";
-import DOMPurify from "dompurify";
-import { supabase } from "@/integrations/supabase/client";
 
 // Security: Form validation schema
 const contactFormSchema = z.object({
@@ -45,7 +43,6 @@ const Contact = () => {
     message: ""
   });
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -63,90 +60,28 @@ const Contact = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (isSubmitting) return;
     
     // Security: Validate form data with Zod schema
     try {
       const validatedData = contactFormSchema.parse(formData);
       setErrors({});
-      setIsSubmitting(true);
       
-      // Sanitize data using DOMPurify
-      const sanitizedData = {
-        Firstname: DOMPurify.sanitize(validatedData.firstName.trim()),
-        Lastname: DOMPurify.sanitize(validatedData.lastName.trim()),
-        Company: validatedData.company ? DOMPurify.sanitize(validatedData.company.trim()) : "",
-        Email: DOMPurify.sanitize(validatedData.email.trim().toLowerCase()),
-        Message: DOMPurify.sanitize(validatedData.message.trim())
-      };
+      // Simulate form submission
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for your message. We'll get back to you within 24 hours.",
+      });
 
-      // Send to Supabase Edge Function (with fallback to direct webhook)
-      console.log("Sending to Edge Function:", sanitizedData);
-      
-      try {
-        // Use Supabase functions.invoke for proper authentication
-        const { data, error } = await supabase.functions.invoke('send-contact', {
-          body: sanitizedData,
-        });
-
-        if (error) {
-          console.error('Supabase function error:', error);
-          
-          // Fall back to direct webhook only if it's a 404 (function not found)
-          if (error.message?.includes('404')) {
-            console.log('Edge function not found, trying direct webhook...');
-            
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 15000);
-            
-            const fallbackResponse = await fetch('https://gigglebyteltd.app.n8n.cloud/webhook-test/website-lead', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(sanitizedData),
-              signal: controller.signal,
-            });
-
-            clearTimeout(timeoutId);
-
-            if (fallbackResponse.ok) {
-              console.log('Direct webhook success');
-            } else {
-              throw new Error(`Direct webhook failed: ${fallbackResponse.status}`);
-            }
-          } else {
-            throw new Error(error.message || 'Failed to send message');
-          }
-        } else {
-          console.log('Edge function success:', data);
-        }
-
-        toast({
-          title: "Message Sent!",
-          description: "Thank you for your message. We'll get back to you within 24 hours.",
-        });
-
-        // Reset form
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          company: "",
-          message: ""
-        });
-      } catch (error) {
-        console.error("Network error:", error);
-        
-        toast({
-          title: "Email Failed to Send",
-          description: "There was an error sending your message. Please try again or contact us directly.",
-          variant: "destructive"
-        });
-      }
+      // Reset form
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        company: "",
+        message: ""
+      });
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
@@ -162,16 +97,7 @@ const Contact = () => {
           description: "Please check the form for errors and try again.",
           variant: "destructive"
         });
-      } else {
-        console.error("Failed to send message:", error);
-        toast({
-          title: "Email Failed to Send",
-          description: "There was an error sending your message. Please try again or contact us directly.",
-          variant: "destructive"
-        });
       }
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -301,10 +227,9 @@ const Contact = () => {
                 <Button 
                   type="submit" 
                   size="lg" 
-                  disabled={isSubmitting}
-                  className="w-full glow-on-hover bg-accent hover:bg-accent/90 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full glow-on-hover bg-accent hover:bg-accent/90 text-white"
                 >
-                  {isSubmitting ? "Sending..." : "Send Message"}
+                  Send Message
                 </Button>
               </form>
               
