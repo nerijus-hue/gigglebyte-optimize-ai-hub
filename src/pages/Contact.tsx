@@ -10,10 +10,14 @@ import { z } from "zod";
 
 // Security: Form validation schema
 const contactFormSchema = z.object({
-  name: z.string()
-    .min(1, "Name is required")
-    .max(100, "Name must be less than 100 characters")
-    .regex(/^[a-zA-Z\s'-]+$/, "Name can only contain letters, spaces, hyphens, and apostrophes"),
+  firstName: z.string()
+    .min(1, "First name is required")
+    .max(50, "First name must be less than 50 characters")
+    .regex(/^[a-zA-Z\s'-]+$/, "First name can only contain letters, spaces, hyphens, and apostrophes"),
+  lastName: z.string()
+    .min(1, "Last name is required")
+    .max(50, "Last name must be less than 50 characters")
+    .regex(/^[a-zA-Z\s'-]+$/, "Last name can only contain letters, spaces, hyphens, and apostrophes"),
   email: z.string()
     .min(1, "Email is required")
     .email("Please enter a valid email address")
@@ -32,7 +36,8 @@ type ContactFormData = z.infer<typeof contactFormSchema>;
 const Contact = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState<ContactFormData>({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     company: "",
     message: ""
@@ -71,7 +76,8 @@ const Contact = () => {
 
       // Reset form
       setFormData({
-        name: "",
+        firstName: "",
+        lastName: "",
         email: "",
         company: "",
         message: ""
@@ -97,24 +103,14 @@ const Contact = () => {
 
   const contactInfo = [
     {
-      icon: MapPin,
-      title: "Address",
-      details: ["123 Tech Lane", "Future City, CA 94000"]
-    },
-    {
       icon: Mail,
       title: "Email",
-      details: ["info@gigglebyte.com", "support@gigglebyte.com"]
+      details: ["nerijus@gigglebyte.ltd"]
     },
     {
       icon: Phone,
       title: "Phone",
-      details: ["+1 (555) 123-4567", "+1 (555) 123-4568"]
-    },
-    {
-      icon: Clock,
-      title: "Business Hours",
-      details: ["Mon - Fri: 9:00 AM - 6:00 PM", "Sat: 10:00 AM - 2:00 PM"]
+      details: ["+37065643244"]
     }
   ];
 
@@ -140,45 +136,63 @@ const Contact = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="name" className="text-primary font-medium">
-                        Full Name *
+                      <Label htmlFor="firstName" className="text-primary font-medium">
+                        First Name *
                       </Label>
                       <Input
-                        id="name"
-                        name="name"
-                        value={formData.name}
+                        id="firstName"
+                        name="firstName"
+                        value={formData.firstName}
                         onChange={handleInputChange}
-                        className={`mt-2 focus:ring-accent focus:border-accent ${errors.name ? 'border-destructive' : ''}`}
-                        placeholder="Your full name"
+                        className={`mt-2 focus:ring-accent focus:border-accent ${errors.firstName ? 'border-destructive' : ''}`}
+                        placeholder="First name"
                         required
                       />
-                      {errors.name && (
-                        <p className="text-sm text-destructive mt-1">{errors.name}</p>
+                      {errors.firstName && (
+                        <p className="text-sm text-destructive mt-1">{errors.firstName}</p>
                       )}
                     </div>
                     <div>
-                      <Label htmlFor="email" className="text-primary font-medium">
-                        Email Address *
+                      <Label htmlFor="lastName" className="text-primary font-medium">
+                        Last Name *
                       </Label>
                       <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
+                        id="lastName"
+                        name="lastName"
+                        value={formData.lastName}
                         onChange={handleInputChange}
-                        className={`mt-2 focus:ring-accent focus:border-accent ${errors.email ? 'border-destructive' : ''}`}
-                        placeholder="your@email.com"
+                        className={`mt-2 focus:ring-accent focus:border-accent ${errors.lastName ? 'border-destructive' : ''}`}
+                        placeholder="Last name"
                         required
                       />
-                      {errors.email && (
-                        <p className="text-sm text-destructive mt-1">{errors.email}</p>
+                      {errors.lastName && (
+                        <p className="text-sm text-destructive mt-1">{errors.lastName}</p>
                       )}
                     </div>
                   </div>
 
                   <div>
+                    <Label htmlFor="email" className="text-primary font-medium">
+                      Email Address *
+                    </Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className={`mt-2 focus:ring-accent focus:border-accent ${errors.email ? 'border-destructive' : ''}`}
+                      placeholder="your@email.com"
+                      required
+                    />
+                    {errors.email && (
+                      <p className="text-sm text-destructive mt-1">{errors.email}</p>
+                    )}
+                  </div>
+
+                  <div>
                     <Label htmlFor="company" className="text-primary font-medium">
-                      Company
+                      Company Name
                     </Label>
                     <Input
                       id="company"
@@ -203,7 +217,7 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleInputChange}
                       className={`mt-2 min-h-[120px] focus:ring-accent focus:border-accent ${errors.message ? 'border-destructive' : ''}`}
-                      placeholder="Tell us about your project and how we can help..."
+                      placeholder="Tell us a bit about your inefficiencies and how we can help"
                       required
                     />
                     {errors.message && (
@@ -254,64 +268,9 @@ const Contact = () => {
               ))}
             </div>
 
-            {/* Map Placeholder */}
-            <Card className="card-gradient border-border/50 mt-8">
-              <CardContent className="p-0">
-                <div className="h-64 bg-muted/50 rounded-lg flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="w-12 h-12 text-accent mx-auto mb-4" />
-                    <p className="text-muted-foreground">Interactive Map Coming Soon</p>
-                    <p className="text-sm text-muted-foreground mt-2">
-                      123 Tech Lane, Future City, CA 94000
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </div>
-
-      {/* FAQ Section */}
-      <section className="py-20 px-6 bg-muted/30">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-primary mb-6">Frequently Asked Questions</h2>
-            <p className="text-xl text-muted-foreground">
-              Common questions about our services and process
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            <Card className="card-gradient border-border/50">
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-primary mb-2">How long does a typical project take?</h3>
-                <p className="text-muted-foreground">
-                  Project timelines vary based on complexity, but most implementations range from 4-12 weeks from initial consultation to deployment.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="card-gradient border-border/50">
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-primary mb-2">Do you provide ongoing support?</h3>
-                <p className="text-muted-foreground">
-                  Yes, we offer comprehensive support packages including monitoring, maintenance, and continuous optimization of your systems.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="card-gradient border-border/50">
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-primary mb-2">What industries do you work with?</h3>
-                <p className="text-muted-foreground">
-                  We work across various industries including retail, finance, manufacturing, healthcare, and technology companies of all sizes.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };
