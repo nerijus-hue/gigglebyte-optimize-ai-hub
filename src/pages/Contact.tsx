@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { MapPin, Mail, Phone, Clock } from "lucide-react";
 import { z } from "zod";
+import DOMPurify from "dompurify";
 
 // Security: Form validation schema
 const contactFormSchema = z.object({
@@ -43,6 +44,7 @@ const Contact = () => {
     message: ""
   });
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -60,28 +62,52 @@ const Contact = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (isSubmitting) return;
     
     // Security: Validate form data with Zod schema
     try {
       const validatedData = contactFormSchema.parse(formData);
       setErrors({});
+      setIsSubmitting(true);
       
-      // Simulate form submission
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for your message. We'll get back to you within 24 hours.",
+      // Sanitize data using DOMPurify
+      const sanitizedData = {
+        Firstname: DOMPurify.sanitize(validatedData.firstName.trim()),
+        Lastname: DOMPurify.sanitize(validatedData.lastName.trim()),
+        Company: validatedData.company ? DOMPurify.sanitize(validatedData.company.trim()) : "",
+        Email: DOMPurify.sanitize(validatedData.email.trim().toLowerCase()),
+        Message: DOMPurify.sanitize(validatedData.message.trim())
+      };
+
+      // Send to webhook
+      const response = await fetch("https://gigglebyteltd.app.n8n.cloud/webhook/website-lead", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(sanitizedData),
       });
 
-      // Reset form
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        company: "",
-        message: ""
-      });
+      if (response.status === 200) {
+        toast({
+          title: "Message Sent!",
+          description: "Thank you for your message. We'll get back to you within 24 hours.",
+        });
+
+        // Reset form
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          company: "",
+          message: ""
+        });
+      } else {
+        throw new Error(`Server responded with status: ${response.status}`);
+      }
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
@@ -97,7 +123,16 @@ const Contact = () => {
           description: "Please check the form for errors and try again.",
           variant: "destructive"
         });
+      } else {
+        console.error("Failed to send message:", error);
+        toast({
+          title: "Email Failed to Send",
+          description: "There was an error sending your message. Please try again or contact us directly.",
+          variant: "destructive"
+        });
       }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -227,9 +262,10 @@ const Contact = () => {
                 <Button 
                   type="submit" 
                   size="lg" 
-                  className="w-full glow-on-hover bg-accent hover:bg-accent/90 text-white"
+                  disabled={isSubmitting}
+                  className="w-full glow-on-hover bg-accent hover:bg-accent/90 text-white disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
               
