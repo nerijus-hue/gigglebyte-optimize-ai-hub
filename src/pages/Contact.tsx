@@ -117,7 +117,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen pt-8">
       {/* Hero Section */}
-      <section className="py-20 px-6 text-center bg-gradient-to-b from-muted/20 to-background">
+      <section className="py-8 md:py-20 px-6 text-center bg-gradient-to-b from-muted/20 to-background">
         <div className="max-w-4xl mx-auto fade-in">
           <h1 className="text-5xl font-bold text-primary mb-6">Get In Touch</h1>
           <p className="text-xl text-muted-foreground leading-relaxed mb-8">
