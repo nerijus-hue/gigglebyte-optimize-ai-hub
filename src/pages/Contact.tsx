@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { MapPin, Mail, Phone, Clock } from "lucide-react";
 import { z } from "zod";
 import DOMPurify from "dompurify";
+import { supabase } from "@/integrations/supabase/client";
 
 // Security: Form validation schema
 const contactFormSchema = z.object({
@@ -85,51 +86,45 @@ const Contact = () => {
       // Send to Supabase Edge Function (with fallback to direct webhook)
       console.log("Sending to Edge Function:", sanitizedData);
       
-      let response;
       try {
-        // Try Edge Function first
-        response = await fetch("/functions/v1/send-contact", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(sanitizedData),
+        // Use Supabase functions.invoke for proper authentication
+        const { data, error } = await supabase.functions.invoke('send-contact', {
+          body: sanitizedData,
         });
-        
-        console.log("Edge Function response:", {
-          status: response.status,
-          ok: response.ok,
-          statusText: response.statusText
-        });
-        
-        // If Edge Function fails with 404, fall back to direct webhook
-        if (response.status === 404) {
-          console.log("Edge Function not found, falling back to direct webhook");
-          const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 15000);
-          
-          response = await fetch("https://gigglebyteltd.app.n8n.cloud/webhook-test/website-lead", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(sanitizedData),
-            signal: controller.signal,
-          });
-          
-          clearTimeout(timeoutId);
-          console.log("Direct webhook response:", {
-            status: response.status,
-            ok: response.ok,
-            statusText: response.statusText
-          });
-        }
-      } catch (error) {
-        console.error("Network error:", error);
-        throw error;
-      }
 
-      if (response.ok) {
+        if (error) {
+          console.error('Supabase function error:', error);
+          
+          // Fall back to direct webhook only if it's a 404 (function not found)
+          if (error.message?.includes('404')) {
+            console.log('Edge function not found, trying direct webhook...');
+            
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 15000);
+            
+            const fallbackResponse = await fetch('https://gigglebyteltd.app.n8n.cloud/webhook-test/website-lead', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(sanitizedData),
+              signal: controller.signal,
+            });
+
+            clearTimeout(timeoutId);
+
+            if (fallbackResponse.ok) {
+              console.log('Direct webhook success');
+            } else {
+              throw new Error(`Direct webhook failed: ${fallbackResponse.status}`);
+            }
+          } else {
+            throw new Error(error.message || 'Failed to send message');
+          }
+        } else {
+          console.log('Edge function success:', data);
+        }
+
         toast({
           title: "Message Sent!",
           description: "Thank you for your message. We'll get back to you within 24 hours.",
@@ -143,24 +138,14 @@ const Contact = () => {
           company: "",
           message: ""
         });
-      } else {
-        // Log detailed error information for debugging
-        const errorText = await response.text().catch(() => "No response body");
-        console.error("Request failed - Full details:", {
-          url: response.url,
-          status: response.status,
-          statusText: response.statusText,
-          headers: Object.fromEntries(response.headers.entries()),
-          body: errorText
-        });
+      } catch (error) {
+        console.error("Network error:", error);
         
-        // Show user-friendly error with technical details
         toast({
-          title: "Request Failed",
-          description: `Status: ${response.status} - ${response.statusText}. Check console for details.`,
+          title: "Email Failed to Send",
+          description: "There was an error sending your message. Please try again or contact us directly.",
           variant: "destructive"
         });
-        return; // Don't throw, just return to avoid the generic error
       }
     } catch (error) {
       if (error instanceof z.ZodError) {

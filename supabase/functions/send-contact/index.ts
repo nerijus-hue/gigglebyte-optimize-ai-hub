@@ -46,6 +46,22 @@ serve(async (req) => {
       )
     }
 
+    // Get Basic Auth credentials if available
+    const basicUser = Deno.env.get('N8N_BASIC_USER')
+    const basicPass = Deno.env.get('N8N_BASIC_PASS')
+    
+    // Prepare headers
+    const requestHeaders: Record<string, string> = {
+      'Content-Type': 'application/json',
+    }
+    
+    // Add Basic Auth header if credentials are available
+    if (basicUser && basicPass) {
+      const credentials = btoa(`${basicUser}:${basicPass}`)
+      requestHeaders['Authorization'] = `Basic ${credentials}`
+      console.log('Using Basic Auth for webhook request')
+    }
+
     // Forward request to n8n webhook with timeout
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 15000)
@@ -53,9 +69,7 @@ serve(async (req) => {
     try {
       const response = await fetch(webhookUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: requestHeaders,
         body: JSON.stringify(body),
         signal: controller.signal,
       })
