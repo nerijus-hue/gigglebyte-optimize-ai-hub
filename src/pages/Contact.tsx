@@ -126,149 +126,138 @@ const Contact = () => {
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <div className="fade-in-delay">
-            <Card className="card-gradient border-border/50">
-              <CardContent className="p-8">
-                <h2 className="text-2xl font-bold text-primary mb-6">Send us a Message</h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="firstName" className="text-primary font-medium">
-                        First Name *
-                      </Label>
-                      <Input
-                        id="firstName"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleInputChange}
-                        className={`mt-2 focus:ring-accent focus:border-accent ${errors.firstName ? 'border-destructive' : ''}`}
-                        placeholder="First name"
-                        required
-                      />
-                      {errors.firstName && (
-                        <p className="text-sm text-destructive mt-1">{errors.firstName}</p>
-                      )}
-                    </div>
-                    <div>
-                      <Label htmlFor="lastName" className="text-primary font-medium">
-                        Last Name *
-                      </Label>
-                      <Input
-                        id="lastName"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                        className={`mt-2 focus:ring-accent focus:border-accent ${errors.lastName ? 'border-destructive' : ''}`}
-                        placeholder="Last name"
-                        required
-                      />
-                      {errors.lastName && (
-                        <p className="text-sm text-destructive mt-1">{errors.lastName}</p>
-                      )}
-                    </div>
-                  </div>
-
+      <div className="max-w-2xl mx-auto px-6 py-12">
+        {/* Contact Form */}
+        <div className="fade-in-delay">
+          <Card className="card-gradient border-border/50">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-bold text-primary mb-6">Send us a Message</h2>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="email" className="text-primary font-medium">
-                      Email Address *
+                    <Label htmlFor="firstName" className="text-primary font-medium">
+                      First Name *
                     </Label>
                     <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
+                      id="firstName"
+                      name="firstName"
+                      value={formData.firstName}
                       onChange={handleInputChange}
-                      className={`mt-2 focus:ring-accent focus:border-accent ${errors.email ? 'border-destructive' : ''}`}
-                      placeholder="your@email.com"
+                      className={`mt-2 focus:ring-accent focus:border-accent ${errors.firstName ? 'border-destructive' : ''}`}
+                      placeholder="First name"
                       required
                     />
-                    {errors.email && (
-                      <p className="text-sm text-destructive mt-1">{errors.email}</p>
+                    {errors.firstName && (
+                      <p className="text-sm text-destructive mt-1">{errors.firstName}</p>
                     )}
                   </div>
-
                   <div>
-                    <Label htmlFor="company" className="text-primary font-medium">
-                      Company Name
+                    <Label htmlFor="lastName" className="text-primary font-medium">
+                      Last Name *
                     </Label>
                     <Input
-                      id="company"
-                      name="company"
-                      value={formData.company}
+                      id="lastName"
+                      name="lastName"
+                      value={formData.lastName}
                       onChange={handleInputChange}
-                      className={`mt-2 focus:ring-accent focus:border-accent ${errors.company ? 'border-destructive' : ''}`}
-                      placeholder="Your company name"
-                    />
-                    {errors.company && (
-                      <p className="text-sm text-destructive mt-1">{errors.company}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <Label htmlFor="message" className="text-primary font-medium">
-                      Message *
-                    </Label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      className={`mt-2 min-h-[120px] focus:ring-accent focus:border-accent ${errors.message ? 'border-destructive' : ''}`}
-                      placeholder="Tell us a bit about your inefficiencies and how we can help"
+                      className={`mt-2 focus:ring-accent focus:border-accent ${errors.lastName ? 'border-destructive' : ''}`}
+                      placeholder="Last name"
                       required
                     />
-                    {errors.message && (
-                      <p className="text-sm text-destructive mt-1">{errors.message}</p>
+                    {errors.lastName && (
+                      <p className="text-sm text-destructive mt-1">{errors.lastName}</p>
                     )}
                   </div>
+                </div>
 
-                  <Button 
-                    type="submit" 
-                    size="lg" 
-                    className="w-full glow-on-hover bg-accent hover:bg-accent/90 text-white"
-                  >
-                    Send Message
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </div>
+                <div>
+                  <Label htmlFor="email" className="text-primary font-medium">
+                    Email Address *
+                  </Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className={`mt-2 focus:ring-accent focus:border-accent ${errors.email ? 'border-destructive' : ''}`}
+                    placeholder="your@email.com"
+                    required
+                  />
+                  {errors.email && (
+                    <p className="text-sm text-destructive mt-1">{errors.email}</p>
+                  )}
+                </div>
 
-          {/* Contact Information */}
-          <div className="fade-in-delay-2">
-            <div className="space-y-6">
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold text-primary mb-4">Contact Information</h2>
-                <p className="text-muted-foreground leading-relaxed">
-                  Ready to transform your business? Get in touch with our team of experts and let's discuss your optimization and automation needs.
-                </p>
+                <div>
+                  <Label htmlFor="company" className="text-primary font-medium">
+                    Company Name
+                  </Label>
+                  <Input
+                    id="company"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleInputChange}
+                    className={`mt-2 focus:ring-accent focus:border-accent ${errors.company ? 'border-destructive' : ''}`}
+                    placeholder="Your company name"
+                  />
+                  {errors.company && (
+                    <p className="text-sm text-destructive mt-1">{errors.company}</p>
+                  )}
+                </div>
+
+                <div>
+                  <Label htmlFor="message" className="text-primary font-medium">
+                    Message *
+                  </Label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    className={`mt-2 min-h-[120px] focus:ring-accent focus:border-accent ${errors.message ? 'border-destructive' : ''}`}
+                    placeholder="Tell us about your business inefficiencies and how we can help optimize your operations"
+                    required
+                  />
+                  {errors.message && (
+                    <p className="text-sm text-destructive mt-1">{errors.message}</p>
+                  )}
+                </div>
+
+                <Button 
+                  type="submit" 
+                  size="lg" 
+                  className="w-full glow-on-hover bg-accent hover:bg-accent/90 text-white"
+                >
+                  Send Message
+                </Button>
+              </form>
+              
+              {/* Contact Information Below Form */}
+              <div className="mt-8 pt-6 border-t border-border/50">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center text-center sm:text-left">
+                  <div className="flex items-center justify-center sm:justify-start gap-2">
+                    <Mail className="w-4 h-4 text-accent" />
+                    <a 
+                      href="mailto:nerijus@gigglebyte.ltd" 
+                      className="text-muted-foreground hover:text-accent transition-colors"
+                    >
+                      nerijus@gigglebyte.ltd
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-center sm:justify-start gap-2">
+                    <Phone className="w-4 h-4 text-accent" />
+                    <a 
+                      href="tel:+37065643244" 
+                      className="text-muted-foreground hover:text-accent transition-colors"
+                    >
+                      +370 656 43244
+                    </a>
+                  </div>
+                </div>
               </div>
-
-              {contactInfo.map((info, index) => (
-                <Card key={index} className="card-gradient border-border/50 glow-on-hover">
-                  <CardContent className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <info.icon className="w-6 h-6 text-accent" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-primary mb-2">{info.title}</h3>
-                        {info.details.map((detail, idx) => (
-                          <p key={idx} className="text-muted-foreground">
-                            {detail}
-                          </p>
-                        ))}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-          </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
