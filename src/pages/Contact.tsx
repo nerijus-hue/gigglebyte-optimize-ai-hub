@@ -82,14 +82,52 @@ const Contact = () => {
         Message: DOMPurify.sanitize(validatedData.message.trim())
       };
 
-      // Send to Supabase Edge Function (which proxies to n8n webhook)
-      const response = await fetch("/functions/v1/send-contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(sanitizedData),
-      });
+      // Send to Supabase Edge Function (with fallback to direct webhook)
+      console.log("Sending to Edge Function:", sanitizedData);
+      
+      let response;
+      try {
+        // Try Edge Function first
+        response = await fetch("/functions/v1/send-contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(sanitizedData),
+        });
+        
+        console.log("Edge Function response:", {
+          status: response.status,
+          ok: response.ok,
+          statusText: response.statusText
+        });
+        
+        // If Edge Function fails with 404, fall back to direct webhook
+        if (response.status === 404) {
+          console.log("Edge Function not found, falling back to direct webhook");
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 15000);
+          
+          response = await fetch("https://gigglebyteltd.app.n8n.cloud/webhook-test/website-lead", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(sanitizedData),
+            signal: controller.signal,
+          });
+          
+          clearTimeout(timeoutId);
+          console.log("Direct webhook response:", {
+            status: response.status,
+            ok: response.ok,
+            statusText: response.statusText
+          });
+        }
+      } catch (error) {
+        console.error("Network error:", error);
+        throw error;
+      }
 
       if (response.ok) {
         toast({
