@@ -82,20 +82,14 @@ const Contact = () => {
         Message: DOMPurify.sanitize(validatedData.message.trim())
       };
 
-      // Send to webhook with timeout
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000);
-      
-      const response = await fetch("https://gigglebyteltd.app.n8n.cloud/webhook/website-lead", {
+      // Send to Supabase Edge Function (which proxies to n8n webhook)
+      const response = await fetch("/functions/v1/send-contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(sanitizedData),
-        signal: controller.signal,
       });
-
-      clearTimeout(timeoutId);
 
       if (response.ok) {
         toast({
