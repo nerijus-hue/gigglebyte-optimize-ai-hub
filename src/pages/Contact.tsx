@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { MapPin, Mail, Phone, Clock } from "lucide-react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 // Security: Form validation schema
 const contactFormSchema = z.object({
@@ -47,6 +48,8 @@ const Contact = () => {
   });
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hcaptchaToken, setHcaptchaToken] = useState<string>("");
+  const hcaptchaRef = useRef<HCaptcha>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -73,10 +76,21 @@ const Contact = () => {
       setErrors({});
       setIsSubmitting(true);
       
+      // Check hCaptcha token
+      if (!hcaptchaToken) {
+        toast({
+          title: "Security Check Required",
+          description: "Please complete the security verification.",
+          variant: "destructive"
+        });
+        return;
+      }
+
       // Send to public edge function (no auth required)
       const { data, error } = await supabase.functions.invoke('send-contact', {
         body: {
           ...validatedData,
+          hcaptchaToken: hcaptchaToken,
           timestamp: new Date().toISOString()
         }
       });
@@ -99,6 +113,8 @@ const Contact = () => {
         message: "",
         honeypot: ""
       });
+      setHcaptchaToken("");
+      hcaptchaRef.current?.resetCaptcha();
     } catch (error) {
       console.error('Contact form submission error:', error);
       
@@ -263,10 +279,21 @@ const Contact = () => {
                   autoComplete="off"
                 />
 
+                {/* hCaptcha Security Check */}
+                <div className="flex justify-center">
+                  <HCaptcha
+                    ref={hcaptchaRef}
+                    sitekey="10000000-ffff-ffff-ffff-000000000001" // Test site key - replace with actual
+                    onVerify={setHcaptchaToken}
+                    onExpire={() => setHcaptchaToken("")}
+                    onError={() => setHcaptchaToken("")}
+                  />
+                </div>
+
                 <Button
                   type="submit" 
                   size="lg" 
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !hcaptchaToken}
                   className="w-full glow-on-hover bg-accent hover:bg-accent/90 text-white disabled:opacity-50"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}

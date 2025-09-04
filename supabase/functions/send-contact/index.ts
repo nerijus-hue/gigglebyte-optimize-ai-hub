@@ -1,18 +1,15 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 
-// Allowed origins for CORS (add your production domain here)
+// Strict CORS policy - only allow production domain and necessary preview domains
 const ALLOWED_ORIGINS = [
-  'http://localhost:5173',
-  'http://localhost:3000',
   'https://gigglebyte.ltd',
   'https://www.gigglebyte.ltd',
 ];
 
-// Allowed domain patterns for CORS
+// Allowed domain patterns for CORS (Lovable preview domains only)
 const ALLOWED_DOMAIN_PATTERNS = [
   /^https:\/\/.*\.lovable\.dev$/,
   /^https:\/\/.*\.lovable\.app$/,
-  /^https:\/\/.*\.sandbox\.lovable\.dev$/,
 ];
 
 // Simple in-memory rate limiting (resets on function restart)
@@ -46,9 +43,7 @@ const handler = async (req: Request): Promise<Response> => {
   
   if (origin) {
     // Check exact matches first
-    allowedOrigin = ALLOWED_ORIGINS.find(allowed => 
-      allowed === origin || (origin.includes('localhost'))
-    );
+    allowedOrigin = ALLOWED_ORIGINS.find(allowed => allowed === origin);
     
     // If no exact match, check domain patterns
     if (!allowedOrigin) {
