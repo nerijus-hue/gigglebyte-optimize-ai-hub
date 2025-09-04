@@ -4,7 +4,8 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 const ALLOWED_ORIGINS = [
   'http://localhost:5173',
   'http://localhost:3000',
-  'https://your-production-domain.com', // Replace with your actual domain
+  'https://gigglebyte.ltd',
+  'https://www.gigglebyte.ltd',
 ];
 
 // Allowed domain patterns for CORS
