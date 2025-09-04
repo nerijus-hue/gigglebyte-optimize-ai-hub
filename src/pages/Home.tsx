@@ -1,16 +1,97 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Settings, Bot, Brain, TrendingUp, DollarSign, BarChart3, Shield, CheckCircle, Zap, Clock, Target, ChevronDown, ChevronUp, Users } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { Settings, Bot, Brain, TrendingUp, DollarSign, BarChart3, Shield, CheckCircle, Zap, Clock, Target, ChevronDown, ChevronUp, Users, Star, Send } from "lucide-react";
+
+interface Testimonial {
+  id: string;
+  name: string;
+  company?: string;
+  position?: string;
+  message: string;
+  rating: number;
+  created_at: string;
+}
 
 const Home = () => {
   const [allExpanded, setAllExpanded] = useState(false);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [testimonialForm, setTestimonialForm] = useState({
+    name: '',
+    company: '',
+    position: '',
+    message: '',
+    rating: 5
+  });
+  const { toast } = useToast();
 
   const toggleAllBenefits = () => {
     setAllExpanded(!allExpanded);
   };
+
+  const fetchTestimonials = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('testimonials')
+        .select('*')
+        .eq('is_approved', true)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setTestimonials(data || []);
+    } catch (error) {
+      console.error('Error fetching testimonials:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleTestimonialSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+
+    try {
+      const { error } = await supabase
+        .from('testimonials')
+        .insert([testimonialForm]);
+
+      if (error) throw error;
+
+      toast({
+        title: "Thank you!",
+        description: "Your testimonial has been submitted and will be reviewed before being published.",
+      });
+
+      setTestimonialForm({
+        name: '',
+        company: '',
+        position: '',
+        message: '',
+        rating: 5
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to submit testimonial. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTestimonials();
+  }, []);
   const services = [
     {
       icon: Users,
@@ -292,19 +373,150 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Testimonial & CTA Section */}
+      {/* Testimonials Section */}
       <section className="py-20 px-6 bg-gradient-to-t from-muted/20 to-background">
-        <div className="max-w-4xl mx-auto text-center">
-          <Card className="card-gradient border-border/50 mb-12">
-            <CardContent className="p-8">
-              <blockquote className="text-lg italic text-muted-foreground mb-4">
-                "Gigglebyte transformed our operations completely. Their AI integration reduced our processing time by 60% and saved us thousands in operational costs."
-              </blockquote>
-              <cite className="text-primary font-medium">Sarah Johnson, CEO at TechFlow Solutions</cite>
-            </CardContent>
-          </Card>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-primary mb-6">What Our Clients Say</h2>
+            <p className="text-xl text-muted-foreground">
+              Real results from businesses just like yours
+            </p>
+          </div>
 
-          <div className="space-y-8">
+          {loading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+              {[1, 2, 3].map((i) => (
+                <Card key={i} className="card-gradient border-border/50">
+                  <CardContent className="p-6">
+                    <div className="animate-pulse space-y-4">
+                      <div className="h-4 bg-muted rounded w-3/4"></div>
+                      <div className="h-20 bg-muted rounded"></div>
+                      <div className="h-4 bg-muted rounded w-1/2"></div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+              {testimonials.map((testimonial) => (
+                <Card key={testimonial.id} className="card-gradient border-border/50 glow-on-hover">
+                  <CardContent className="p-6">
+                    <div className="flex items-center mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                      ))}
+                    </div>
+                    <blockquote className="text-muted-foreground mb-4 italic">
+                      "{testimonial.message}"
+                    </blockquote>
+                    <div className="text-sm">
+                      <div className="font-medium text-primary">{testimonial.name}</div>
+                      {testimonial.position && testimonial.company && (
+                        <div className="text-muted-foreground">
+                          {testimonial.position} at {testimonial.company}
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+
+          {/* Testimonial Submission Form */}
+          <div className="max-w-2xl mx-auto mb-16">
+            <Card className="card-gradient border-border/50">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold text-primary mb-6 text-center">Share Your Experience</h3>
+                <form onSubmit={handleTestimonialSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Name *</Label>
+                      <Input
+                        id="name"
+                        value={testimonialForm.name}
+                        onChange={(e) => setTestimonialForm({ ...testimonialForm, name: e.target.value })}
+                        required
+                        placeholder="Your full name"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="company">Company</Label>
+                      <Input
+                        id="company"
+                        value={testimonialForm.company}
+                        onChange={(e) => setTestimonialForm({ ...testimonialForm, company: e.target.value })}
+                        placeholder="Your company name"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="position">Position</Label>
+                    <Input
+                      id="position"
+                      value={testimonialForm.position}
+                      onChange={(e) => setTestimonialForm({ ...testimonialForm, position: e.target.value })}
+                      placeholder="Your job title"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Your Experience *</Label>
+                    <Textarea
+                      id="message"
+                      value={testimonialForm.message}
+                      onChange={(e) => setTestimonialForm({ ...testimonialForm, message: e.target.value })}
+                      required
+                      placeholder="Tell us about your experience with Gigglebyte..."
+                      rows={4}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="rating">Rating</Label>
+                    <div className="flex gap-2">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button
+                          key={star}
+                          type="button"
+                          onClick={() => setTestimonialForm({ ...testimonialForm, rating: star })}
+                          className="hover:scale-110 transition-transform"
+                        >
+                          <Star
+                            className={`w-6 h-6 ${
+                              star <= testimonialForm.rating
+                                ? 'fill-yellow-400 text-yellow-400'
+                                : 'text-muted-foreground'
+                            }`}
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    disabled={submitting}
+                    className="w-full bg-accent hover:bg-accent/90"
+                  >
+                    {submitting ? (
+                      "Submitting..."
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 mr-2" />
+                        Submit Testimonial
+                      </>
+                    )}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* CTA Section */}
+          <div className="text-center space-y-8">
             <h2 className="text-3xl font-bold text-primary">Ready to Transform Your Business?</h2>
             <p className="text-xl text-muted-foreground">
               Let's discuss how we can optimize your processes and boost your efficiency
