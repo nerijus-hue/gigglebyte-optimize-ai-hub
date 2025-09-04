@@ -69,34 +69,22 @@ const Contact = () => {
     
     // Security: Validate form data with Zod schema
     try {
-      console.log('🔍 Starting form submission process...');
-      console.log('📝 Form data before validation:', formData);
-      
       const validatedData = contactFormSchema.parse(formData);
-      console.log('✅ Form data validated successfully:', validatedData);
-      
       setErrors({});
       setIsSubmitting(true);
-      
-      console.log('📡 Calling supabase.functions.invoke with send-contact...');
-      console.log('🌐 Current origin:', window.location.origin);
       
       // Send to public edge function (no auth required)
       const { data, error } = await supabase.functions.invoke('send-contact', {
         body: {
           ...validatedData,
-          // hcaptchaToken will be added when hCaptcha is integrated
+          timestamp: new Date().toISOString()
         }
       });
 
-      console.log('📊 Function response received:', { data, error });
-
       if (error) {
-        console.error('❌ Supabase function returned error:', error);
         throw error;
       }
 
-      console.log('🎉 Success! Message sent successfully.');
       toast({
         title: "Message Sent!",
         description: "Thank you for your message. We'll get back to you within 24 hours.",
@@ -112,7 +100,7 @@ const Contact = () => {
         honeypot: ""
       });
     } catch (error) {
-      console.error('❌ Contact form submission error:', error);
+      console.error('Contact form submission error:', error);
       
       if (error instanceof z.ZodError) {
         const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
@@ -130,7 +118,6 @@ const Contact = () => {
         });
       } else {
         const errorMessage = error?.message || "Failed to send message. Please try again.";
-        console.error('🚨 Edge function error details:', error);
         toast({
           title: "Error",
           description: errorMessage,
