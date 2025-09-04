@@ -29,7 +29,8 @@ const contactFormSchema = z.object({
   message: z.string()
     .min(1, "Message is required")
     .max(3000, "Message must be less than 3000 characters")
-    .min(10, "Message must be at least 10 characters long")
+    .min(10, "Message must be at least 10 characters long"),
+  honeypot: z.string().max(0, "Spam detected").optional() // Security: honeypot field should be empty
 });
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
@@ -41,7 +42,8 @@ const Contact = () => {
     lastName: "",
     email: "",
     company: "",
-    message: ""
+    message: "",
+    honeypot: "" // Security: honeypot field
   });
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -71,25 +73,17 @@ const Contact = () => {
       setErrors({});
       setIsSubmitting(true);
       
-      // Send to edge function via direct fetch with explicit auth headers
-      const endpoint = 'https://yfzougxlnnjtjzygmexz.functions.supabase.co/send-contact';
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlmem91Z3hsbm5qdGp6eWdtZXh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5MTg3NjYsImV4cCI6MjA3MjQ5NDc2Nn0.f8ZnRMWgFH-zdg9xku3CA175DqM8XBH0LLv1BjZFT2E',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlmem91Z3hsbm5qdGp6eWdtZXh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5MTg3NjYsImV4cCI6MjA3MjQ5NDc2Nn0.f8ZnRMWgFH-zdg9xku3CA175DqM8XBH0LLv1BjZFT2E'
-        },
-        body: JSON.stringify(validatedData)
+      // Send to public edge function (no auth required)
+      const { data, error } = await supabase.functions.invoke('send-contact', {
+        body: {
+          ...validatedData,
+          // hcaptchaToken will be added when hCaptcha is integrated
+        }
       });
 
-      if (!response.ok) {
-        const errText = await response.text().catch(() => '');
-        throw new Error(`Edge Function ${response.status}: ${errText || response.statusText}`);
+      if (error) {
+        throw error;
       }
-
-      // Optional: parse response if needed
-      await response.json().catch(() => ({} as unknown));
 
       toast({
         title: "Message Sent!",
@@ -102,7 +96,8 @@ const Contact = () => {
         lastName: "",
         email: "",
         company: "",
-        message: ""
+        message: "",
+        honeypot: ""
       });
     } catch (error) {
       console.error('Contact form submission error:', error);
@@ -258,7 +253,18 @@ const Contact = () => {
                   )}
                 </div>
 
-                <Button 
+                {/* Security: Honeypot field - hidden from users but visible to bots */}
+                <input
+                  type="text"
+                  name="honeypot"
+                  value={formData.honeypot}
+                  onChange={handleInputChange}
+                  style={{ display: 'none' }}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+
+                <Button
                   type="submit" 
                   size="lg" 
                   disabled={isSubmitting}
