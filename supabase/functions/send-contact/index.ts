@@ -7,6 +7,12 @@ const ALLOWED_ORIGINS = [
   'https://your-production-domain.com', // Replace with your actual domain
 ];
 
+// Allowed domain patterns for CORS
+const ALLOWED_DOMAIN_PATTERNS = [
+  /^https:\/\/.*\.lovable\.dev$/,
+  /^https:\/\/.*\.lovable\.app$/,
+];
+
 // Simple in-memory rate limiting (resets on function restart)
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 minutes
@@ -33,10 +39,30 @@ const handler = async (req: Request): Promise<Response> => {
   const userAgent = req.headers.get('user-agent') || '';
   const clientIP = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown';
 
-  // Strict CORS check
-  const allowedOrigin = ALLOWED_ORIGINS.find(allowed => 
-    allowed === origin || (origin && origin.includes('localhost'))
-  );
+  // Enhanced CORS check with pattern matching
+  let allowedOrigin = null;
+  
+  if (origin) {
+    // Check exact matches first
+    allowedOrigin = ALLOWED_ORIGINS.find(allowed => 
+      allowed === origin || (origin.includes('localhost'))
+    );
+    
+    // If no exact match, check domain patterns
+    if (!allowedOrigin) {
+      const isPatternMatch = ALLOWED_DOMAIN_PATTERNS.some(pattern => pattern.test(origin));
+      if (isPatternMatch) {
+        allowedOrigin = origin;
+      }
+    }
+    
+    // Log blocked origins for debugging
+    if (!allowedOrigin) {
+      console.log(`CORS blocked origin: ${origin} from IP: ${clientIP}`);
+    }
+  } else {
+    console.log(`No origin header from IP: ${clientIP}`);
+  }
 
   const responseHeaders = {
     ...corsHeaders,
