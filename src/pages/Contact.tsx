@@ -71,9 +71,12 @@ const Contact = () => {
       setErrors({});
       setIsSubmitting(true);
       
-      // Send to n8n via edge function
+      // Send to n8n via edge function with proper authentication
       const { data, error } = await supabase.functions.invoke('send-contact', {
-        body: validatedData
+        body: validatedData,
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlmem91Z3hsbm5qdGp6eWdtZXh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5MTg3NjYsImV4cCI6MjA3MjQ5NDc2Nn0.f8ZnRMWgFH-zdg9xku3CA175DqM8XBH0LLv1BjZFT2E`
+        }
       });
 
       if (error) {
@@ -111,9 +114,11 @@ const Contact = () => {
           variant: "destructive"
         });
       } else {
+        const errorMessage = error?.message || "Failed to send message. Please try again.";
+        console.error('Edge function error:', error);
         toast({
           title: "Error",
-          description: "Failed to send message. Please try again.",
+          description: errorMessage,
           variant: "destructive"
         });
       }
