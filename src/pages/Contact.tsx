@@ -76,21 +76,11 @@ const Contact = () => {
       setErrors({});
       setIsSubmitting(true);
       
-      // Check hCaptcha token
-      if (!hcaptchaToken) {
-        toast({
-          title: "Security Check Required",
-          description: "Please complete the security verification.",
-          variant: "destructive"
-        });
-        return;
-      }
-
       // Send to public edge function (no auth required)
       const { data, error } = await supabase.functions.invoke('send-contact', {
         body: {
           ...validatedData,
-          hcaptchaToken: hcaptchaToken,
+          hcaptchaToken: hcaptchaToken || undefined, // Optional for now
           timestamp: new Date().toISOString()
         }
       });
@@ -279,21 +269,24 @@ const Contact = () => {
                   autoComplete="off"
                 />
 
-                {/* hCaptcha Security Check */}
+                {/* hCaptcha Security Check - Optional for now */}
                 <div className="flex justify-center">
                   <HCaptcha
                     ref={hcaptchaRef}
                     sitekey="10000000-ffff-ffff-ffff-000000000001" // Test site key - replace with actual
                     onVerify={setHcaptchaToken}
                     onExpire={() => setHcaptchaToken("")}
-                    onError={() => setHcaptchaToken("")}
+                    onError={(err) => {
+                      console.log("hCaptcha error (this is normal with test key):", err);
+                      setHcaptchaToken("");
+                    }}
                   />
                 </div>
 
                 <Button
                   type="submit" 
                   size="lg" 
-                  disabled={isSubmitting || !hcaptchaToken}
+                  disabled={isSubmitting}
                   className="w-full glow-on-hover bg-accent hover:bg-accent/90 text-white disabled:opacity-50"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
