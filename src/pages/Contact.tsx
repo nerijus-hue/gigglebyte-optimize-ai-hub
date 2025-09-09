@@ -273,11 +273,11 @@ const Contact = () => {
                 <div className="flex justify-center">
                   <HCaptcha
                     ref={hcaptchaRef}
-                    sitekey="10000000-ffff-ffff-ffff-000000000001" // Test site key - replace with actual
+                    sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
                     onVerify={setHcaptchaToken}
                     onExpire={() => setHcaptchaToken("")}
                     onError={(err) => {
-                      console.log("hCaptcha error (this is normal with test key):", err);
+                      console.log("hCaptcha error:", err);
                       setHcaptchaToken("");
                     }}
                   />
