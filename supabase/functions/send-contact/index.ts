@@ -53,12 +53,20 @@ const handler = async (req: Request): Promise<Response> => {
       }
     }
     
-    // Log blocked origins for debugging
+    // Log blocked origins for debugging and return 403
     if (!allowedOrigin) {
       console.log(`CORS blocked origin: ${origin} from IP: ${clientIP}`);
+      return new Response(JSON.stringify({ error: 'Origin not allowed' }), {
+        status: 403,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
   } else {
     console.log(`No origin header from IP: ${clientIP}`);
+    return new Response(JSON.stringify({ error: 'Origin header required' }), {
+      status: 403,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   const responseHeaders = {
