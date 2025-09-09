@@ -1,50 +1,16 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { supabase } from "@/integrations/supabase/client";
-import { Settings, Bot, Brain, TrendingUp, DollarSign, BarChart3, Shield, CheckCircle, Zap, Clock, Target, ChevronDown, ChevronUp, Users, Star } from "lucide-react";
-
-interface Testimonial {
-  id: string;
-  name: string;
-  company?: string;
-  position?: string;
-  message: string;
-  rating: number;
-  created_at: string;
-}
+import { Settings, Bot, Brain, TrendingUp, DollarSign, BarChart3, Shield, CheckCircle, Zap, Clock, Target, ChevronDown, ChevronUp, Users } from "lucide-react";
 
 const Home = () => {
   const [allExpanded, setAllExpanded] = useState(false);
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-  const [loading, setLoading] = useState(true);
 
   const toggleAllBenefits = () => {
     setAllExpanded(!allExpanded);
   };
-
-  const fetchTestimonials = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('testimonials')
-        .select('*')
-        .eq('is_approved', true)
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setTestimonials(data || []);
-    } catch (error) {
-      console.error('Error fetching testimonials:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchTestimonials();
-  }, []);
   const services = [
     {
       icon: Users,
@@ -326,49 +292,9 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Testimonial & CTA Section */}
+      {/* CTA Section */}
       <section className="py-20 px-6 bg-gradient-to-t from-muted/20 to-background">
         <div className="max-w-4xl mx-auto text-center">
-          {loading ? (
-            <Card className="card-gradient border-border/50 mb-12">
-              <CardContent className="p-8">
-                <div className="animate-pulse space-y-4">
-                  <div className="h-4 bg-muted rounded w-3/4 mx-auto"></div>
-                  <div className="h-20 bg-muted rounded"></div>
-                  <div className="h-4 bg-muted rounded w-1/2 mx-auto"></div>
-                </div>
-              </CardContent>
-            </Card>
-          ) : testimonials.length > 0 ? (
-            <Card className="card-gradient border-border/50 mb-12">
-              <CardContent className="p-8">
-                <div className="flex justify-center mb-4">
-                  {[...Array(testimonials[0].rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <blockquote className="text-lg italic text-muted-foreground mb-4">
-                  "{testimonials[0].message}"
-                </blockquote>
-                <cite className="text-primary font-medium">
-                  {testimonials[0].name}
-                  {testimonials[0].position && testimonials[0].company && 
-                    `, ${testimonials[0].position} at ${testimonials[0].company}`
-                  }
-                </cite>
-              </CardContent>
-            </Card>
-          ) : (
-            <Card className="card-gradient border-border/50 mb-12">
-              <CardContent className="p-8">
-                <blockquote className="text-lg italic text-muted-foreground mb-4">
-                  "Gigglebyte transformed our operations completely. Their AI integration reduced our processing time by 60% and saved us thousands in operational costs."
-                </blockquote>
-                <cite className="text-primary font-medium">Sarah Johnson, CEO at TechFlow Solutions</cite>
-              </CardContent>
-            </Card>
-          )}
-
           <div className="space-y-8">
             <h2 className="text-3xl font-bold text-primary">Ready to Transform Your Business?</h2>
             <p className="text-xl text-muted-foreground">
