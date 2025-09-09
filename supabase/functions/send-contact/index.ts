@@ -159,29 +159,41 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error('Message too long');
     }
 
-    // Verify hCaptcha token if provided
+    // Require hCaptcha token for security
     const hcaptchaSecret = Deno.env.get('HCAPTCHA_SECRET_KEY');
-    if (hcaptchaSecret && hcaptchaToken) {
-      const hcaptchaResponse = await fetch('https://hcaptcha.com/siteverify', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          secret: hcaptchaSecret,
-          response: hcaptchaToken,
-          remoteip: clientIP,
-        }),
+    if (!hcaptchaSecret) {
+      console.error('hCaptcha secret key not configured');
+      throw new Error('Security verification not configured');
+    }
+    
+    if (!hcaptchaToken) {
+      console.log(`Missing hCaptcha token from IP: ${clientIP}`);
+      return new Response(JSON.stringify({ error: 'Security verification required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json', ...responseHeaders },
       });
+    }
+    
+    // Verify hCaptcha token
+    const hcaptchaResponse = await fetch('https://hcaptcha.com/siteverify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        secret: hcaptchaSecret,
+        response: hcaptchaToken,
+        remoteip: clientIP,
+      }),
+    });
 
-      const hcaptchaResult = await hcaptchaResponse.json();
-      if (!hcaptchaResult.success) {
-        console.log(`hCaptcha verification failed for IP: ${clientIP}:`, hcaptchaResult);
-        return new Response(JSON.stringify({ error: 'Captcha verification failed' }), {
-          status: 400,
-          headers: { 'Content-Type': 'application/json', ...responseHeaders },
-        });
-      }
+    const hcaptchaResult = await hcaptchaResponse.json();
+    if (!hcaptchaResult.success) {
+      console.log(`hCaptcha verification failed for IP: ${clientIP}:`, hcaptchaResult);
+      return new Response(JSON.stringify({ error: 'Captcha verification failed' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json', ...responseHeaders },
+      });
     }
 
     // Get environment variables for n8n
@@ -192,6 +204,19 @@ const handler = async (req: Request): Promise<Response> => {
     if (!webhookUrl || !basicUser || !basicPass) {
       console.error('Missing required environment variables');
       throw new Error('Server configuration error');
+    }
+
+    // Validate webhook URL for security
+    try {
+      const url = new URL(webhookUrl);
+      const allowedHosts = ['hooks.n8n.cloud', 'n8n.cloud'];
+      if (!allowedHosts.some(host => url.hostname.endsWith(host))) {
+        console.error(`Invalid webhook hostname: ${url.hostname}`);
+        throw new Error('Invalid webhook configuration');
+      }
+    } catch (urlError) {
+      console.error('Invalid webhook URL:', urlError);
+      throw new Error('Invalid webhook configuration');
     }
 
     // Prepare payload for n8n

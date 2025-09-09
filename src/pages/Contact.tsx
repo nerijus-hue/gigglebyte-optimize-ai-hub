@@ -80,7 +80,7 @@ const Contact = () => {
       const { data, error } = await supabase.functions.invoke('send-contact', {
         body: {
           ...validatedData,
-          hcaptchaToken: hcaptchaToken || undefined, // Optional for now
+          hcaptchaToken: hcaptchaToken, // Required for security
           timestamp: new Date().toISOString()
         }
       });
@@ -269,7 +269,7 @@ const Contact = () => {
                   autoComplete="off"
                 />
 
-                {/* hCaptcha Security Check - Optional for now */}
+                {/* hCaptcha Security Check - Required */}
                 <div className="flex justify-center">
                   <HCaptcha
                     ref={hcaptchaRef}
@@ -286,7 +286,7 @@ const Contact = () => {
                 <Button
                   type="submit" 
                   size="lg" 
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !hcaptchaToken}
                   className="w-full glow-on-hover bg-accent hover:bg-accent/90 text-white disabled:opacity-50"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
