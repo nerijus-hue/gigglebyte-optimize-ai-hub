@@ -273,7 +273,7 @@ const Contact = () => {
                 <div className="flex justify-center">
                   <HCaptcha
                     ref={hcaptchaRef}
-                    sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
+                    sitekey="2c10d248-40ac-4c3e-a970-97b4afe0a082"
                     onVerify={setHcaptchaToken}
                     onExpire={() => setHcaptchaToken("")}
                     onError={(err) => {
