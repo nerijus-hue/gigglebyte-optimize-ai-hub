@@ -276,8 +276,14 @@ const Contact = () => {
                     sitekey="2c10d248-40ac-4c3e-a970-97b4afe0a082"
                     onVerify={setHcaptchaToken}
                     onExpire={() => setHcaptchaToken("")}
+                    onLoad={() => console.log("hCaptcha loaded successfully")}
                     onError={(err) => {
-                      console.log("hCaptcha error:", err);
+                      console.error("hCaptcha error:", err);
+                      toast({
+                        title: "Captcha Error",
+                        description: "Failed to load security verification. Please refresh the page.",
+                        variant: "destructive"
+                      });
                       setHcaptchaToken("");
                     }}
                   />
