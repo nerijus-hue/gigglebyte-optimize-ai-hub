@@ -183,6 +183,7 @@ const handler = async (req: Request): Promise<Response> => {
     }
     
     // Verify hCaptcha token
+    console.log('Starting hCaptcha verification for IP:', clientIP);
     const hcaptchaResponse = await fetch('https://hcaptcha.com/siteverify', {
       method: 'POST',
       headers: {
@@ -196,21 +197,33 @@ const handler = async (req: Request): Promise<Response> => {
     });
 
     const hcaptchaResult = await hcaptchaResponse.json();
+    console.log('hCaptcha verification response:', { 
+      success: hcaptchaResult.success, 
+      errorCodes: hcaptchaResult['error-codes'],
+      clientIP: clientIP
+    });
+    
     if (!hcaptchaResult.success) {
-      console.log(`hCaptcha verification failed for IP: ${clientIP}:`, hcaptchaResult);
+      console.error(`hCaptcha verification failed for IP: ${clientIP}:`, hcaptchaResult);
       return new Response(JSON.stringify({ error: 'Captcha verification failed' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json', ...responseHeaders },
       });
     }
+    console.log('hCaptcha verification successful');
 
     // Get environment variables for Make.com
     const makeApiKey = Deno.env.get('MAKE_API_KEY');
     const makeWebhookUrl = 'https://hook.eu2.make.com/4crtq9lp9vfhwsjb5t7ikl31ktmv8ifl';
 
+    console.log('Environment check:', {
+      makeApiKeyExists: !!makeApiKey,
+      makeApiKeyLength: makeApiKey ? makeApiKey.length : 0
+    });
+
     if (!makeApiKey) {
-      console.error('Missing Make.com API key');
-      throw new Error('Server configuration error');
+      console.error('Missing Make.com API key - MAKE_API_KEY environment variable not found');
+      throw new Error('Server configuration error: Missing Make.com API key');
     }
 
     // Validate webhook URL for security
@@ -239,6 +252,12 @@ const handler = async (req: Request): Promise<Response> => {
     };
 
     // Send to Make.com webhook
+    console.log('Sending to Make.com webhook:', { 
+      url: makeWebhookUrl,
+      hasApiKey: !!makeApiKey,
+      payloadSize: JSON.stringify(payload).length 
+    });
+    
     const response = await fetch(makeWebhookUrl, {
       method: 'POST',
       headers: {
@@ -248,9 +267,21 @@ const handler = async (req: Request): Promise<Response> => {
       body: JSON.stringify(payload),
     });
 
+    console.log('Make.com response received:', { 
+      status: response.status, 
+      statusText: response.statusText,
+      ok: response.ok 
+    });
+
     if (!response.ok) {
-      console.error('Make.com webhook error:', response.status, await response.text());
-      throw new Error('Failed to send contact form');
+      const errorText = await response.text();
+      console.error('Make.com webhook error details:', {
+        status: response.status,
+        statusText: response.statusText,
+        body: errorText,
+        headers: Object.fromEntries(response.headers.entries())
+      });
+      throw new Error(`Make.com webhook failed: ${response.status} ${response.statusText}`);
     }
 
     const result = await response.json().catch(() => ({}));

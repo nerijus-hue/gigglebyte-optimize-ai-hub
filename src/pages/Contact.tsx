@@ -123,9 +123,10 @@ const Contact = () => {
           variant: "destructive"
         });
       } else {
+        const errorMessage = error?.message || "Failed to send message. Please try again.";
         toast({
-          title: "Unable to Send Message",
-          description: "We're experiencing technical difficulties. Please contact us directly at nerijus@gigglebyte.ltd",
+          title: "Error",
+          description: errorMessage,
           variant: "destructive"
         });
       }
