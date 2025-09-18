@@ -204,21 +204,20 @@ const handler = async (req: Request): Promise<Response> => {
       });
     }
 
-    // Get environment variables for n8n
-    const webhookUrl = Deno.env.get('N8N_WEBHOOK_URL');
-    const basicUser = Deno.env.get('N8N_BASIC_USER');
-    const basicPass = Deno.env.get('N8N_BASIC_PASS');
+    // Get environment variables for Make.com
+    const makeApiKey = Deno.env.get('MAKE_API_KEY');
+    const makeWebhookUrl = 'https://hook.eu2.make.com/4crtq9lp9vfhwsjb5t7ikl31ktmv8ifl';
 
-    if (!webhookUrl || !basicUser || !basicPass) {
-      console.error('Missing required environment variables');
+    if (!makeApiKey) {
+      console.error('Missing Make.com API key');
       throw new Error('Server configuration error');
     }
 
     // Validate webhook URL for security
     try {
-      const url = new URL(webhookUrl);
-      const allowedHosts = ['hooks.n8n.cloud', 'n8n.cloud'];
-      if (!allowedHosts.some(host => url.hostname.endsWith(host))) {
+      const url = new URL(makeWebhookUrl);
+      const allowedHosts = ['hook.eu2.make.com', 'hook.make.com'];
+      if (!allowedHosts.some(host => url.hostname === host)) {
         console.error(`Invalid webhook hostname: ${url.hostname}`);
         throw new Error('Invalid webhook configuration');
       }
@@ -227,7 +226,7 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error('Invalid webhook configuration');
     }
 
-    // Prepare payload for n8n
+    // Prepare payload for Make.com
     const payload = {
       Firstname: firstName,
       Lastname: lastName,
@@ -239,26 +238,23 @@ const handler = async (req: Request): Promise<Response> => {
       UserAgent: userAgent,
     };
 
-    // Create Basic Auth header
-    const basicAuth = btoa(`${basicUser}:${basicPass}`);
-
-    // Send to n8n webhook
-    const response = await fetch(webhookUrl, {
+    // Send to Make.com webhook
+    const response = await fetch(makeWebhookUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Basic ${basicAuth}`,
+        'x-make-apikey': makeApiKey,
       },
       body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
-      console.error('n8n webhook error:', response.status, await response.text());
+      console.error('Make.com webhook error:', response.status, await response.text());
       throw new Error('Failed to send contact form');
     }
 
     const result = await response.json().catch(() => ({}));
-    console.log(`Contact form sent successfully to n8n from IP: ${clientIP}:`, result);
+    console.log(`Contact form sent successfully to Make.com from IP: ${clientIP}:`, result);
 
     return new Response(JSON.stringify({ success: true, message: 'Contact form submitted successfully' }), {
       status: 200,
