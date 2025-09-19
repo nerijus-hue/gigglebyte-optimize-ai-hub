@@ -10,6 +10,7 @@ const ALLOWED_ORIGINS = [
 const ALLOWED_DOMAIN_PATTERNS = [
   /^https:\/\/.*\.lovable\.dev$/,
   /^https:\/\/.*\.lovable\.app$/,
+  /^https:\/\/.*\.lovableproject\.com$/,
 ];
 
 // Simple in-memory rate limiting (resets on function restart)
