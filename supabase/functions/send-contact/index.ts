@@ -37,7 +37,9 @@ const corsHeaders = {
 const handler = async (req: Request): Promise<Response> => {
   const origin = req.headers.get('origin');
   const userAgent = req.headers.get('user-agent') || '';
-  const clientIP = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown';
+  // Extract only the first IP from x-forwarded-for header (hCaptcha needs single IP)
+  const rawClientIP = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown';
+  const clientIP = rawClientIP.split(',')[0].trim();
 
   // Enhanced CORS check with pattern matching
   let allowedOrigin = null;
