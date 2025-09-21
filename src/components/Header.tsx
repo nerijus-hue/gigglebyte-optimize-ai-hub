@@ -96,9 +96,9 @@ const Header = () => {
                     to={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={cn(
-                      "relative block py-3 px-4 text-sm font-medium transition-colors border-b border-transparent rounded-lg",
+                      "relative block py-3 px-4 text-sm font-medium transition-colors rounded-lg",
                       isActive 
-                        ? "text-primary border-primary" 
+                        ? "text-primary" 
                         : "text-foreground"
                     )}
                   >
@@ -114,10 +114,10 @@ const Header = () => {
                           damping: 30,
                         }}
                       >
-                        <div className="absolute -top-1 left-4 w-6 h-0.5 bg-primary rounded-t-full">
-                          <div className="absolute w-8 h-4 bg-primary/20 rounded-full blur-md -top-1 -left-1" />
-                          <div className="absolute w-6 h-4 bg-primary/20 rounded-full blur-md -top-0.5" />
-                          <div className="absolute w-3 h-3 bg-primary/20 rounded-full blur-sm top-0 left-1.5" />
+                        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-primary rounded-t-full">
+                          <div className="absolute w-16 h-6 bg-primary/20 rounded-full blur-md -top-2 -left-2" />
+                          <div className="absolute w-12 h-6 bg-primary/20 rounded-full blur-md -top-1" />
+                          <div className="absolute w-6 h-4 bg-primary/20 rounded-full blur-sm top-0 left-3" />
                         </div>
                       </motion.div>
                     )}
