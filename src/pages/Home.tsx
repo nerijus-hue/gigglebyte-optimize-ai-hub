@@ -175,12 +175,12 @@ const Home = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in-delay-2 relative">
             {targetAudiences.map((audience, index) => (
               <div key={index} className="relative">
-                {index === 1 && (
+                {index === 0 && (
                   <Button 
                     onClick={toggleAllBenefits}
                     variant="outline"
                     size="sm"
-                    className="absolute -top-10 right-0 text-xs font-medium border-accent text-accent hover:bg-accent hover:text-white px-4 py-2 w-fit z-10"
+                    className="absolute -top-10 left-0 text-xs font-medium border-accent text-accent hover:bg-accent hover:text-white px-4 py-2 w-fit z-10"
                   >
                     {allExpanded ? (
                       <>
