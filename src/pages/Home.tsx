@@ -175,7 +175,7 @@ const Home = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in-delay-2 relative">
             {targetAudiences.map((audience, index) => (
               <div key={index} className="relative">
-                {index === 2 && (
+                {index === 0 && (
                   <Button 
                     onClick={toggleAllBenefits}
                     variant="outline"
