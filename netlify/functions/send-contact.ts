@@ -213,9 +213,9 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
     console.log('hCaptcha verification successful');
 
     // Send to Make.com webhook
-    const makeApiKey = process.env.MAKE_API_KEY;
-    if (!makeApiKey) {
-      console.error('MAKE_API_KEY not configured');
+    const makeWebhookUrl = process.env.MAKE_WEBHOOK_URL;
+    if (!makeWebhookUrl) {
+      console.error('MAKE_WEBHOOK_URL not configured');
       return {
         statusCode: 500,
         headers: corsHeaders,
@@ -223,7 +223,7 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
       };
     }
 
-    const makeWebhookUrl = 'https://hook.eu2.make.com/h8c4xd7jvjl3b4pqxc7vwh7v5s5g3uqx';
+    const makeApiKey = process.env.MAKE_API_KEY;
     
     const makePayload = {
       firstName: formData.firstName,
@@ -242,19 +242,30 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
 
     console.log('Sending to Make.com webhook...');
     
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json'
+    };
+    
+    // Add Authorization header only if API key is provided
+    if (makeApiKey) {
+      headers['Authorization'] = `Bearer ${makeApiKey}`;
+    }
+    
     const makeResponse = await fetch(makeWebhookUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${makeApiKey}`
-      },
+      headers,
       body: JSON.stringify(makePayload)
     });
 
     if (!makeResponse.ok) {
       const errorText = await makeResponse.text();
-      console.error('Make.com webhook error:', makeResponse.status, errorText);
-      throw new Error(`Make.com webhook failed: ${makeResponse.status}`);
+      console.error('Make.com webhook error:', {
+        status: makeResponse.status,
+        statusText: makeResponse.statusText,
+        response: errorText,
+        webhookUrl: makeWebhookUrl.substring(0, 40) + '...' // Log partial URL for debugging
+      });
+      throw new Error(`Make.com webhook failed with status ${makeResponse.status}: ${makeResponse.statusText}`);
     }
 
     console.log('Make.com webhook successful');
