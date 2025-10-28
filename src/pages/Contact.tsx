@@ -7,7 +7,6 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { MapPin, Mail, Phone, Clock } from "lucide-react";
 import { z } from "zod";
-import { supabase } from "@/integrations/supabase/client";
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 // Security: Form validation schema
@@ -76,17 +75,22 @@ const Contact = () => {
       setErrors({});
       setIsSubmitting(true);
       
-      // Send to public edge function (no auth required)
-      const { data, error } = await supabase.functions.invoke('send-contact', {
-        body: {
+      // Send to Netlify Function
+      const response = await fetch('/.netlify/functions/send-contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           ...validatedData,
-          hcaptchaToken: hcaptchaToken, // Required for security
+          hcaptchaToken: hcaptchaToken,
           timestamp: new Date().toISOString()
-        }
+        })
       });
 
-      if (error) {
-        throw error;
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send message');
       }
 
       toast({
@@ -123,7 +127,7 @@ const Contact = () => {
           variant: "destructive"
         });
       } else {
-        const errorMessage = error?.message || "Failed to send message. Please try again.";
+        const errorMessage = (error as Error)?.message || "Failed to send message. Please try again.";
         toast({
           title: "Error",
           description: errorMessage,
