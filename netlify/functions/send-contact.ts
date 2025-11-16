@@ -207,9 +207,9 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
       'Content-Type': 'application/json'
     };
     
-    // Add Authorization header only if API key is provided
+    // Add Make.com API key header if provided
     if (makeApiKey) {
-      headers['Authorization'] = `Bearer ${makeApiKey}`;
+      headers['x-make-apikey'] = makeApiKey;
     }
     
     const makeResponse = await fetch(makeWebhookUrl, {
