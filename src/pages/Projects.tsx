@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -6,6 +7,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import { TrendingUp, Bot, Brain, Settings, Users, FileText, Bell, HardDrive, Mail, Zap, BarChart3, GitBranch, ShoppingCart, Dumbbell, Bug, Activity, Search, TrendingDown, Clock, Star, Eye } from "lucide-react";
 
 const Projects = () => {
+  const navigate = useNavigate();
 
   const projects = [
     {
@@ -450,7 +452,7 @@ const Projects = () => {
 
                       {/* CTA */}
                       <div className="pt-4 border-t">
-                        <Button className="w-full bg-accent hover:bg-accent/90 text-white">
+                        <Button onClick={() => navigate('/contact')} className="w-full bg-accent hover:bg-accent/90 text-white">
                           Discuss This Project
                         </Button>
                       </div>
@@ -471,7 +473,7 @@ const Projects = () => {
                 <h3 className="font-semibold text-primary">Ready to Transform Your Business?</h3>
                 <p className="text-sm text-muted-foreground">Let's discuss your automation needs</p>
               </div>
-              <Button className="bg-accent hover:bg-accent/90 text-white px-6">
+              <Button onClick={() => navigate('/contact')} className="bg-accent hover:bg-accent/90 text-white px-6">
                 Start Your Project
               </Button>
             </div>
