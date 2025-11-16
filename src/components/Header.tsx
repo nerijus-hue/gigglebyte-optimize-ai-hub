@@ -86,8 +86,8 @@ const Header = () => {
 
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-sm">
-            <nav className="px-6 py-4 space-y-2">
+          <div className="md:hidden border-t border-border">
+            <nav className="px-6 py-4 space-y-2 bg-background/95 backdrop-blur-sm">
               {navItems.map((item) => {
                 const isActive = location.pathname === item.href;
                 return (
