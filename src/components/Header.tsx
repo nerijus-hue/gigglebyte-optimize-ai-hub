@@ -98,7 +98,7 @@ const Header = () => {
                     className={cn(
                       "relative block py-3 text-sm font-medium transition-colors rounded-lg",
                       isActive 
-                        ? "text-primary font-semibold border-l-4 border-primary pl-3 pr-4" 
+                        ? "text-primary font-semibold bg-primary/10 border-l-4 border-primary pl-3 pr-4" 
                         : "text-foreground px-4"
                     )}
                   >
