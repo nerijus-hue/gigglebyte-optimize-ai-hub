@@ -101,8 +101,19 @@ const Contact = () => {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to send message');
+        let errorMessage = 'Failed to send message';
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorMessage;
+        } catch (e) {
+          // Response is not JSON (likely 404 or server error)
+          if (response.status === 404) {
+            errorMessage = 'Contact form service not available. Please deploy to Netlify or contact support.';
+          } else {
+            errorMessage = `Server error (${response.status}). Please try again later.`;
+          }
+        }
+        throw new Error(errorMessage);
       }
 
       toast({
