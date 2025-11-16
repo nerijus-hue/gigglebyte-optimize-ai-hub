@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,7 +7,6 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { MapPin, Mail, Phone, Clock } from "lucide-react";
 import { z } from "zod";
-import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 // Security: Form validation schema
 const contactFormSchema = z.object({
@@ -47,8 +46,7 @@ const Contact = () => {
   });
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [hcaptchaToken, setHcaptchaToken] = useState<string>("");
-  const hcaptchaRef = useRef<HCaptcha>(null);
+  const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -69,6 +67,21 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Check cooldown period (1 minute)
+    const now = Date.now();
+    const timeSinceLastSubmit = now - lastSubmitTime;
+    const cooldownPeriod = 60000; // 1 minute in milliseconds
+    
+    if (timeSinceLastSubmit < cooldownPeriod) {
+      const remainingSeconds = Math.ceil((cooldownPeriod - timeSinceLastSubmit) / 1000);
+      toast({
+        title: "Please Wait",
+        description: `You can submit another message in ${remainingSeconds} seconds.`,
+        variant: "destructive",
+      });
+      return;
+    }
+    
     // Security: Validate form data with Zod schema
     try {
       const validatedData = contactFormSchema.parse(formData);
@@ -83,7 +96,6 @@ const Contact = () => {
         },
         body: JSON.stringify({
           ...validatedData,
-          hcaptchaToken: hcaptchaToken,
           timestamp: new Date().toISOString()
         })
       });
@@ -98,6 +110,9 @@ const Contact = () => {
         description: "Thank you for your message. We'll get back to you within 24 hours.",
       });
 
+      // Update last submit time
+      setLastSubmitTime(now);
+
       // Reset form
       setFormData({
         firstName: "",
@@ -107,8 +122,6 @@ const Contact = () => {
         message: "",
         honeypot: ""
       });
-      setHcaptchaToken("");
-      hcaptchaRef.current?.resetCaptcha();
     } catch (error) {
       console.error('Contact form submission error:', error);
       
@@ -273,30 +286,10 @@ const Contact = () => {
                   autoComplete="off"
                 />
 
-                {/* hCaptcha Security Check - Required */}
-                <div className="flex justify-center">
-                  <HCaptcha
-                    ref={hcaptchaRef}
-                    sitekey="2c10d248-40ac-4c3e-a970-97b4afe0a082"
-                    onVerify={setHcaptchaToken}
-                    onExpire={() => setHcaptchaToken("")}
-                    onLoad={() => console.log("hCaptcha loaded successfully")}
-                    onError={(err) => {
-                      console.error("hCaptcha error:", err);
-                      toast({
-                        title: "Captcha Error",
-                        description: "Failed to load security verification. Please refresh the page.",
-                        variant: "destructive"
-                      });
-                      setHcaptchaToken("");
-                    }}
-                  />
-                </div>
-
                 <Button
                   type="submit" 
                   size="lg" 
-                  disabled={isSubmitting || !hcaptchaToken}
+                  disabled={isSubmitting}
                   className="w-full glow-on-hover bg-accent hover:bg-accent/90 text-white disabled:opacity-50"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}

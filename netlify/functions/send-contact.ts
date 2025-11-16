@@ -43,7 +43,6 @@ interface ContactFormData {
   company?: string;
   message: string;
   honeypot?: string;
-  hcaptchaToken: string;
   timestamp: string;
 }
 
@@ -173,44 +172,6 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
         body: JSON.stringify({ error: 'Payload too large' })
       };
     }
-
-    // Security: Verify hCaptcha token
-    if (!formData.hcaptchaToken) {
-      return {
-        statusCode: 400,
-        headers: corsHeaders,
-        body: JSON.stringify({ error: 'Captcha verification required' })
-      };
-    }
-
-    const hcaptchaSecret = process.env.HCAPTCHA_SECRET_KEY;
-    if (!hcaptchaSecret) {
-      console.error('HCAPTCHA_SECRET_KEY not configured');
-      return {
-        statusCode: 500,
-        headers: corsHeaders,
-        body: JSON.stringify({ error: 'Server configuration error' })
-      };
-    }
-
-    const hcaptchaResponse = await fetch('https://api.hcaptcha.com/siteverify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `secret=${hcaptchaSecret}&response=${formData.hcaptchaToken}&sitekey=2c10d248-40ac-4c3e-a970-97b4afe0a082`
-    });
-
-    const hcaptchaResult = await hcaptchaResponse.json();
-    
-    if (!hcaptchaResult.success) {
-      console.error('hCaptcha verification failed:', hcaptchaResult);
-      return {
-        statusCode: 400,
-        headers: corsHeaders,
-        body: JSON.stringify({ error: 'Captcha verification failed. Please try again.' })
-      };
-    }
-
-    console.log('hCaptcha verification successful');
 
     // Send to Make.com webhook
     const makeWebhookUrl = process.env.MAKE_WEBHOOK_URL;
