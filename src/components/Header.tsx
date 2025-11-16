@@ -96,31 +96,13 @@ const Header = () => {
                     to={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={cn(
-                      "relative block py-3 px-4 text-sm font-medium transition-colors rounded-lg",
+                      "relative block py-3 text-sm font-medium transition-colors rounded-lg",
                       isActive 
-                        ? "text-primary" 
-                        : "text-foreground"
+                        ? "text-primary font-semibold bg-primary/10 border-l-4 border-primary pl-3 pr-4" 
+                        : "text-foreground px-4"
                     )}
                   >
                     {item.label}
-                    {isActive && (
-                      <motion.div
-                        layoutId="mobileLamp"
-                        className="absolute inset-0 w-full -z-10"
-                        initial={false}
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 30,
-                        }}
-                      >
-                        <div className="absolute -top-2 left-4 w-10 h-1 bg-primary rounded-t-full">
-                          <div className="absolute w-14 h-6 bg-primary/20 rounded-full blur-md -top-2 -left-2" />
-                          <div className="absolute w-10 h-6 bg-primary/20 rounded-full blur-md -top-1" />
-                          <div className="absolute w-5 h-4 bg-primary/20 rounded-full blur-sm top-0 left-2.5" />
-                        </div>
-                      </motion.div>
-                    )}
                   </Link>
                 );
               })}
