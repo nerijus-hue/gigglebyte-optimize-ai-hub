@@ -62,3 +62,33 @@ Contact form submissions go through:
 1. Zod validation (with honeypot spam protection)
 2. Rate limiting (60s cooldown)
 3. POST to `/.netlify/functions/send-contact`
+
+## Testing Workflow (Required)
+
+After implementing code changes, always:
+1. Create or update tests alongside the source file (e.g., `Component.tsx` → `Component.test.tsx`)
+2. Run only the specific test file to verify:
+   ```bash
+   npm run test -- src/path/to/file.test.ts   # Run specific test in watch mode
+   npm run test:run -- src/path/to/file.test.ts  # Run once
+   ```
+3. For e2e tests (in `e2e/` directory):
+   ```bash
+   npm run e2e -- e2e/feature.spec.ts
+   ```
+
+### Test Structure
+
+| Location | Type | Runner | Command |
+|----------|------|--------|---------|
+| `src/**/*.test.ts(x)` | Unit/Integration | Vitest | `npm run test:run` |
+| `e2e/*.spec.ts` | End-to-end | Playwright | `npm run e2e` |
+
+### Full Test Suite Commands
+
+```bash
+npm run test:unit        # Unit tests (lib, hooks, netlify functions)
+npm run test:integration # Integration tests (pages, components)
+npm run e2e              # All e2e tests
+npm run test:all         # All tests (vitest + playwright)
+```
