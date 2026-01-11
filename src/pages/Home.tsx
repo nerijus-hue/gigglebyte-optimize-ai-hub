@@ -53,7 +53,7 @@ const Home = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in-delay-2 relative">
             {targetAudiences.map((audience, index) => (
-              <div key={index} className="relative">
+              <div key={audience.title} className="relative">
                 {index === 0 && (
                   <Button 
                     onClick={toggleAllBenefits}
@@ -121,8 +121,8 @@ const Home = () => {
           </div>
 
           <div className="grid md:grid-cols-4 gap-8 fade-in-delay-2">
-            {services.map((service, index) => (
-              <Card key={index} className="card-gradient border-border/50 glow-on-hover group">
+            {services.map((service) => (
+              <Card key={service.title} className="card-gradient border-border/50 glow-on-hover group">
                 <CardContent className="p-8 text-center">
                   <div className="w-16 h-16 mx-auto mb-6 bg-accent/10 rounded-full flex items-center justify-center group-hover:bg-accent/20 transition-colors">
                     <service.icon className="w-8 h-8 text-accent" />
@@ -156,8 +156,8 @@ const Home = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((benefit, index) => (
-              <Card key={index} className="text-center glow-on-hover border-border/50">
+            {benefits.map((benefit) => (
+              <Card key={benefit.title} className="text-center glow-on-hover border-border/50">
                 <CardContent className="p-6">
                   <div className="w-12 h-12 mx-auto mb-4 bg-accent/10 rounded-full flex items-center justify-center">
                     <benefit.icon className="w-6 h-6 text-accent" />

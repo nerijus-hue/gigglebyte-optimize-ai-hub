@@ -65,12 +65,14 @@ describe('send-contact Netlify function', () => {
     vi.resetAllMocks();
     resetRateLimits(); // Clear rate limit map before each test
     process.env.MAKE_WEBHOOK_URL = 'https://hook.make.com/test';
+    process.env.ALLOW_DEV_ORIGINS = 'true'; // Enable dev origins for testing
     mockFetch.mockResolvedValue({ ok: true, text: () => Promise.resolve('') });
   });
 
   afterEach(() => {
     delete process.env.MAKE_WEBHOOK_URL;
     delete process.env.MAKE_API_KEY;
+    delete process.env.ALLOW_DEV_ORIGINS;
   });
 
   describe('CORS and HTTP Method validation', () => {
@@ -350,6 +352,122 @@ describe('send-contact Netlify function', () => {
       const body = JSON.parse(result.body);
       expect(body.success).toBe(true);
       expect(body.message).toBe('Contact form submitted successfully');
+    });
+  });
+
+  describe('Rate limiting', () => {
+    it('should allow up to 5 requests from the same IP', async () => {
+      const event = createEvent();
+
+      // First 5 requests should succeed
+      for (let i = 0; i < 5; i++) {
+        const result = await handler(event, mockContext);
+        expect(result.statusCode).toBe(200);
+      }
+    });
+
+    it('should return 429 on the 6th request from the same IP', async () => {
+      const event = createEvent();
+
+      // Make 5 successful requests
+      for (let i = 0; i < 5; i++) {
+        await handler(event, mockContext);
+      }
+
+      // 6th request should be rate limited
+      const result = await handler(event, mockContext);
+      expect(result.statusCode).toBe(429);
+      expect(JSON.parse(result.body).error).toBe('Too many requests. Please try again later.');
+    });
+
+    it('should rate limit IPs independently', async () => {
+      const event1 = createEvent({
+        headers: {
+          origin: 'https://gigglebyte.ltd',
+          'user-agent': 'Mozilla/5.0',
+          'x-forwarded-for': '192.168.1.1'
+        },
+      });
+
+      const event2 = createEvent({
+        headers: {
+          origin: 'https://gigglebyte.ltd',
+          'user-agent': 'Mozilla/5.0',
+          'x-forwarded-for': '192.168.1.2'
+        },
+      });
+
+      // Max out requests from IP 1
+      for (let i = 0; i < 5; i++) {
+        await handler(event1, mockContext);
+      }
+
+      // IP 1 should be rate limited
+      const result1 = await handler(event1, mockContext);
+      expect(result1.statusCode).toBe(429);
+
+      // IP 2 should still be allowed
+      const result2 = await handler(event2, mockContext);
+      expect(result2.statusCode).toBe(200);
+    });
+
+    it('should extract IP from x-forwarded-for header correctly', async () => {
+      // When multiple IPs in x-forwarded-for, use the first one
+      const event = createEvent({
+        headers: {
+          origin: 'https://gigglebyte.ltd',
+          'user-agent': 'Mozilla/5.0',
+          'x-forwarded-for': '10.0.0.1, 10.0.0.2, 10.0.0.3'
+        },
+      });
+
+      // Max out requests from this IP
+      for (let i = 0; i < 5; i++) {
+        await handler(event, mockContext);
+      }
+
+      // Should be rate limited
+      const result = await handler(event, mockContext);
+      expect(result.statusCode).toBe(429);
+    });
+
+    it('should use x-real-ip as fallback when x-forwarded-for is not present', async () => {
+      const event = createEvent({
+        headers: {
+          origin: 'https://gigglebyte.ltd',
+          'user-agent': 'Mozilla/5.0',
+          'x-real-ip': '172.16.0.1'
+        },
+      });
+
+      // Max out requests from this IP
+      for (let i = 0; i < 5; i++) {
+        await handler(event, mockContext);
+      }
+
+      // Should be rate limited
+      const result = await handler(event, mockContext);
+      expect(result.statusCode).toBe(429);
+    });
+
+    it('should reset rate limit after the time window', async () => {
+      const event = createEvent();
+
+      // Make 5 requests
+      for (let i = 0; i < 5; i++) {
+        await handler(event, mockContext);
+      }
+
+      // Should be rate limited
+      let result = await handler(event, mockContext);
+      expect(result.statusCode).toBe(429);
+
+      // Manually reset to simulate time passing
+      resetRateLimits();
+
+      // Should be allowed again
+      result = await handler(event, mockContext);
+      expect(result.statusCode).toBe(200);
     });
   });
 });

@@ -192,12 +192,14 @@ const Contact = () => {
                       name="firstName"
                       value={formData.firstName}
                       onChange={handleInputChange}
+                      aria-describedby={errors.firstName ? "firstName-error" : undefined}
+                      aria-invalid={errors.firstName ? "true" : undefined}
                       className={`mt-2 focus:ring-accent focus:border-accent ${errors.firstName ? 'border-destructive' : ''}`}
                       placeholder="First name"
                       required
                     />
                     {errors.firstName && (
-                      <p className="text-sm text-destructive mt-1">{errors.firstName}</p>
+                      <p id="firstName-error" className="text-sm text-destructive mt-1" role="alert">{errors.firstName}</p>
                     )}
                   </div>
                   <div>
@@ -209,12 +211,14 @@ const Contact = () => {
                       name="lastName"
                       value={formData.lastName}
                       onChange={handleInputChange}
+                      aria-describedby={errors.lastName ? "lastName-error" : undefined}
+                      aria-invalid={errors.lastName ? "true" : undefined}
                       className={`mt-2 focus:ring-accent focus:border-accent ${errors.lastName ? 'border-destructive' : ''}`}
                       placeholder="Last name"
                       required
                     />
                     {errors.lastName && (
-                      <p className="text-sm text-destructive mt-1">{errors.lastName}</p>
+                      <p id="lastName-error" className="text-sm text-destructive mt-1" role="alert">{errors.lastName}</p>
                     )}
                   </div>
                 </div>
@@ -229,12 +233,14 @@ const Contact = () => {
                     type="email"
                     value={formData.email}
                     onChange={handleInputChange}
+                    aria-describedby={errors.email ? "email-error" : undefined}
+                    aria-invalid={errors.email ? "true" : undefined}
                     className={`mt-2 focus:ring-accent focus:border-accent ${errors.email ? 'border-destructive' : ''}`}
                     placeholder="your@email.com"
                     required
                   />
                   {errors.email && (
-                    <p className="text-sm text-destructive mt-1">{errors.email}</p>
+                    <p id="email-error" className="text-sm text-destructive mt-1" role="alert">{errors.email}</p>
                   )}
                 </div>
 
@@ -247,11 +253,13 @@ const Contact = () => {
                     name="company"
                     value={formData.company}
                     onChange={handleInputChange}
+                    aria-describedby={errors.company ? "company-error" : undefined}
+                    aria-invalid={errors.company ? "true" : undefined}
                     className={`mt-2 focus:ring-accent focus:border-accent ${errors.company ? 'border-destructive' : ''}`}
                     placeholder="Your company name"
                   />
                   {errors.company && (
-                    <p className="text-sm text-destructive mt-1">{errors.company}</p>
+                    <p id="company-error" className="text-sm text-destructive mt-1" role="alert">{errors.company}</p>
                   )}
                 </div>
 
@@ -264,12 +272,14 @@ const Contact = () => {
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
+                    aria-describedby={errors.message ? "message-error" : undefined}
+                    aria-invalid={errors.message ? "true" : undefined}
                     className={`mt-2 min-h-[120px] focus:ring-accent focus:border-accent ${errors.message ? 'border-destructive' : ''}`}
                     placeholder="Tell us about your business inefficiencies and how we can help optimize your operations"
                     required
                   />
                   {errors.message && (
-                    <p className="text-sm text-destructive mt-1">{errors.message}</p>
+                    <p id="message-error" className="text-sm text-destructive mt-1" role="alert">{errors.message}</p>
                   )}
                 </div>
 

@@ -1,12 +1,24 @@
 import { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
 
 // CORS configuration - Strict origin checking for security
-const ALLOWED_ORIGINS = [
+// Production origins are always allowed
+const PRODUCTION_ORIGINS = [
   'https://gigglebyte.ltd',
   'https://www.gigglebyte.ltd',
+];
+
+// Development origins are only allowed when ALLOW_DEV_ORIGINS env var is set
+const DEV_ORIGINS = [
   'http://localhost:8080',
   'http://localhost:5173'
 ];
+
+// Get allowed origins at runtime based on environment
+function getAllowedOrigins(): string[] {
+  return process.env.ALLOW_DEV_ORIGINS === 'true'
+    ? [...PRODUCTION_ORIGINS, ...DEV_ORIGINS]
+    : PRODUCTION_ORIGINS;
+}
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '',
@@ -17,13 +29,15 @@ const corsHeaders = {
 // Security: Check if origin is allowed
 function isOriginAllowed(origin: string | undefined): boolean {
   if (!origin) return false;
-  
+
+  const allowedOrigins = getAllowedOrigins();
+
   // Exact match
-  if (ALLOWED_ORIGINS.includes(origin)) return true;
-  
+  if (allowedOrigins.includes(origin)) return true;
+
   // Pattern match for deployment previews
   if (origin.match(/^https:\/\/[a-z0-9-]+\.netlify\.app$/)) return true;
-  
+
   return false;
 }
 
