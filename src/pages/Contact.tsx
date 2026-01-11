@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { MapPin, Mail, Phone, Clock } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { z } from "zod";
 
 // Security: Form validation schema
@@ -13,11 +13,11 @@ const contactFormSchema = z.object({
   firstName: z.string()
     .min(1, "First name is required")
     .max(50, "First name must be less than 50 characters")
-    .regex(/^[a-zA-Z\s'-]+$/, "First name can only contain letters, spaces, hyphens, and apostrophes"),
+    .regex(/^[\p{L}\s'-]+$/u, "First name can only contain letters, spaces, hyphens, and apostrophes"),
   lastName: z.string()
     .min(1, "Last name is required")
     .max(50, "Last name must be less than 50 characters")
-    .regex(/^[a-zA-Z\s'-]+$/, "Last name can only contain letters, spaces, hyphens, and apostrophes"),
+    .regex(/^[\p{L}\s'-]+$/u, "Last name can only contain letters, spaces, hyphens, and apostrophes"),
   email: z.string()
     .min(1, "Email is required")
     .email("Please enter a valid email address")
@@ -105,7 +105,7 @@ const Contact = () => {
         try {
           const errorData = await response.json();
           errorMessage = errorData.error || errorMessage;
-        } catch (e) {
+        } catch {
           // Response is not JSON (likely 404 or server error)
           if (response.status === 404) {
             errorMessage = 'Contact form service not available. Please deploy to Netlify or contact support.';
@@ -162,19 +162,6 @@ const Contact = () => {
       setIsSubmitting(false);
     }
   };
-
-  const contactInfo = [
-    {
-      icon: Mail,
-      title: "Email",
-      details: ["nerijus@gigglebyte.ltd"]
-    },
-    {
-      icon: Phone,
-      title: "Phone",
-      details: ["+37065643244"]
-    }
-  ];
 
   return (
     <div className="min-h-screen pt-8">
@@ -287,15 +274,16 @@ const Contact = () => {
                 </div>
 
                 {/* Security: Honeypot field - hidden from users but visible to bots */}
-                <input
-                  type="text"
-                  name="honeypot"
-                  value={formData.honeypot}
-                  onChange={handleInputChange}
-                  style={{ display: 'none' }}
-                  tabIndex={-1}
-                  autoComplete="off"
-                />
+                <div className="absolute left-[-9999px]" aria-hidden="true">
+                  <input
+                    type="text"
+                    name="honeypot"
+                    value={formData.honeypot}
+                    onChange={handleInputChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
 
                 <Button
                   type="submit" 

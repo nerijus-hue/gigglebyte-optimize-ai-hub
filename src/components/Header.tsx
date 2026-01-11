@@ -2,17 +2,11 @@ import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { navItems } from "@/config/navigation";
 
 const Header = () => {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const navItems = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/automations", label: "Automations" },
-    { href: "/contact", label: "Contact" },
-  ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm">
@@ -68,10 +62,11 @@ const Header = () => {
 
           {/* Mobile menu button */}
           <div className="md:hidden">
-            <button 
+            <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-foreground p-2"
               aria-label="Toggle mobile menu"
+              aria-expanded={isMobileMenuOpen}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMobileMenuOpen ? (
