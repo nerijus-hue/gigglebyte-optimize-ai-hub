@@ -47,9 +47,14 @@ interface ContactFormData {
 }
 
 // Security: Rate limiting (in-memory, resets on cold start)
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+export const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 minutes
 const MAX_REQUESTS = 5;
+
+// Export for testing purposes
+export function resetRateLimits(): void {
+  rateLimitMap.clear();
+}
 
 function checkRateLimit(ip: string): boolean {
   const now = Date.now();
@@ -68,11 +73,11 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
-export const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
+export const handler: Handler = async (event: HandlerEvent, _context: HandlerContext) => {
   const origin = event.headers.origin || event.headers.Origin;
-  
+
   // Set CORS origin
-  if (isOriginAllowed(origin)) {
+  if (origin && isOriginAllowed(origin)) {
     corsHeaders['Access-Control-Allow-Origin'] = origin;
   }
 
