@@ -11,11 +11,13 @@ describe('cn utility function', () => {
   });
 
   it('should handle conditional classes with false value', () => {
-    expect(cn('foo', false && 'bar', 'baz')).toBe('foo baz');
+    const condition = false;
+    expect(cn('foo', condition && 'bar', 'baz')).toBe('foo baz');
   });
 
   it('should handle conditional classes with true value', () => {
-    expect(cn('foo', true && 'bar', 'baz')).toBe('foo bar baz');
+    const condition = true;
+    expect(cn('foo', condition && 'bar', 'baz')).toBe('foo bar baz');
   });
 
   it('should handle undefined values', () => {

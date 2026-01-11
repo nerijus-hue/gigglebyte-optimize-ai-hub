@@ -32,7 +32,6 @@ src/
 │   └── *.tsx        # Layout, Header, Footer, ScrollToTop
 ├── hooks/           # Custom hooks (use-mobile, use-toast)
 ├── lib/utils.ts     # cn() utility for Tailwind class merging
-├── integrations/    # Supabase client (configured but currently unused)
 └── data/            # Static data (testimonials)
 
 netlify/functions/   # Serverless functions (send-contact.ts)
