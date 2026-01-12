@@ -106,7 +106,7 @@ const About = () => {
               <CardContent className="p-8">
                 <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden">
                   <img 
-                    src="/lovable-uploads/2b7b2873-9df5-4d04-8d8c-d78338fc75c5.png" 
+                    src="/images/founder-photo.png" 
                     alt="Nerijus Urbietis - Founder & Lead Automation Expert"
                     className="w-full h-full object-cover"
                   />

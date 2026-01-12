@@ -15,7 +15,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img 
-              src="/lovable-uploads/db3abaa8-01bd-4cb4-8989-298df6bc428d.png" 
+              src="/images/gigglebyte-logo.png" 
               alt="Gigglebyte" 
               className="!h-20 max-h-none w-auto"
             />

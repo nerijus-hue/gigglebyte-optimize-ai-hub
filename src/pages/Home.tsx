@@ -22,7 +22,7 @@ const Home = () => {
         <div className="max-w-4xl mx-auto fade-in">
           <div className="mb-6">
             <img 
-              src="/lovable-uploads/b247747e-24b7-45f2-bd08-6fea82dcd635.png" 
+              src="/images/home-hero.png" 
               alt="Gigglebyte" 
               className="mx-auto h-40 md:h-64 w-auto"
             />
