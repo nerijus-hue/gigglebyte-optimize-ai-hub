@@ -1,5 +1,0 @@
-# Exclude test files from function bundling
-netlify/functions/**/*.test.ts
-netlify/functions/**/*.test.js
-netlify/functions/**/*.spec.ts
-netlify/functions/**/*.spec.js

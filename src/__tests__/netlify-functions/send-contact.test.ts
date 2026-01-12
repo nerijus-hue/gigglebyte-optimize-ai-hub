@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach, beforeAll, afterAll } from 'vitest';
 import type { HandlerEvent, HandlerContext } from '@netlify/functions';
-import { server } from '../../src/test/mocks/server';
+import { server } from '../../test/mocks/server';
 
 // Stop MSW server for these tests - we mock fetch directly
 beforeAll(() => {
@@ -16,7 +16,7 @@ const mockFetch = vi.fn();
 global.fetch = mockFetch;
 
 // Import handler and reset function after mocking
-import { handler, resetRateLimits } from './send-contact';
+import { handler, resetRateLimits } from '../../../netlify/functions/send-contact';
 
 describe('send-contact Netlify function', () => {
   const validFormData = {
