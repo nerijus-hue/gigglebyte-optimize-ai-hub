@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,10 @@ const Projects = () => {
 
   return (
     <div className="min-h-screen pt-8">
+      <Helmet>
+        <link rel="canonical" href="https://gigglebyte.ltd/automations" />
+        <title>Automation Solutions - Gigglebyte</title>
+      </Helmet>
       {/* Hero Section */}
       <section className="py-16 pb-8 px-6 text-center bg-gradient-to-b from-muted/20 to-background">
         <div className="max-w-4xl mx-auto fade-in">

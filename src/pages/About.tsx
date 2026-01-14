@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Card, CardContent } from "@/components/ui/card";
 import { Target, Eye, Users } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -6,6 +7,10 @@ const About = () => {
 
   return (
     <div className="min-h-screen">
+      <Helmet>
+        <link rel="canonical" href="https://gigglebyte.ltd/about" />
+        <title>About Us - Gigglebyte</title>
+      </Helmet>
       {/* Hero Section */}
       <section 
         className="relative py-32 px-6 text-center hero-gradient flex items-center justify-center"

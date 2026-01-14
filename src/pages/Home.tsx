@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,10 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
+      <Helmet>
+        <link rel="canonical" href="https://gigglebyte.ltd/" />
+        <title>Gigglebyte - Business Process Optimization &amp; AI Integration</title>
+      </Helmet>
       {/* Hero Section */}
       <section 
         className="relative hero-gradient min-h-screen flex items-center justify-center text-center px-6 pt-20"

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -165,6 +166,10 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen pt-8">
+      <Helmet>
+        <link rel="canonical" href="https://gigglebyte.ltd/contact" />
+        <title>Contact Us - Gigglebyte</title>
+      </Helmet>
       {/* Hero Section */}
       <section className="py-20 px-6 text-center bg-gradient-to-b from-muted/20 to-background">
         <div className="max-w-4xl mx-auto fade-in">
